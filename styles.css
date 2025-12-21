@@ -133,3 +133,11 @@ ul li a i {
 }
 
 /* ... (rest of the css) ... */
+
+/* Seleciona qualquer ícone dentro dos links da lista */
+ul li a i {
+    margin-right: 12px;
+}
+ul li a svg {
+    margin-right: 12px; /* Caso use o SVG do Neovim */
+}
