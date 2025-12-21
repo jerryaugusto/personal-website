@@ -203,3 +203,80 @@ ul li:nth-child(4) { animation-delay: 0.7s; }
 ul li:nth-child(5) { animation-delay: 0.8s; }
 ul li:nth-child(6) { animation-delay: 0.9s; }
 footer             { animation-delay: 1.0s; }
+
+/* -------------------------------------------------------------------------- */
+/* VISUAL OVERHAUL: CINEMATIC ATMOSPHERE & TEXTURE                            */
+/* -------------------------------------------------------------------------- */
+
+/* 1. NOISE TEXTURE OVERLAY
+ * Creates a subtle film grain effect to reduce digital sterility.
+ * Uses a base64 SVG data URI for performance (no external requests).
+ */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ensures clicks pass through to links */
+    z-index: 10;
+    opacity: 0.04; /* Adjusts the intensity of the grain */
+    
+    /* Noise pattern SVG */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* 2. AMBIENT BACKGROUND ORBS
+ * Adds moving gradients behind the glass card for a dynamic feel.
+ */
+body {
+    /* Updates the base background to be slightly darker to make lights pop */
+    background-color: #121217; 
+    overflow-x: hidden; /* Prevents scrollbars from moving orbs */
+}
+
+/* We create a pseudo-element for a moving ambient light */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(180deg, rgba(66, 99, 235, 0.4) 0%, rgba(149, 127, 184, 0.2) 100%);
+    filter: blur(80px); /* Heavy blur creates the glow */
+    z-index: -1; /* Places it behind the content */
+    border-radius: 50%;
+    
+    /* Optional: Add slow breathing animation */
+    animation: breathe 8s infinite alternate ease-in-out;
+}
+
+@keyframes breathe {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+}
+
+/* 3. GLASSMORPHISM CONTAINER UI
+ * Encapsulates the content in a frosted glass card.
+ */
+.container {
+    position: relative; /* Context for absolute positioning of the orb */
+    
+    /* Glass Effect Properties */
+    background: rgba(22, 22, 29, 0.6); /* Semi-transparent dark base */
+    backdrop-filter: blur(12px);       /* The frosted glass magic */
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle lighting on edges */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Deep shadow for lift */
+    
+    border-radius: 24px;
+    padding: 40px 30px; /* Increased padding for internal breathing room */
+    
+    /* Ensure it fits within the viewport */
+    width: 90%;
+    max-width: 400px; 
+}
