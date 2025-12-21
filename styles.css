@@ -1,143 +1,152 @@
+/* -------------------------------------------------------------------------- */
+/* GLOBAL RESET                                 */
+/* -------------------------------------------------------------------------- */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
+/* -------------------------------------------------------------------------- */
+/* THEMING & VARIABLES                                 */
+/* -------------------------------------------------------------------------- */
 html {
-	/*variáveis*/
-	--bg-color: #edf2ff;
-	--text-color: #00082f;
-	--primary-color: #4263eb;
-	--primary-color-dark: #364fc7;
+    /* Default Light Theme */
+    --bg-color: #edf2ff;
+    --text-color: #00082f;
+    --primary-color: #4263eb;
+    --primary-color-dark: #364fc7;
 }
 
 body.dark-blue {
-	--bg-color: #00082f;
-	--text-color: #ffffff;
+    --bg-color: #00082f;
+    --text-color: #ffffff;
 }
 
+/* Kanagawa Theme (Active) */
 body.kanagawa {
-	--bg-color: #16161d;
-	--text-color: #c8c093;
-	--primary-color: #2d4f67;
-	--primary-color-dark: #252535;
+    --bg-color: #16161d;
+    --text-color: #c8c093;
+    --primary-color: #2d4f67;
+    --primary-color-dark: #252535;
 }
 
+/* -------------------------------------------------------------------------- */
+/* CORE LAYOUT                                      */
+/* -------------------------------------------------------------------------- */
 body {
-	background: var(--bg-color);
-	color: var(--text-color);
-	font-family: "Roboto", sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased; /* Improves text rendering on MacOS */
 }
 
 .container {
-	text-align: center;
-	width: 300px;
-	margin: 60px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 340px; /* Slight increase for better breathing room */
+    margin: 60px auto;
+    padding: 0 20px; /* Safety padding for mobile screens */
 }
 
+/* -------------------------------------------------------------------------- */
+/* PROFILE SECTION                                  */
+/* -------------------------------------------------------------------------- */
 img {
-	width: 100%;
+    width: 100%;
+    display: block; /* Removes bottom spacing artifact */
 }
 
 img.avatar {
-	border-radius: 50%;
-	width: 100px;
-	height: 100px;
-	padding: 3.7px;
-	border: var(--primary-color) solid 4px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    padding: 3.7px;
+    border: var(--primary-color) solid 4px;
+    margin: 0 auto; /* Ensures centering */
+    object-fit: cover; /* Prevents image distortion */
 }
 
 h1 {
-	font-size: 32px;
-	margin-top: 24px;
-	margin-bottom: 8px;
+    font-size: 32px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
 }
 
 .username {
-	font-family: "Roboto Mono", monospace;
-	font-weight: 400;
-	opacity: 0.8;
-	font-size: 18px;
+    font-family: "Roboto Mono", monospace;
+    font-weight: 400;
+    opacity: 0.8;
+    font-size: 18px;
 }
 
+/* -------------------------------------------------------------------------- */
+/* LINK LIST (GRID)                                 */
+/* -------------------------------------------------------------------------- */
 ul {
-	list-style: none;
-	margin: 48px 0;
+    list-style: none;
+    margin: 48px 0;
 }
-
-ul li a {
-	height: 53px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: var(--primary-color); /* hex: 0 - F */
-	color: #dcd7ba;
-	text-transform: uppercase;
-	font-size: 14px;
-
-	margin-bottom: 16px;
-	border-radius: 6px;
-
-	transition: background 400ms;
-}
-
-/* pseudo-class */
-ul li a:hover {
-	background: var(--primary-color-dark);
-}
-
-footer {
-	font-weight: 500;
-	font-size: 12px;
-	opacity: 0.6;
-	transition: opacity 400ms;
-}
-
-footer:hover {
-	opacity: 1;
-}
-
-footer a {
-	color: var(--text-color);
-}
-
-/* ... (keep your previous variables and global resets) ... */
 
 ul li a {
     height: 53px;
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* [CRITICAL FIX] Adds spacing between the icon and the text label */
+    gap: 12px; 
+
     background: var(--primary-color);
-    color: #dcd7ba;
+    color: #dcd7ba; /* Kanagawa foreground override */
     text-transform: uppercase;
     font-size: 14px;
-    
-    /* ADDED: Gap controls space between icon and text cleanly */
-    gap: 12px; 
+    font-weight: 700; /* Increased weight for better readability */
 
     margin-bottom: 16px;
     border-radius: 6px;
 
-    transition: background 400ms;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* ADDED: Ensure icons have a consistent size for alignment */
-ul li a i {
-    font-size: 18px;
-}
-
-/* ... (rest of the css) ... */
-
-/* Seleciona qualquer ícone dentro dos links da lista */
-ul li a i {
-    margin-right: 12px;
-}
+/* Icon Sizing Standardization */
+ul li a i,
 ul li a svg {
-    margin-right: 12px; /* Caso use o SVG do Neovim */
+    font-size: 20px; /* Ensures all icons have consistent visual weight */
+    width: 20px;     /* Fixed width for alignment stability */
+    text-align: center;
+}
+
+/* Interaction States */
+ul li a:hover {
+    background: var(--primary-color-dark);
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* -------------------------------------------------------------------------- */
+/* FOOTER                                       */
+/* -------------------------------------------------------------------------- */
+footer {
+    font-weight: 500;
+    font-size: 12px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* Spacing for the "Made with" text and icon */
+}
+
+footer:hover {
+    opacity: 1;
+}
+
+footer a {
+    color: var(--text-color);
 }
