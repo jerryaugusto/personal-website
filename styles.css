@@ -1,5 +1,5 @@
 /* -------------------------------------------------------------------------- */
-/* GLOBAL RESET                                 */
+/* GLOBAL RESET & CORE SETTINGS                                               */
 /* -------------------------------------------------------------------------- */
 * {
     margin: 0;
@@ -11,11 +11,8 @@ a {
     text-decoration: none;
 }
 
-/* -------------------------------------------------------------------------- */
-/* THEMING & VARIABLES                                 */
-/* -------------------------------------------------------------------------- */
 html {
-    /* Default Light Theme */
+    /* Default variables */
     --bg-color: #edf2ff;
     --text-color: #00082f;
     --primary-color: #4263eb;
@@ -27,38 +24,47 @@ body.dark-blue {
     --text-color: #ffffff;
 }
 
-/* Kanagawa Theme (Active) */
+/* Kanagawa Theme configuration */
 body.kanagawa {
     --bg-color: #16161d;
     --text-color: #c8c093;
     --primary-color: #2d4f67;
     --primary-color-dark: #252535;
+    --focus-ring: #957fb8;
 }
 
 /* -------------------------------------------------------------------------- */
-/* CORE LAYOUT                                      */
+/* LAYOUT ENGINE                                                              */
 /* -------------------------------------------------------------------------- */
 body {
     background: var(--bg-color);
     color: var(--text-color);
     font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased; /* Improves text rendering on MacOS */
+    -webkit-font-smoothing: antialiased;
+
+    /* Visual depth: Radial gradient for atmosphere */
+    background-image: radial-gradient(
+        circle at center, 
+        #1f1f28 0%, 
+        var(--bg-color) 100%
+    );
+    min-height: 100vh;
 }
 
 .container {
     text-align: center;
     width: 100%;
-    max-width: 340px; /* Slight increase for better breathing room */
+    max-width: 340px;
     margin: 60px auto;
-    padding: 0 20px; /* Safety padding for mobile screens */
+    padding: 0 20px; /* Mobile safety padding */
 }
 
 /* -------------------------------------------------------------------------- */
-/* PROFILE SECTION                                  */
+/* COMPONENT: PROFILE AVATAR                                                  */
 /* -------------------------------------------------------------------------- */
 img {
     width: 100%;
-    display: block; /* Removes bottom spacing artifact */
+    display: block;
 }
 
 img.avatar {
@@ -67,8 +73,8 @@ img.avatar {
     height: 100px;
     padding: 3.7px;
     border: var(--primary-color) solid 4px;
-    margin: 0 auto; /* Ensures centering */
-    object-fit: cover; /* Prevents image distortion */
+    margin: 0 auto;
+    object-fit: cover;
 }
 
 h1 {
@@ -86,7 +92,7 @@ h1 {
 }
 
 /* -------------------------------------------------------------------------- */
-/* LINK LIST (GRID)                                 */
+/* COMPONENT: INTERACTIVE LINK LIST                                           */
 /* -------------------------------------------------------------------------- */
 ul {
     list-style: none;
@@ -99,37 +105,52 @@ ul li a {
     align-items: center;
     justify-content: center;
     
-    /* [CRITICAL FIX] Adds spacing between the icon and the text label */
-    gap: 12px; 
+    /* Layout: Ensures spacing between icon and text */
+    gap: 12px;
 
     background: var(--primary-color);
-    color: #dcd7ba; /* Kanagawa foreground override */
+    color: #dcd7ba;
     text-transform: uppercase;
     font-size: 14px;
-    font-weight: 700; /* Increased weight for better readability */
+    font-weight: 700;
 
     margin-bottom: 16px;
     border-radius: 6px;
 
-    transition: background 0.3s ease, transform 0.2s ease;
+    /* Smooth transitions for hover and active states */
+    transition: background 0.3s ease, transform 0.1s ease, filter 0.2s;
 }
 
-/* Icon Sizing Standardization */
+/* Icon consistency */
 ul li a i,
 ul li a svg {
-    font-size: 20px; /* Ensures all icons have consistent visual weight */
-    width: 20px;     /* Fixed width for alignment stability */
+    font-size: 20px;
+    width: 20px;
     text-align: center;
 }
 
-/* Interaction States */
+/* -------------------------------------------------------------------------- */
+/* INTERACTION STATES                                                         */
+/* -------------------------------------------------------------------------- */
 ul li a:hover {
     background: var(--primary-color-dark);
-    transform: translateY(-2px); /* Subtle lift effect */
+    transform: translateY(-2px);
+}
+
+ul li a:active {
+    /* UX: Tactile feedback (press effect) */
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
+
+ul li a:focus-visible {
+    /* A11y: Custom focus ring for keyboard navigation */
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
 }
 
 /* -------------------------------------------------------------------------- */
-/* FOOTER                                       */
+/* COMPONENT: FOOTER                                                          */
 /* -------------------------------------------------------------------------- */
 footer {
     font-weight: 500;
@@ -140,7 +161,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px; /* Spacing for the "Made with" text and icon */
+    gap: 6px;
 }
 
 footer:hover {
@@ -150,3 +171,35 @@ footer:hover {
 footer a {
     color: var(--text-color);
 }
+
+/* -------------------------------------------------------------------------- */
+/* MOTION DESIGN: ENTRANCE ANIMATIONS                                         */
+/* -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Initial state for animated elements */
+.avatar, h1, .username, ul li, footer {
+    opacity: 0; 
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Staggered delays for cascade effect */
+.avatar            { animation-delay: 0.1s; }
+h1                 { animation-delay: 0.2s; }
+.username          { animation-delay: 0.3s; }
+ul li:nth-child(1) { animation-delay: 0.4s; }
+ul li:nth-child(2) { animation-delay: 0.5s; }
+ul li:nth-child(3) { animation-delay: 0.6s; }
+ul li:nth-child(4) { animation-delay: 0.7s; }
+ul li:nth-child(5) { animation-delay: 0.8s; }
+ul li:nth-child(6) { animation-delay: 0.9s; }
+footer             { animation-delay: 1.0s; }
