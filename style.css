@@ -140,7 +140,7 @@ header {
         ),
 
         /* LAYER 3: The Artwork */
-        url("hero-alt.png");
+        url("hero.png");
 
     background-size: auto, cover, cover;
     background-repeat: repeat, no-repeat, no-repeat;
