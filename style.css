@@ -1,14 +1,13 @@
 /* * PROJECT: LinkHub Personal Site
 * COMPONENT: Main Stylesheet
-* THEME: Kanagawa (The Great Wave)
-* AUTHOR: The Architect
-* DATE: 2025-12-21
+* SYSTEM: Scriptorium Design System (v2.0.0)
+* AUTHOR: Jerry Augusto
 */
 
 /* --- 1. DESIGN TOKENS (System: Aesthetic Hylomorphism) --- */
 :root {
     /* PALETTE: Tenebrae et Lux (Shadow and Light) */
-    
+
     /* SUBSTANCE (Background): Umbra Aeterna */
     /* A deep, organic charcoal, representing the silence necessary for listening. */
     --bg-body: #1C1917;
@@ -31,71 +30,22 @@
     /* Deep wine red. Serious, instructional correction (Recta Ratio). */
     --accent-error: #782626;
 
+    /* GEOMETRY: The Divine Proportion (Phi ≈ 1.618) */
+    --space-phi: 1.618rem;       /* The Golden Step */
+    --space-phi-double: 2.618rem; /* Phi squared (approx) for major gaps */
+
     /* TYPOGRAPHY: Scriptorium Digitalis */
-    
+
     /* Authority/Reading: EB Garamond (Humanist Serif) */
     --font-serif: 'EB Garamond', serif; 
-    
+
     /* Logic/Code: JetBrains Mono (Rational Monospace) */
     --font-mono: 'JetBrains Mono', monospace;
-    
+
     /* UI Element Properties */
     --border-subtle: rgba(214, 206, 179, 0.15); /* Pergamena at 15% opacity */
     --radius-card: 4px;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* --- ADJUSTMENTS FOR NEW SYSTEM --- */
-
-/* 1. Typography Update */
-h1, .card-label, .quote {
-    font-family: var(--font-serif);
-    /* EB Garamond is naturally slightly smaller/lighter than Cormorant, so we adjust weight */
-    font-weight: 500; 
-}
-
-/* 2. Gradient Update (The Avatar Ring) */
-.instagram-ring {
-    /* Updated to use Terra Adami, Velvet Passio, and Lux Divina */
-    background: linear-gradient(
-        45deg, 
-        var(--accent-secondary) 0%, /* Terra Adami */
-        var(--accent-error) 40%,    /* Velvet Passio */
-        var(--accent-main) 80%,     /* Lux Divina (The highlight) */
-        var(--accent-secondary) 100%
-    );
-    /* Shadow uses the Velvet Passio for a deep, dramatic glow */
-    box-shadow: 0 5px 20px rgba(120, 38, 38, 0.4);
-}
-
-/* 3. Golden Aura Animation Update (Matches Lux Divina) */
-@keyframes goldenAura {
-    0% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); } /* Velvet Passio Base */
-    50% { box-shadow: 0 0 40px rgba(227, 181, 5, 0.4); } /* Lux Divina Peak */
-    100% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
-}
-
-/* 4. Selection (Highlighting Text) */
-::selection {
-    background: var(--accent-error); /* Velvet Passio */
-    color: var(--text-primary);
-}
-
-/* 5. Scrollbar */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-secondary); /* Terra Adami on interaction */
-}
-
-/* 6. Footer Version Tag */
-.version-tag {
-    color: var(--accent-main); /* Highlights the version in Gold */
-    border-color: rgba(227, 181, 5, 0.3);
-}
-
-/* 7. Hover Links */
-.social-link:hover svg { 
-    fill: var(--accent-main);
-    filter: drop-shadow(0 0 8px var(--accent-main));
 }
 
 /* --- 2. RESET & GLOBAL BASE --- */
@@ -108,51 +58,50 @@ h1, .card-label, .quote {
 body {
     background-color: var(--bg-body);
     color: var(--text-primary);
-    font-family: var(--font-sans);
+    font-family: var(--font-sans); /* Fallback */
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0; /* Removed padding to allow full-width header */
+    padding: 0; 
 
     /* Background Noise Texture */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-smoothing: antialiased;
 }
 
-/* --- 3. TYPOGRAPHY & GLOBAL TEXT STYLES --- */
+/* --- 3. TYPOGRAPHY & TEXT STYLES --- */
 
 /* Title: The Artist */
 h1 {
     font-family: var(--font-serif);
-    font-weight: 600; /* Increased weight for Cormorant */
+    font-weight: 500; 
     font-size: 3.2rem;
     letter-spacing: -0.02em;
     font-style: italic;
     margin-bottom: 0.5rem;
-    color: #DCD7BA;
+    color: var(--text-primary);
     /* Double shadow to separate text from bright areas of the painting */
     text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6);
 }
 
 /* Subtitle: The Engineer */
 .subtitle {
-    font-family: var(--font-mono); /* Code font */
+    font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--accent-main);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em; /* Cinematic tracking */
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-phi);
 
     /* Code "Tag" visual effect */
-    background: rgba(207, 174, 110, 0.1);
-    padding: 4px 12px;
+    background: rgba(227, 181, 5, 0.08);
+    padding: 8px 16px; /* Visual Polish */
     border-radius: 4px;
-    border: 1px solid rgba(207, 174, 110, 0.3);
+    border: 1px solid rgba(227, 181, 5, 0.3);
     display: inline-block;
 
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
@@ -165,7 +114,6 @@ h1 {
     font-weight: 400;
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.85);
-    font-style: normal;
     max-width: 450px;
     margin: 0 auto 2rem;
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
@@ -173,91 +121,134 @@ h1 {
 
 /* Selection Style */
 ::selection {
-    background: var(--accent-main);
-    color: var(--bg-body);
-    text-shadow: none;
+    background: var(--accent-error); /* Velvet Passio */
+    color: var(--text-primary);
 }
 
-::-moz-selection {
-    background: var(--accent-main);
-    color: var(--bg-body);
-}
-
-/* --- 4. HERO HEADER (Caravaggio Optimized) --- */
+/* --- 4. HERO HEADER --- */
 header {
     position: relative;
     width: 100%;
     text-align: center;
-
-    /* Height Control: Increased top padding to allow space for the painting's light source */
     padding: 6rem 1rem 4rem; 
 
     background-image: 
-        /* LAYER 1: Noise Texture */
+        /* Layer 1: Noise */
         url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"),
 
-        /* LAYER 2: Cinematic Gradient (Ensures readability) */
+        /* Layer 2: Gradient (Umbra Aeterna optimized) */
         linear-gradient(to bottom, 
-        rgba(22, 22, 29, 0.9) 0%,   /* Solid at top */
-        rgba(22, 22, 29, 0.6) 45%,  /* Translucent middle */
-        rgba(22, 22, 29, 0.4) 60%,  
-        rgba(22, 22, 29, 1.0) 100%  /* Solid at bottom */
+        rgba(28, 25, 23, 0.9) 0%,   
+        rgba(28, 25, 23, 0.6) 45%,  
+        rgba(28, 25, 23, 0.4) 60%,  
+        rgba(28, 25, 23, 1.0) 100%  
         ),
 
-        /* LAYER 3: The Artwork */
-        url("hero.png");
+        /* Layer 3: The Artwork */
+        url("hero.png"); /* Ensure this filename matches your file */
 
     background-size: auto, cover, cover;
     background-repeat: repeat, no-repeat, no-repeat;
-
-    /* STRATEGIC POSITIONING: Aligns vertical focus slightly above center */
     background-position: center, center, center 28%;
 
-    border-bottom: 1px solid rgba(200, 192, 147, 0.15);
+    border-bottom: 1px solid var(--border-subtle);
     box-shadow: 0 15px 50px rgba(0,0,0,0.8);
-
-    /* Entry Animation */
-    opacity: 0;
-    animation: revealSlow 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 .header-content {
-    max-width: 600px;
+    max-width: 618px; /* Golden Ratio Width */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* --- SCROLL HINT (Indicador de Rolagem) --- */
+/* --- 5. PROFILE AVATAR & RING --- */
+.instagram-ring {
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    padding: 3px; 
+    margin-bottom: var(--space-phi);
+    transition: transform 0.5s var(--ease-out), box-shadow 0.5s ease;
+
+    /* GRADIENT: Terra Adami -> Velvet Passio -> Lux Divina */
+    background: linear-gradient(
+        45deg, 
+        var(--accent-secondary) 0%, 
+        var(--accent-error) 40%,    
+        var(--accent-main) 80%,     
+        var(--accent-secondary) 100%
+        );
+
+    box-shadow: 0 5px 20px rgba(120, 38, 38, 0.4);
+    animation: goldenAura 8s infinite ease-in-out;
+}
+
+@keyframes goldenAura {
+0% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
+50% { box-shadow: 0 0 40px rgba(227, 181, 5, 0.4); } 
+100% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
+}
+
+.instagram-ring:hover {
+    transform: scale(1.05) rotate(5deg);
+    animation: none;
+    box-shadow: 0 0 35px rgba(227, 181, 5, 0.6);
+}
+
+.avatar {
+    display: block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--bg-body); 
+    margin: 0;
+}
+
+/* --- 6. SOCIAL NAVIGATION --- */
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-phi);       /* 1.618rem */
+    margin-top: var(--space-phi-double); /* 2.618rem */
+    flex-wrap: wrap;
+}
+
+.social-link svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-secondary);
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));
+    transition: all 0.3s ease;
+}
+
+.social-link:hover svg { 
+    fill: var(--accent-main);
+    transform: translateY(-2px);
+    filter: drop-shadow(0 0 8px var(--accent-main));
+}
+
+/* --- 7. SCROLL HINT --- */
 .scroll-hint {
     position: absolute;
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%); /* Centraliza perfeitamente */
+    transform: translateX(-50%);
     z-index: 10;
-    
     color: var(--text-secondary);
     opacity: 0.6;
-    
-    /* Animação de flutuação */
     animation: scrollBeckon 3s infinite ease-in-out;
-    pointer-events: none; /* Não atrapalha cliques */
+    pointer-events: none;
 }
 
 @keyframes scrollBeckon {
-    0%, 100% { 
-        transform: translateX(-50%) translateY(0); 
-        opacity: 0.3;
-    }
-    50% { 
-        transform: translateX(-50%) translateY(6px); /* Move para baixo */
-        opacity: 0.8; /* Fica mais visível */
-        color: var(--accent-main); /* Brilha levemente em dourado */
-    }
+0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
+50% { transform: translateX(-50%) translateY(6px); opacity: 0.8; color: var(--accent-main); }
 }
 
-/* --- 5. ATMOSPHERIC EFFECTS (Dust Particles) --- */
+/* --- 8. ATMOSPHERIC EFFECTS (Particles) --- */
 .particles {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -286,468 +277,128 @@ header {
 100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
-/* --- 6. PROFILE AVATAR & RING --- */
-.instagram-ring {
-    display: inline-block;
-    position: relative;
-    border-radius: 50%;
-    padding: 3px; 
-    margin-bottom: 1.5rem;
-    transition: transform 0.5s var(--ease-out), box-shadow 0.5s ease;
-
-    /* BAROQUE GRADIENT: Oil painting pigment hues */
-    background: linear-gradient(
-        45deg, 
-        #d17b38 0%,   /* Burnt Ochre */
-        #b84b4b 25%,  /* Venetian Red */
-        #8a2542 50%,  /* Deep Ruby */
-        #60204b 75%,  /* Deep Plum */
-        #421c45 100%  /* Blackish Purple */
-        );
-
-    box-shadow: 0 5px 20px rgba(138, 37, 66, 0.4);
-
-    /* ANIMATION: Hypnotic Aura */
-    animation: goldenAura 8s infinite ease-in-out;
-}
-
-@keyframes goldenAura {
-0% { box-shadow: 0 0 20px rgba(138, 37, 66, 0.3); } /* Initial: Reddish glow */
-50% { box-shadow: 0 0 40px rgba(207, 174, 110, 0.5); } /* Peak: Golden expansion */
-100% { box-shadow: 0 0 20px rgba(138, 37, 66, 0.3); } /* Return */
-}
-
-.instagram-ring:hover {
-    transform: scale(1.05) rotate(5deg);
-    animation: none;
-    box-shadow: 0 0 35px rgba(209, 123, 56, 0.8);
-}
-
-.avatar {
-    display: block;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-
-    /* Visual gap between ring and photo */
-    border: 4px solid var(--bg-body); 
-    margin: 0;
-    box-shadow: none; 
-}
-
-/* --- 7. SOCIAL NAVIGATION --- */
-.socials {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.social-link svg {
-    width: 24px;
-    height: 24px;
-    fill: rgba(220, 215, 186, 0.85);
-    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9));
-    transition: fill 0.3s ease, transform 0.3s ease;
-}
-
-.social-link:hover svg { 
-    fill: var(--accent-main);
-    transform: translateY(-2px);
-    filter: drop-shadow(0 0 8px var(--accent-main));
-}
-
-/* --- 8. ARTWORK INDICATOR (Tooltip System) --- */
-
-/* Wrapper: Handles positioning only (No longer the hover trigger) */
+/* --- 9. ARTWORK INDICATOR (Tooltip System) --- */
 .art-wrapper {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    z-index: 20;
-    
-    display: flex;
-    /* REVERSAL: Keeps button explicitly to the right, text to the left */
-    flex-direction: row-reverse; 
-    align-items: center;
-    gap: 12px;
-    
-    /* Crucial: The wrapper itself ignores the mouse, preventing accidental hovers */
+    bottom: 20px; right: 20px; z-index: 20;
+    display: flex; flex-direction: row-reverse; align-items: center; gap: 12px;
     pointer-events: none; 
 }
 
-/* Button: The interactive trigger */
 .art-button {
-    position: relative;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(220, 215, 186, 0.15);
-    /* background: rgba(18, 16, 14, 0.4); */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(220, 215, 186, 0.7);
-    
-    overflow: hidden; 
-    cursor: help;
-    
-    /* Crucial: Re-enables mouse interaction specifically for the button */
-    pointer-events: auto; 
-    
+    position: relative; width: 34px; height: 34px; border-radius: 50%;
+    backdrop-filter: blur(4px); border: 1px solid var(--border-subtle);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary);
+    overflow: hidden; cursor: help; pointer-events: auto;
     transition: all 0.3s ease;
 }
 
-/* The "Whisper" Glint Effect */
 .art-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 100%;
-    height: 100%;
-    
-    background: linear-gradient(
-        90deg, 
-        transparent, 
-        rgba(220, 215, 186, 0.4), 
-        transparent
-    );
-    transform: skewX(-20deg);
-    
-    animation: whisperGlint 7s infinite ease-in-out;
-    pointer-events: none;
+    content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(214, 206, 179, 0.4), transparent);
+    transform: skewX(-20deg); animation: whisperGlint 7s infinite ease-in-out; pointer-events: none;
 }
 
-@keyframes whisperGlint {
-    0%, 90% { left: -150%; }
-    100% { left: 150%; }
-}
+@keyframes whisperGlint { 0%, 90% { left: -150%; } 100% { left: 150%; } }
 
-/* Text Label: Controlled by the button's state */
 .art-text {
-    background: rgba(18, 16, 14, 0.95);
-    color: var(--text-primary);
-    padding: 6px 12px;
-    border-radius: 4px;
-    border-right: 2px solid var(--accent-main);
-    
-    font-size: 0.75rem;
-    font-family: var(--font-sans);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    
-    /* Hidden State */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(10px);
-    pointer-events: none; /* Ensures text never steals focus */
-    
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    background: rgba(28, 25, 23, 0.95); color: var(--text-primary);
+    padding: 6px 12px; border-radius: 4px; border-right: 2px solid var(--accent-main);
+    font-size: 0.75rem; font-family: var(--font-mono); letter-spacing: 0.02em;
+    opacity: 0; visibility: hidden; transform: translateX(10px); pointer-events: none;
+    transition: all 0.4s var(--ease-out);
 }
 
-/* --- INTERACTIONS --- */
-
-/* 1. When Button is Hovered -> Reveal Sibling Text */
-/* The general sibling combinator (~) selects the text following the button */
-.art-button:hover ~ .art-text {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}
-
-/* 2. When Button is Hovered -> Style the Button */
+.art-button:hover ~ .art-text { opacity: 1; visibility: visible; transform: translateX(0); }
 .art-button:hover {
-    background: var(--accent-main);
-    border-color: var(--accent-main);
-    color: var(--bg-body);
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(207, 174, 110, 0.5);
+    background: var(--accent-main); border-color: var(--accent-main); color: var(--bg-body);
+    transform: scale(1.1); box-shadow: 0 0 15px rgba(227, 181, 5, 0.5);
 }
 
-/* Mobile Adjustment */
-@media (max-width: 500px) {
-    .art-text {
-        white-space: normal;
-        width: 180px;
-        text-align: right;
-    }
-}
-
-/* --- 9. LAYOUT CONTAINER & CARDS --- */
+/* --- 10. LAYOUT & CARDS (Golden Ratio) --- */
 .container {
     width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem 1rem; 
+    max-width: 618px; /* Golden Section of 1000px */
+    display: flex; flex-direction: column;
+    gap: var(--space-phi-double); /* 2.618rem */
+    padding: var(--space-phi-double) 1rem;
 }
 
 .link-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    /* Entry Animation */
-    opacity: 0;
-    animation: revealSlow 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
-    animation-delay: 0.4s;
+    display: flex; flex-direction: column;
+    gap: var(--space-phi); /* 1.618rem */
 }
 
-/* --- COREOGRAFIA DE ENTRADA (Staggered Slide Up) --- */
-
-/* 1. Estado Inicial (Antes da Animação) */
-/* Os atores esperam invisíveis, deslocados 40px para baixo e levemente desfocados */
-header, 
-.link-stack, 
-footer {
-    opacity: 0;
-    transform: translateY(40px); /* Começa mais embaixo */
-    filter: blur(4px);           /* Suavidade extra */
-    will-change: opacity, transform, filter; /* Avisa o navegador para otimizar */
+/* ORCHESTRATED ENTRANCE (Controlled by JS) */
+header, .link-stack, footer {
+    opacity: 0; transform: translateY(40px); filter: blur(4px);
+    will-change: opacity, transform, filter;
 }
 
-/* 2. O Gatilho (Quando o JS adiciona a classe .reveal-content) */
-body.reveal-content header {
-    animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-}
+body.reveal-content header { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+body.reveal-content .link-stack { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 0.2s; }
+body.reveal-content footer { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 0.5s; }
 
-body.reveal-content .link-stack {
-    animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-    animation-delay: 0.2s; /* O conteúdo entra logo depois do topo */
-}
-
-body.reveal-content footer {
-    animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-    animation-delay: 0.5s; /* O rodapé é o último */
-}
-
-/* 3. A Animação em Si (De baixo para cima) */
 @keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(40px); /* De baixo... */
-        filter: blur(4px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);    /* ...para o lugar certo */
-        filter: blur(0);
-    }
-}
-
-.card {
-    position: relative;
-    /* Glass Effect */
-    background: rgba(28, 24, 22, 0.7); 
-    backdrop-filter: blur(5px);
-
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text-primary);
-    display: flex;
-    height: 120px;
-    transition: all 0.3s ease;
-}
-
-.card:hover {
-    border-color: var(--accent-main);
-    background-color: #2a2a37; 
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-.card-visual {
-    width: 35%;
-    position: relative;
-    overflow: hidden;
-    border-right: 1px solid var(--border-subtle);
-}
-
-.card-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(80%) sepia(10%);
-    transition: filter 0.5s ease, transform 0.8s ease;
-}
-
-.card:hover .card-visual img {
-    filter: grayscale(0%) sepia(0%);
-    transform: scale(1.1);
-}
-
-.card-content {
-    width: 65%;
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-}
-
-.card-label {
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
-    font-weight: 600;
-    font-style: italic;
-    margin-bottom: 0.25rem;
-    color: var(--text-primary);
-}
-
-.card-desc {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
+0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
+100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 .placeholder {
-    text-align: center; 
-    padding: 3rem 1rem; 
-    color: var(--text-secondary); 
-    border: 1px dashed var(--border-subtle); 
-    border-radius: var(--radius-card);
-    font-size: 0.9rem; 
-    font-style: italic;
-    background: rgba(37, 37, 53, 0.3);
+    text-align: center; padding: 3rem 1rem; color: var(--text-secondary);
+    border: 1px dashed var(--border-subtle); border-radius: var(--radius-card);
+    font-size: 0.9rem; font-style: italic; background: rgba(35, 32, 30, 0.5);
 }
 
-/* --- 10. FOOTER --- */
+/* --- 11. FOOTER --- */
 footer {
-    margin-top: 1rem;
-    text-align: center;
-    font-size: 0.75rem;
-    font-family: var(--font-mono);
-    color: var(--text-secondary);
-    opacity: 0.6;
-    transition: opacity 0.3s;
-
-    /* Entry Animation */
-    animation: revealSlow 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
-    animation-delay: 0.8s;
+    margin-top: 1rem; text-align: center; font-size: 0.75rem;
+    font-family: var(--font-mono); color: var(--text-secondary); opacity: 0;
 }
 
-footer:hover {
-    opacity: 1;
-    color: var(--accent-main);
+.footer-content { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.separator { margin: 0 8px; opacity: 0.3; font-weight: 300; }
+.version-tag {
+    color: var(--accent-main); opacity: 0.5; letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.05); padding: 2px 6px;
+    border-radius: 4px; border: 1px solid rgba(227, 181, 5, 0.3);
+    transition: all 0.3s ease; cursor: default;
 }
+.footer-content:hover .version-tag { opacity: 1; border-color: var(--accent-main); color: var(--accent-main); }
 
-.footer-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-/* --- 11. UTILITIES & ANIMATIONS --- */
-@keyframes revealSlow {
-from { 
-    opacity: 0; 
-    transform: translateY(30px);
-    filter: blur(5px);
-}
-to { 
-    opacity: 1; 
-    transform: translateY(0); 
-    filter: blur(0);
-}
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-body); 
-}
-
-::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-    border: 2px solid var(--bg-body);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-main);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 500px) {
-    .art-text {
-        white-space: normal;
-        width: 180px;
-        text-align: right;
-    }
-}
-
-@media (max-width: 375px) {
-    h1 { font-size: 2rem; }
-    header { padding: 3rem 1rem 2rem; }
-}
-
-/* --- PRELOADER SYSTEM (The Ink Veil) --- */
-
-/* 1. The Container (The Void) */
+/* --- 12. PRELOADER (The Ink Veil) --- */
 #preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    /* Umbra Aeterna (#1C1917) matches the body background perfectly */
-    background-color: var(--bg-body);
-    z-index: 9999; /* Must be above everything, including the header */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* Transition: The Reveal Effect */
-    /* Long duration (0.8s) for a silky smooth disappearance */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--bg-body); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
     transition: opacity 0.8s var(--ease-out), visibility 0.8s var(--ease-out);
 }
 
-/* 2. The Loading State (When active) */
-#preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none; /* Ensures clicks pass through immediately after fade */
-}
+#preloader.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
 
-/* 3. The Icon Animation (The Pulse) */
 .loader-icon svg {
-    color: var(--accent-main); /* Lux Divina (#E3B505) */
-    
-    /* Animation: A subtle breath/pulse */
+    color: var(--accent-main);
     animation: preloaderPulse 2s infinite ease-in-out;
 }
 
 @keyframes preloaderPulse {
-    0% { 
-        opacity: 0.5; 
-        transform: scale(0.95); 
-        filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0));
-    }
-    50% { 
-        opacity: 1; 
-        transform: scale(1.05);
-        /* A subtle glow blooms in the middle of the breath */
-        filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.4));
-    }
-    100% { 
-        opacity: 0.5; 
-        transform: scale(0.95);
-        filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0));
-    }
+0% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
+50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.4)); }
+100% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-body); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg-body); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
+
+/* Mobile Adjustments */
+@media (max-width: 500px) {
+    .art-text { white-space: normal; width: 180px; text-align: right; }
+}
+@media (max-width: 375px) {
+    h1 { font-size: 2rem; }
+    header { padding: 3rem 1rem 2rem; }
 }
