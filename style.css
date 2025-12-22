@@ -1,13 +1,13 @@
 /* * PROJECT: LinkHub Personal Site
-* COMPONENT: Main Stylesheet
-* SYSTEM: Scriptorium Design System (v2.0.0)
-* AUTHOR: Jerry Augusto
-*/
+ * COMPONENT: Main Stylesheet
+ * SYSTEM: Scriptorium Design System (v2.1.0 - Mobile Optimized)
+ * AUTHOR: Jerry Augusto
+ */
 
 /* --- 1. DESIGN TOKENS (System: Aesthetic Hylomorphism) --- */
 :root {
     /* PALETTE: Tenebrae et Lux (Shadow and Light) */
-
+    
     /* SUBSTANCE (Background): Umbra Aeterna */
     /* A deep, organic charcoal, representing the silence necessary for listening. */
     --bg-body: #1C1917;
@@ -35,13 +35,13 @@
     --space-phi-double: 2.618rem; /* Phi squared (approx) for major gaps */
 
     /* TYPOGRAPHY: Scriptorium Digitalis */
-
+    
     /* Authority/Reading: EB Garamond (Humanist Serif) */
     --font-serif: 'EB Garamond', serif; 
-
+    
     /* Logic/Code: JetBrains Mono (Rational Monospace) */
     --font-mono: 'JetBrains Mono', monospace;
-
+    
     /* UI Element Properties */
     --border-subtle: rgba(214, 206, 179, 0.15); /* Pergamena at 15% opacity */
     --radius-card: 4px;
@@ -55,8 +55,14 @@
     padding: 0; 
 }
 
+html, body {
+    /* Prevent "Rubber Banding" effect on iOS */
+    overscroll-behavior-y: none; 
+    /* Ensure the overscroll background matches the theme */
+    background-color: var(--bg-body); 
+}
+
 body {
-    background-color: var(--bg-body);
     color: var(--text-primary);
     font-family: var(--font-sans); /* Fallback */
     line-height: 1.6;
@@ -65,6 +71,12 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 0; 
+
+    /* iPhone X+ Safe Area Support */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 
     /* Background Noise Texture */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
@@ -138,14 +150,14 @@ header {
 
         /* Layer 2: Gradient (Umbra Aeterna optimized) */
         linear-gradient(to bottom, 
-        rgba(28, 25, 23, 0.9) 0%,   
-        rgba(28, 25, 23, 0.6) 45%,  
-        rgba(28, 25, 23, 0.4) 60%,  
-        rgba(28, 25, 23, 1.0) 100%  
+            rgba(28, 25, 23, 0.9) 0%,   
+            rgba(28, 25, 23, 0.6) 45%,  
+            rgba(28, 25, 23, 0.4) 60%,  
+            rgba(28, 25, 23, 1.0) 100%  
         ),
 
         /* Layer 3: The Artwork */
-        url("hero.png"); /* Ensure this filename matches your file */
+        url("hero.png"); 
 
     background-size: auto, cover, cover;
     background-repeat: repeat, no-repeat, no-repeat;
@@ -179,16 +191,16 @@ header {
         var(--accent-error) 40%,    
         var(--accent-main) 80%,     
         var(--accent-secondary) 100%
-        );
+    );
 
     box-shadow: 0 5px 20px rgba(120, 38, 38, 0.4);
     animation: goldenAura 8s infinite ease-in-out;
 }
 
 @keyframes goldenAura {
-0% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
-50% { box-shadow: 0 0 40px rgba(227, 181, 5, 0.4); } 
-100% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
+    0% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(227, 181, 5, 0.4); } 
+    100% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
 }
 
 .instagram-ring:hover {
@@ -244,8 +256,8 @@ header {
 }
 
 @keyframes scrollBeckon {
-0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
-50% { transform: translateX(-50%) translateY(6px); opacity: 0.8; color: var(--accent-main); }
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.3; }
+    50% { transform: translateX(-50%) translateY(6px); opacity: 0.8; color: var(--accent-main); }
 }
 
 /* --- 8. ATMOSPHERIC EFFECTS (Particles) --- */
@@ -271,10 +283,10 @@ header {
 .dust-3 { width: 5px; height: 5px; left: 80%; animation-duration: 22s; animation-delay: 2s; }
 
 @keyframes floatUp {
-0% { transform: translateY(100vh) scale(0); opacity: 0; }
-20% { opacity: 0.6; }
-80% { opacity: 0.6; }
-100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    20% { opacity: 0.6; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
 /* --- 9. ARTWORK INDICATOR (Tooltip System) --- */
@@ -328,6 +340,10 @@ header {
 .link-stack {
     display: flex; flex-direction: column;
     gap: var(--space-phi); /* 1.618rem */
+    
+    /* Scroll Snap: Creates a magnetic feeling when scrolling through projects */
+    scroll-snap-type: y proximity;
+    padding-bottom: 2rem;
 }
 
 /* ORCHESTRATED ENTRANCE (Controlled by JS) */
@@ -341,8 +357,88 @@ body.reveal-content .link-stack { animation: slideUpFade 1.4s cubic-bezier(0.2, 
 body.reveal-content footer { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 0.5s; }
 
 @keyframes slideUpFade {
-0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
-100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.card {
+    position: relative;
+    /* Glass Effect */
+    background: rgba(28, 24, 22, 0.7); 
+    backdrop-filter: blur(5px);
+
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-primary);
+    display: flex;
+    height: 120px;
+    transition: all 0.3s ease;
+    
+    /* Scroll Snap Alignment */
+    scroll-snap-align: start;
+    scroll-margin-top: 1rem;
+}
+
+/* Active State: Tactile Feedback for Mobile */
+.card:active {
+    transform: scale(0.98); 
+    background-color: var(--accent-glow);
+    border-color: var(--accent-main);
+    transition: transform 0.1s, background-color 0.1s;
+}
+
+.card:hover {
+    border-color: var(--accent-main);
+    background-color: #2a2a37; 
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card-visual {
+    width: 38.2%; /* Golden Cut */
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--border-subtle);
+}
+
+.card-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) sepia(10%);
+    transition: filter 0.5s ease, transform 0.8s ease;
+}
+
+.card:hover .card-visual img {
+    filter: grayscale(0%) sepia(0%);
+    transform: scale(1.1);
+}
+
+.card-content {
+    width: 61.8%; /* Golden Cut */
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.card-label {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.card-desc {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
 }
 
 .placeholder {
@@ -383,9 +479,9 @@ footer {
 }
 
 @keyframes preloaderPulse {
-0% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
-50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.4)); }
-100% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
+    0% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
+    50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.4)); }
+    100% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
 }
 
 /* Custom Scrollbar */
@@ -394,11 +490,73 @@ footer {
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg-body); }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
 
-/* Mobile Adjustments */
-@media (max-width: 500px) {
-    .art-text { white-space: normal; width: 180px; text-align: right; }
+/* --- 13. MOBILE & RESPONSIVE OPTIMIZATIONS (v2.1 Patch) --- */
+
+@media (max-width: 768px) {
+    /* 1. Typography Adjustments */
+    h1 {
+        font-size: 2.2rem; /* Reduced from 3.2rem to prevent overflow */
+        line-height: 1.1;
+    }
+    
+    /* 2. Header Compactness & Focus */
+    header {
+        padding: 4rem 1rem 2rem; /* Reduced vertical whitespace */
+        /* Shift background focus to the right (65%) to frame faces in portrait */
+        background-position: 65% center, 65% center, 65% 28%;
+    }
+
+    /* 3. Adaptive Cards */
+    .card {
+        height: auto; /* Allow growth for longer text */
+        min-height: 100px;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
+
+    .card-label {
+        font-size: 1.3rem; 
+    }
+
+    /* 4. Art Button Accessibility (Hit Area) */
+    .art-wrapper {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .art-button {
+        width: 44px; /* Apple/Google minimum touch target size */
+        height: 44px;
+    }
+
+    /* 5. Tooltip Readability on Mobile */
+    .art-text {
+        white-space: normal;
+        width: 180px;
+        text-align: right;
+    }
 }
-@media (max-width: 375px) {
-    h1 { font-size: 2rem; }
-    header { padding: 3rem 1rem 2rem; }
+
+/* 6. Touch Device Optimizations (No Hover) */
+@media (hover: none) {
+    /* Remove sticky hover effects on tap */
+    .card:hover {
+        transform: none;
+        box-shadow: none;
+        background-color: rgba(28, 24, 22, 0.7); 
+    }
+    
+    .social-link:hover svg {
+        transform: none;
+        fill: var(--text-secondary); 
+    }
+
+    /* Performance: Disable expensive backdrop-filter on mobile GPUs */
+    .card, .art-button {
+        backdrop-filter: none;
+        /* Compensate with slightly more opaque background */
+        background: rgba(28, 24, 22, 0.95); 
+    }
 }
