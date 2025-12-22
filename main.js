@@ -3,45 +3,73 @@
  * COMPONENT: Main Logic Script
  * AUTHOR: Jerry Augusto
  * DATE: 2025-12-22
- * DESCRIPTION: Handles global UI interactions, preloader timing, and
- * entrance animation orchestration.
  */
 
 /* --- CONFIGURATION --- */
-
-// Minimum time (in ms) the preloader must stay visible.
-// Set to 2000ms to ensure the "Ink Veil" cinematic effect is perceived.
 const MINIMUM_DURATION = 2000; 
 
 /* --- STATE MANAGEMENT --- */
-
 const startTime = Date.now();
 
-/* --- EVENT LISTENERS --- */
-
+/* --- INIT --- */
 window.addEventListener('load', () => {
+    handlePreloader();
+    initModal(); // Initialize the new modal logic
+});
+
+/* --- PRELOADER LOGIC --- */
+function handlePreloader() {
     const preloader = document.getElementById('preloader');
-
     if (preloader) {
-        // Calculate elapsed time since script execution start
         const elapsedTime = Date.now() - startTime;
-
-        // Determine remaining wait time to satisfy MINIMUM_DURATION
         const remainingTime = Math.max(0, MINIMUM_DURATION - elapsedTime);
 
         setTimeout(() => {
-            // 1. Fade out the "Ink Veil" curtain
             preloader.classList.add('fade-out');
-
-            // 2. Cue the Actors: Trigger the content entrance animations
-            // This class activates the CSS animations defined in style.css
             document.body.classList.add('reveal-content');
-
-            // 3. Cleanup: Remove preloader from DOM after transition
-            setTimeout(() => {
-                preloader.remove();
-            }, 800);
-
+            setTimeout(() => preloader.remove(), 800);
         }, remainingTime);
     }
-});
+}
+
+/* --- MODAL LOGIC (The Parchment) --- */
+function initModal() {
+    const artButton = document.querySelector('.art-button');
+    const modal = document.getElementById('art-modal');
+    const closeBtn = document.querySelector('.modal-close');
+
+    // Open Modal
+    if (artButton && modal) {
+        artButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents bubbling issues
+            modal.classList.add('is-open');
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // Close Actions
+    const closeModal = () => {
+        if (modal) {
+            modal.classList.remove('is-open');
+            document.body.style.overflow = ''; // Restore scroll
+        }
+    };
+
+    // 1. Click X button
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    // 2. Click Outside (Backdrop)
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    }
+
+    // 3. Press Escape Key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
+}
