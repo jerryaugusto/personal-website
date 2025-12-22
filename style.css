@@ -500,6 +500,48 @@ header {
     animation-delay: 0.4s;
 }
 
+/* --- COREOGRAFIA DE ENTRADA (Staggered Slide Up) --- */
+
+/* 1. Estado Inicial (Antes da Animação) */
+/* Os atores esperam invisíveis, deslocados 40px para baixo e levemente desfocados */
+header, 
+.link-stack, 
+footer {
+    opacity: 0;
+    transform: translateY(40px); /* Começa mais embaixo */
+    filter: blur(4px);           /* Suavidade extra */
+    will-change: opacity, transform, filter; /* Avisa o navegador para otimizar */
+}
+
+/* 2. O Gatilho (Quando o JS adiciona a classe .reveal-content) */
+body.reveal-content header {
+    animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+}
+
+body.reveal-content .link-stack {
+    animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+    animation-delay: 0.2s; /* O conteúdo entra logo depois do topo */
+}
+
+body.reveal-content footer {
+    animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+    animation-delay: 0.5s; /* O rodapé é o último */
+}
+
+/* 3. A Animação em Si (De baixo para cima) */
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(40px); /* De baixo... */
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);    /* ...para o lugar certo */
+        filter: blur(0);
+    }
+}
+
 .card {
     position: relative;
     /* Glass Effect */
@@ -651,4 +693,61 @@ to {
 @media (max-width: 375px) {
     h1 { font-size: 2rem; }
     header { padding: 3rem 1rem 2rem; }
+}
+
+/* --- PRELOADER SYSTEM (The Ink Veil) --- */
+
+/* 1. The Container (The Void) */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Umbra Aeterna (#1C1917) matches the body background perfectly */
+    background-color: var(--bg-body);
+    z-index: 9999; /* Must be above everything, including the header */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Transition: The Reveal Effect */
+    /* Long duration (0.8s) for a silky smooth disappearance */
+    transition: opacity 0.8s var(--ease-out), visibility 0.8s var(--ease-out);
+}
+
+/* 2. The Loading State (When active) */
+#preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Ensures clicks pass through immediately after fade */
+}
+
+/* 3. The Icon Animation (The Pulse) */
+.loader-icon svg {
+    color: var(--accent-main); /* Lux Divina (#E3B505) */
+    
+    /* Animation: A subtle breath/pulse */
+    animation: preloaderPulse 2s infinite ease-in-out;
+}
+
+@keyframes preloaderPulse {
+    0% { 
+        opacity: 0.5; 
+        transform: scale(0.95); 
+        filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0));
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.05);
+        /* A subtle glow blooms in the middle of the breath */
+        filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.4));
+    }
+    100% { 
+        opacity: 0.5; 
+        transform: scale(0.95);
+        filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0));
+    }
 }
