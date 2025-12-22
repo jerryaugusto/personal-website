@@ -447,21 +447,129 @@ body.reveal-content footer { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.
     font-size: 0.9rem; font-style: italic; background: rgba(35, 32, 30, 0.5);
 }
 
-/* --- 11. FOOTER --- */
+/* --- 11. FOOTER (Full Width Colophon) --- */
 footer {
-    margin-top: 1rem; text-align: center; font-size: 0.75rem;
-    font-family: var(--font-mono); color: var(--text-secondary); opacity: 0;
+    width: 100%;
+    margin-top: auto;
+    padding: 3rem 0 1.5rem; /* Padding lateral removido aqui, controlado no container */
+    
+    border-top: 1px solid rgba(214, 206, 179, 0.05);
+    background: linear-gradient(to bottom, rgba(28, 25, 23, 0), rgba(28, 25, 23, 0.8));
+    
+    /* Animation */
+    opacity: 0;
+    animation: revealSlow 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+    animation-delay: 0.8s;
 }
 
-.footer-content { display: flex; align-items: center; justify-content: center; gap: 8px; }
-.separator { margin: 0 8px; opacity: 0.3; font-weight: 300; }
-.version-tag {
-    color: var(--accent-main); opacity: 0.5; letter-spacing: 0.05em;
-    background: rgba(255, 255, 255, 0.05); padding: 2px 6px;
-    border-radius: 4px; border: 1px solid rgba(227, 181, 5, 0.3);
-    transition: all 0.3s ease; cursor: default;
+.footer-container {
+    /* FULL WIDTH CONFIGURATION */
+    width: 100%;
+    max-width: 100%; /* Quebra a regra do Golden Ratio apenas no rodapé para expandir */
+    padding: 0 3rem; /* Margem de respiro nas laterais (aumente ou diminua conforme gosto) */
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
-.footer-content:hover .version-tag { opacity: 1; border-color: var(--accent-main); color: var(--accent-main); }
+
+/* Colunas Base */
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    transition: opacity 0.3s ease;
+}
+
+/* Alinhamentos */
+.footer-col.left { align-items: flex-start; }
+.footer-col.center { align-items: center; }
+.footer-col.right { align-items: flex-end; }
+
+/* Identidade */
+.copyright { color: var(--text-primary); font-weight: 500; }
+.role { font-size: 0.65rem; opacity: 0.6; }
+
+/* --- THE EXPANDED BADGE (Heart, Flag, Vim) --- */
+.made-in-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaço entre palavras e ícones */
+    
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+    
+    transition: all 0.3s ease;
+}
+
+.made-in-badge:hover {
+    border-color: var(--accent-main);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Icon Colors & Animations */
+.icon-heart {
+    color: #782626; /* Velvet Passio (Red) */
+    animation: heartBeat 1.5s infinite ease-in-out;
+}
+
+.icon-vim {
+    color: #4B5F44; /* Vim Green (muted) */
+    transition: color 0.3s ease;
+}
+
+.made-in-badge:hover .icon-heart { color: #e04a4a; } /* Brighter red on hover */
+.made-in-badge:hover .icon-vim { color: #76c76c; } /* Brighter green on hover */
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+}
+
+/* Tags Técnicas */
+.tech-stack { letter-spacing: 0.1em; font-size: 0.65rem; opacity: 0.5; }
+.version-tag {
+    color: var(--accent-main); opacity: 0.6; letter-spacing: 0.05em;
+    background: rgba(227, 181, 5, 0.05); padding: 2px 6px;
+    border-radius: 4px; border: 1px solid rgba(227, 181, 5, 0.2);
+    cursor: default;
+}
+.footer-col:hover .version-tag { opacity: 1; border-color: var(--accent-main); }
+
+/* Mobile Adaptation */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        padding: 0 1rem;
+        gap: 2rem;
+    }
+    
+    .footer-col.left, .footer-col.right { align-items: center; text-align: center; }
+    
+    .footer-col.center { order: -1; margin-bottom: 0.5rem; }
+    
+    .made-in-badge {
+        width: 100%;
+        justify-content: center;
+        white-space: nowrap; /* Evita quebra de linha feia no badge */
+    }
+}
 
 /* --- 12. PRELOADER (The Ink Veil) --- */
 #preloader {
