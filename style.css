@@ -5,32 +5,97 @@
 * DATE: 2025-12-21
 */
 
-/* --- 1. DESIGN TOKENS (Caravaggio Palette / Dark Baroque Theme) --- */
+/* --- 1. DESIGN TOKENS (System: Aesthetic Hylomorphism) --- */
 :root {
-    /* BASE COLORS: A "warm" black (deep brown), avoiding cool blue tones */
-    --bg-body: #12100e;        /* Deep Espresso - Blends with painting shadows */
-    --bg-card: #1c1816;        /* Warm Charcoal - Slight distinction from background */
+    /* PALETTE: Tenebrae et Lux (Shadow and Light) */
+    
+    /* SUBSTANCE (Background): Umbra Aeterna */
+    /* A deep, organic charcoal, representing the silence necessary for listening. */
+    --bg-body: #1C1917;
 
-    /* TEXT COLORS: "Parchment" tone retained to match candlelight aesthetic */
-    --text-primary: #dcd7ba;   /* Ivory / Old Paper */
-    --text-secondary: #968e85; /* Stone Gray */
+    /* ESSENCE (Text Base): Pergamena */
+    /* Illuminated limestone/parchment. Warm readability without clinical harshness. */
+    --text-primary: #D6CEB3;
+    --text-secondary: #979282; /* A darkened variant of Pergamena for metadata */
 
-    /* PRIMARY ACCENT: Caravaggio's Light */
-    /* Replaces blue with the Golden/Amber hue from the painting's central figure */
-    --accent-main: #cfae6e;    /* Baroque Gold / Antique Amber */
-    --accent-glow: rgba(207, 174, 110, 0.25); /* Soft golden glow */
+    /* GRACE (Focus/Logic): Lux Divina */
+    /* Intense golden ochre. The pointing finger of God. Where this touches, attention follows. */
+    --accent-main: #E3B505; 
+    --accent-glow: rgba(227, 181, 5, 0.15);
 
-    /* UI ELEMENTS */
-    --border-subtle: rgba(207, 174, 110, 0.15); /* Subtle golden borders */
-    --radius-card: 4px;        /* Sharper borders to align with a museum aesthetic */
+    /* HUMANITY (Data/Strings): Terra Adami */
+    /* Terracotta/Rust. The raw matter shaped by logic. */
+    --accent-secondary: #A85A32;
 
-    /* TYPOGRAPHY */
-    --font-serif: 'Cormorant Garamond', serif; /* Elegant and sharp serif */
-    --font-sans: 'Inter', sans-serif;          /* Optimized for general UI */
-    --font-mono: 'JetBrains Mono', monospace;  /* Tech/DevOps Identity */
+    /* PASSION (Error/Critical): Velvet Passio */
+    /* Deep wine red. Serious, instructional correction (Recta Ratio). */
+    --accent-error: #782626;
 
-    /* ANIMATION TIMING */
+    /* TYPOGRAPHY: Scriptorium Digitalis */
+    
+    /* Authority/Reading: EB Garamond (Humanist Serif) */
+    --font-serif: 'EB Garamond', serif; 
+    
+    /* Logic/Code: JetBrains Mono (Rational Monospace) */
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* UI Element Properties */
+    --border-subtle: rgba(214, 206, 179, 0.15); /* Pergamena at 15% opacity */
+    --radius-card: 4px;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- ADJUSTMENTS FOR NEW SYSTEM --- */
+
+/* 1. Typography Update */
+h1, .card-label, .quote {
+    font-family: var(--font-serif);
+    /* EB Garamond is naturally slightly smaller/lighter than Cormorant, so we adjust weight */
+    font-weight: 500; 
+}
+
+/* 2. Gradient Update (The Avatar Ring) */
+.instagram-ring {
+    /* Updated to use Terra Adami, Velvet Passio, and Lux Divina */
+    background: linear-gradient(
+        45deg, 
+        var(--accent-secondary) 0%, /* Terra Adami */
+        var(--accent-error) 40%,    /* Velvet Passio */
+        var(--accent-main) 80%,     /* Lux Divina (The highlight) */
+        var(--accent-secondary) 100%
+    );
+    /* Shadow uses the Velvet Passio for a deep, dramatic glow */
+    box-shadow: 0 5px 20px rgba(120, 38, 38, 0.4);
+}
+
+/* 3. Golden Aura Animation Update (Matches Lux Divina) */
+@keyframes goldenAura {
+    0% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); } /* Velvet Passio Base */
+    50% { box-shadow: 0 0 40px rgba(227, 181, 5, 0.4); } /* Lux Divina Peak */
+    100% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
+}
+
+/* 4. Selection (Highlighting Text) */
+::selection {
+    background: var(--accent-error); /* Velvet Passio */
+    color: var(--text-primary);
+}
+
+/* 5. Scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary); /* Terra Adami on interaction */
+}
+
+/* 6. Footer Version Tag */
+.version-tag {
+    color: var(--accent-main); /* Highlights the version in Gold */
+    border-color: rgba(227, 181, 5, 0.3);
+}
+
+/* 7. Hover Links */
+.social-link:hover svg { 
+    fill: var(--accent-main);
+    filter: drop-shadow(0 0 8px var(--accent-main));
 }
 
 /* --- 2. RESET & GLOBAL BASE --- */
