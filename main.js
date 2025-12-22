@@ -15,6 +15,7 @@ const startTime = Date.now();
 window.addEventListener('load', () => {
     handlePreloader();
     initModal(); // Initialize the new modal logic
+    initClipboard();
 });
 
 /* --- PRELOADER LOGIC --- */
@@ -72,4 +73,47 @@ function initModal() {
             closeModal();
         }
     });
+}
+
+/* --- CLIPBOARD LOGIC (Email Copy) --- */
+function initClipboard() {
+    const emailLink = document.querySelector('.copy-email');
+    const toast = document.getElementById('toast');
+    let toastTimeout;
+
+    if (emailLink && toast) {
+        emailLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents opening the default mail client
+            
+            const email = emailLink.getAttribute('data-email');
+            
+            // Clipboard API
+            navigator.clipboard.writeText(email).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Failed to copy email:', err);
+                // Fallback: could open mailto here if copy fails, 
+                // but for modern browsers this rarely happens.
+                window.location.href = `mailto:${email}`;
+            });
+        });
+    }
+
+    function showToast() {
+        if (!toast) return;
+
+        // Reset animation if clicked rapidly
+        toast.classList.remove('show');
+        clearTimeout(toastTimeout);
+
+        // Small delay to allow CSS reset
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+
+        // Hide after 3 seconds
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
 }
