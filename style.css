@@ -204,7 +204,7 @@ header {
 }
 
 .instagram-ring:hover {
-    transform: scale(1.05) rotate(5deg);
+    transform: scale(1.05);
     animation: none;
     box-shadow: 0 0 35px rgba(227, 181, 5, 0.6);
 }
