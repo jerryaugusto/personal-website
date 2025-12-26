@@ -1,68 +1,83 @@
-# Jerry Augusto | Portfolio & LinkHub (v2.0.0)
+# Jerry Augusto | Personal Digital Portfolio
 
-![Project Version](https://img.shields.io/badge/version-2.0.0-cfae6e?style=flat-square&labelColor=12100e)
-![Tech Stack](https://img.shields.io/badge/stack-HTML5_%7C_CSS3_%7C_SVG-white?style=flat-square&labelColor=12100e)
-![License](https://img.shields.io/badge/license-MIT-968e85?style=flat-square&labelColor=12100e)
+![Project Status](https://img.shields.io/badge/status-stable-success?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+![Tech Stack](https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JS-E3B505?style=flat-square)
 
-> "The vocation to architect the invisible and scale the essential."
+> "Reject the generic that hides your project's true identity. Embrace the absolute distinction of hand-forged code."
 
-## 🎨 Overview
+A bespoke personal website and link aggregator engineered with precision. This project rejects the bloat of modern frameworks in favor of a high-performance, handcrafted architecture that blends the **"Gothic Cathedral"** aesthetic with state-of-the-art web standards.
 
-This project represents the **v2.0.0** release of my personal portfolio and link hub. It is a conceptual fusion of **Classical Art** and **Software Engineering**, designed to reflect my identity as a DevOps Specialist and Software Engineer.
+---
 
-Unlike standard minimalist portfolios, this project adopts a **"Dark Academia"** aesthetic, heavily influenced by the Baroque period and the *chiaroscuro* technique of Caravaggio, juxtaposed with the precision of modern terminal typography.
+## 🏛️ Project Philosophy
 
-## 🏛 Design Philosophy: "The Terminal & The Canvas"
+This repository represents the **Scriptorium Design System v3.1**, a philosophy that values:
+* **Intrinsic Fluidity:** Layouts that breathe with the device using mathematical scaling rather than abrupt breakpoints.
+* **Code as Craft:** Zero external dependencies or frameworks. Every interaction is calculated in Vanilla JavaScript.
+* **Aesthetic Hylomorphism:** A visual language combining "Dark Academia" textures (marble dust, chiaroscuro) with modern UI utility.
 
-The UI/UX strategy is built upon the contrast between the chaotic beauty of human history and the structured order of code.
+## ✨ Key Features
 
-### 1. The Canvas (Visual Identity)
-* **Theme:** *Caravaggio's "The Calling of Saint Matthew" (1599-1600)* serves as the atmospheric foundation.
-* **Color Palette:** Extracted directly from the painting's pigments—Deep Espresso (`#12100e`) for the void, Parchment (`#dcd7ba`) for text, and Baroque Gold (`#cfae6e`) as the primary accent.
-* **Typography:** *Cormorant Garamond* (Serif) represents the artistic/human element, used for headers and quotes.
+### 1. Fluid Architecture
+* **Dynamic Viewports:** Utilizes `100dvh` for mobile headers, eliminating layout shifts caused by browser interface bars.
+* **Mathematical Typography:** Implements `clamp()` functions to scale text size organically from mobile (320px) to ultra-wide monitors.
+* **Touch-First UX:** Optimized touch targets (minimum 44px) and tactile feedback (`:active` states) for a native-app feel on the web.
 
-### 2. The Terminal (Technical Identity)
-* **Structure:** Clean, semantic HTML5 markup.
-* **Typography:** *JetBrains Mono* (Monospace) represents the engineering/DevOps element, used for subtitles, metadata, and labels.
-* **Interactivity:** High-performance CSS3 animations (no JavaScript frameworks) ensuring a lightweight and robust experience.
+### 2. Native Internationalization (i18n)
+* A custom, lightweight JavaScript engine detects the user's browser language (`navigator.language`) and serves content in **English (EN)** or **Portuguese (PT)** automatically.
+* Includes manual overrides via a persistent local storage preference.
+* Translates not just text, but accessibility attributes (`aria-label`, tooltips) dynamically.
 
-## ✨ Key Features (v2.0.0)
+### 3. Atmospheric Design
+* **The "Gothic Cathedral" Palette:** A sophisticated gradient system (Antique Gold -> Deep Crimson -> Midnight Blue) used for avatars and accents.
+* **Performance-First Animations:** GPU-accelerated transitions (Composite Layers only) for particles and hover effects.
+* **Interactive Art:** Features a deep-dive modal into Caravaggio's *"The Calling of Saint Matthew"*, bridging classical art with digital interaction.
 
-* **Atmospheric Particle System:** Pure CSS animation simulating dust motes floating in a beam of light, adding depth to the hero section.
-* **The "Golden Aura" Avatar:** A custom animation for the profile picture ring that pulses slowly (8s cycle), mimicking a glowing ember or halo rather than a standard notification alert.
-* **Interactive Art Indicator:** A "Glassmorphism" button featuring a feather icon. It utilizes advanced CSS sibling selectors to reveal artwork details only when the specific button area is hovered, preventing accidental triggers.
-* **Cinematic Entrance:** A staggered fade-in animation sequence (`revealSlow`) that loads the header, content, and footer in a specific order.
-* **Custom SVG Assets:** Hand-coded SVG icons for the social media links and a custom Favicon (Gold Feather on Dark Gradient) designed to match the browser tab aesthetic perfectly.
+## 🛠️ Technical Stack
 
-## 🛠 Tech Stack
+* **Markup:** Semantic HTML5 with rigorous Accessibility (a11y) standards.
+* **Styling:** Modern CSS3 (Variables, Fluid Typography, Flexbox/Grid Hybrids, Backdrop Filters).
+* **Scripting:** Vanilla JavaScript (ES6+) focusing on modular logic (i18n, Clipboard API, Intersection Observers).
 
-* **Core:** HTML5, CSS3 (Custom Properties/Variables).
-* **Styling:** Flexbox, CSS Grid, CSS Transitions/Animations, Backdrop Filter.
-* **Assets:** Inline SVGs (optimized for performance), Google Fonts.
-* **Version Control:** Git (Semantic Versioning).
+## 🚀 Getting Started
 
-## 🚀 Installation & Usage
+Since this project relies on no build steps or bundlers, it is incredibly easy to deploy or test.
 
-To run this project locally:
+### Prerequisites
+* A modern web browser (Chrome, Firefox, Safari, Edge).
+* A simple local server (e.g., Live Server for VS Code) is recommended to properly test JSON/Module loading if extended in the future.
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/jerryaugustodev/portfolio-v2.git](https://github.com/jerryaugustodev/portfolio-v2.git)
-    ```
+### Installation
 
-2.  **Navigate to the directory:**
-    ```bash
-    cd portfolio-v2
-    ```
+```bash
+# 1. Clone the repository
+git clone https://github.com/jerryaugusto/personal-website
 
-3.  **Open in Browser:**
-    Simply open the `index.html` file in your preferred web browser. No build step or node_modules required.
+# 2. Navigate to the directory
+cd personal-website
 
-## 📂 Project Structure
+# 3. Open index.html in your browser
+# (Or right-click index.html -> "Open with Live Server" in VS Code)
+```
 
-```text
-.
-├── index.html        # Main semantic structure
-├── style.css         # All styles, variables, and animations
-├── favicon.svg       # Custom vector icon (Feather)
-└── hero-alt.png      # Background artwork (Caravaggio)
+## 🎨 Design Tokens (Snapshot)
+
+| Category | Variable | Value/Logic |
+| :--- | :--- | :--- |
+| **Primary Accent** | `--accent-main` | `#E3B505` (Bright Gold) |
+| **Background** | `--bg-body` | `#1C1917` (Dark Stone) |
+| **Typography** | `--font-serif` | *EB Garamond* |
+| **Typography** | `--font-mono` | *JetBrains Mono* |
+| **Fluid Scale** | `clamp()` | Linear interpolation based on `vw` |
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+    <strong>Forged by Jerry Augusto</strong><br>
+    <i>"Age Quod Debes."</i>
+</div>
