@@ -18,22 +18,35 @@ window.addEventListener('load', () => {
     initClipboard();
 });
 
-/* --- PRELOADER LOGIC --- */
+/**
+ * Handles the initial loading screen animation.
+ * Ensures the preloader stays visible for at least MINIMUM_DURATION
+ * to preserve the aesthetic experience of the "Sacred Wait".
+ */
 function handlePreloader() {
     const preloader = document.getElementById('preloader');
+    
     if (preloader) {
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, MINIMUM_DURATION - elapsedTime);
 
         setTimeout(() => {
-            preloader.classList.add('fade-out');
-            document.body.classList.add('reveal-content');
-            setTimeout(() => preloader.remove(), 800);
+            // Adds the class that CSS is waiting for to trigger entrance animations
+            document.body.classList.add('reveal-content'); 
+
+            // Removes the element from the DOM after the fade-out animation (0.8s)
+            setTimeout(() => {
+                preloader.remove();
+            }, 800);
         }, remainingTime);
     }
 }
 
-/* --- MODAL LOGIC (The Parchment) --- */
+/**
+ * Initializes the modal logic for the Artwork description.
+ * Handles opening, closing (via button, backdrop click, or Escape key),
+ * and scroll locking.
+ */
 function initModal() {
     const artButton = document.querySelector('.art-button');
     const modal = document.getElementById('art-modal');
@@ -75,7 +88,10 @@ function initModal() {
     });
 }
 
-/* --- CLIPBOARD LOGIC (Email Copy) --- */
+/**
+ * Initializes the clipboard functionality for the email link.
+ * Copies the email address to the clipboard and displays a toast notification.
+ */
 function initClipboard() {
     const emailLink = document.querySelector('.copy-email');
     const toast = document.getElementById('toast');
@@ -99,6 +115,9 @@ function initClipboard() {
         });
     }
 
+    /**
+     * Displays the toast notification with a bounce animation.
+     */
     function showToast() {
         if (!toast) return;
 

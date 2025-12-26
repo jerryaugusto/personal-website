@@ -6,46 +6,32 @@
 
 /* --- 1. DESIGN TOKENS (System: Aesthetic Hylomorphism) --- */
 :root {
-    /* PALETTE: Tenebrae et Lux (Shadow and Light) */
+    /* --- MAIN COLORS --- */
+    --bg-body: #1C1917; 
     
-    /* SUBSTANCE (Background): Umbra Aeterna */
-    /* A deep, organic charcoal, representing the silence necessary for listening. */
-    --bg-body: #1C1917;
-
-    /* ESSENCE (Text Base): Pergamena */
-    /* Illuminated limestone/parchment. Warm readability without clinical harshness. */
-    --text-primary: #D6CEB3;
-    --text-secondary: #979282; /* A darkened variant of Pergamena for metadata */
-
-    /* GRACE (Focus/Logic): Lux Divina */
-    /* Intense golden ochre. The pointing finger of God. Where this touches, attention follows. */
+    /* COMPATIBILITY COLORS */
     --accent-main: #E3B505; 
-    --accent-glow: rgba(227, 181, 5, 0.15);
+    --text-primary: #E7E5E4;
+    --text-secondary: #A8A29E;
+    --border-subtle: rgba(197, 160, 89, 0.2); 
 
-    /* HUMANITY (Data/Strings): Terra Adami */
-    /* Terracotta/Rust. The raw matter shaped by logic. */
-    --accent-secondary: #A85A32;
+    /* REFINED DESIGN PALETTE */
+    --accent-glow: #E3B505;       /* Bright Gold */
+    --accent-structure: #C5A059;  /* Metallic Gold (Sober) */
+    --accent-warmth: #78350F;     /* Copper */
+    --accent-error: #782626;      /* Deep Red */
+    --accent-secondary: #722f37;  /* Merlot */
 
-    /* PASSION (Error/Critical): Velvet Passio */
-    /* Deep wine red. Serious, instructional correction (Recta Ratio). */
-    --accent-error: #782626;
-
-    /* GEOMETRY: The Divine Proportion (Phi ≈ 1.618) */
-    --space-phi: 1.618rem;       /* The Golden Step */
-    --space-phi-double: 2.618rem; /* Phi squared (approx) for major gaps */
-
-    /* TYPOGRAPHY: Scriptorium Digitalis */
-    
-    /* Authority/Reading: EB Garamond (Humanist Serif) */
-    --font-serif: 'EB Garamond', serif; 
-    
-    /* Logic/Code: JetBrains Mono (Rational Monospace) */
+    /* --- TYPOGRAPHY & SPACING --- */
+    --font-serif: 'EB Garamond', serif;
     --font-mono: 'JetBrains Mono', monospace;
-    
-    /* UI Element Properties */
-    --border-subtle: rgba(214, 206, 179, 0.15); /* Pergamena at 15% opacity */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --space-phi: 1.618rem;       
+    --space-phi-double: 2.618rem; 
     --radius-card: 4px;
-    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    
+    /* --- ANIMATION --- */
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* --- 2. RESET & GLOBAL BASE --- */
@@ -55,10 +41,49 @@
     padding: 0; 
 }
 
+/* --- GLOBAL PRELOADER (The Sacred Wait) --- */
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Solid background to hide loading artifacts */
+    background-color: var(--bg-body); 
+    /* High Z-index to sit above everything */
+    z-index: 9999; 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s ease;
+}
+
+/* State: Loaded (Added by JS) */
+body.reveal-content #preloader {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* The Rotating Star */
+.loader-star svg {
+    width: 80px; 
+    height: 80px;
+    animation: rotateSacred 10s linear infinite; /* Majestic slow rotation */
+    filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.3));
+}
+
+@keyframes rotateSacred {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 html, body {
     /* Prevent "Rubber Banding" effect on iOS */
     overscroll-behavior-y: none; 
-    /* Ensure the overscroll background matches the theme */
     background-color: var(--bg-body); 
 }
 
@@ -79,13 +104,11 @@ body {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
 
-    /* * OPTIMIZED NOISE TEXTURE 
-     * Changes made:
-     * 1. numOctaves='1' (Was 3) -> Drastically reduces CPU load.
-     * 2. baseFrequency='0.8' (Was 0.65) -> Compensates detail loss with tighter grain.
-     * 3. Opacity reduced to 0.03 -> Subtler visual effect.
+    /* * REFINED TEXTURE: MARBLE DUST
+     * baseFrequency='1.5' -> Much finer grain.
+     * opacity='0.02' -> Very subtle.
      */
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -102,7 +125,7 @@ h1 {
     font-style: italic;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
-    /* Double shadow to separate text from bright areas of the painting */
+    /* Double shadow to separate text from bright areas */
     text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6);
 }
 
@@ -117,7 +140,7 @@ h1 {
 
     /* Code "Tag" visual effect */
     background: rgba(227, 181, 5, 0.08);
-    padding: 8px 16px; /* Visual Polish */
+    padding: 8px 16px;
     border-radius: 4px;
     border: 1px solid rgba(227, 181, 5, 0.3);
     display: inline-block;
@@ -125,52 +148,213 @@ h1 {
     text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
 
-/* Quote: The Philosopher */
-.quote {
+/* --- INTERACTIVE MANIFESTO (Tooltip) --- */
+
+.manifesto-container {
+    margin: 2rem 0 2.5rem;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.manifesto {
+    position: relative; 
     font-family: var(--font-serif);
-    font-size: 1.3rem;
-    font-weight: 400;
+    font-size: 1.25rem;
     line-height: 1.4;
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 450px;
-    margin: 0 auto 2rem;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    text-align: center;
+    cursor: pointer; 
+    transition: color 0.3s ease;
+}
+
+/* Gold Highlight */
+.manifesto .highlight {
+    color: var(--accent-main);
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* THE TOOLTIP (The Hidden Explanation) */
+.manifesto::after {
+    content: attr(data-subtext); 
+    
+    position: absolute;
+    top: 100%; 
+    left: 50%;
+    transform: translateX(-50%) translateY(0px); 
+    
+    width: max-content;
+    max-width: 300px; 
+    padding: 0.8rem 1rem;
+    
+    /* Dark Stone Style */
+    background-color: rgba(28, 25, 23, 0.98); 
+    border: 1px solid var(--border-subtle); 
+    border-bottom: 2px solid var(--accent-main); 
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    
+    /* Typography */
+    font-family: var(--font-mono); 
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    white-space: normal; 
+    text-align: center;
+    
+    /* Hidden State */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 100;
+    
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The Revelation (Hover) */
+.manifesto:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(10px); 
+}
+
+@media (hover: none) {
+    .manifesto { cursor: default; }
+    .manifesto::after { display: none; }
+}
+
+@media (max-width: 600px) {
+    .manifesto { font-size: 1.1rem; }
+}
+
+/* --- 4. LATIN MOTTO & TOOLTIP (The Hidden Revelation) --- */
+
+/**
+ * Base style for the citation.
+ * Uses a monospaced font to resemble an ancient inscription.
+ */
+.quote {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    
+    /* Stone Grey */
+    color: var(--text-secondary); 
+    opacity: 0.8; 
+    
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: inline-block;
+
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 1rem;
+    z-index: 20;
+}
+
+.quote:hover {
+    color: var(--text-secondary); 
+    text-shadow: none;
+}
+
+/**
+ * The Tooltip (::after).
+ * Reveals the translation after a contemplative delay.
+ */
+.quote::after {
+    content: attr(data-meaning);
+
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); 
+
+    /* Dark Stone with Gold Border */
+    background-color: rgba(28, 25, 23, 0.98);
+    border: 1px solid var(--accent-main);
+    color: var(--text-primary);
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+
+    /* Iconography */
+    padding: 0.6rem 1rem 0.6rem 2.4rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='%23E3B505' d='M9 3a1 1 0 0 1 1 1v1h3a1 1 0 1 1 0 2h-.055c-.223 2.032-1.116 3.99-2.545 5.688a13 13 0 0 0 2.121 1.494l2.067-4.592a1 1 0 0 1 1.824 0l4.5 10a1 1 0 0 1-1.824.82L18.003 18h-5.007l-1.084 2.41a1 1 0 0 1-1.824-.82l1.61-3.576a15.2 15.2 0 0 1-2.7-1.895c-1.287 1.136-2.848 2.098-4.627 2.81a1 1 0 1 1-.743-1.857c1.557-.623 2.887-1.441 3.972-2.382a11.5 11.5 0 0 1-1.978-3.34a1 1 0 0 1 1.873-.702A9.4 9.4 0 0 0 9 11.244C10.065 9.921 10.72 8.458 10.928 7H4a1 1 0 0 1 0-2h4V4a1 1 0 0 1 1-1m8.103 13L15.5 12.437L13.898 16zM19 1a1 1 0 0 1 .946.677l.13.378a3 3 0 0 0 1.869 1.87l.378.129a1 1 0 0 1 0 1.892l-.378.13a3 3 0 0 0-1.87 1.869l-.129.378a1 1 0 0 1-1.892 0l-.13-.378a3 3 0 0 0-1.869-1.87l-.378-.129a1 1 0 0 1 0-1.892l.378-.13a3 3 0 0 0 1.87-1.869l.129-.378A1 1 0 0 1 19 1m0 3.196a5 5 0 0 1-.804.804q.448.355.804.804q.355-.448.804-.804A5 5 0 0 1 19 4.196'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: 12px center;
+
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-style: italic;
+    white-space: nowrap; 
+
+    /* Initial State */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    /* Exit Transition */
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+/**
+ * The Contemplation State (Hover).
+ */
+.quote:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-12px); 
+
+    /* Entrance Transition (Slow) */
+    transition-delay: 2s;      
+    transition-duration: 1.5s; 
 }
 
 /* Selection Style */
 ::selection {
-    background: var(--accent-error); /* Velvet Passio */
+    background: var(--accent-error); 
     color: var(--text-primary);
 }
 
-/* --- 4. HERO HEADER --- */
+/* --- 5. HERO HEADER --- */
+
+/* Mobile First */
 header {
     position: relative;
     width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     padding: 6rem 1rem 4rem; 
 
     background-image: 
-        /* Layer 1: Noise */
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"),
-
-        /* Layer 2: Gradient (Umbra Aeterna optimized) */
         linear-gradient(to bottom, 
             rgba(28, 25, 23, 0.9) 0%,   
-            rgba(28, 25, 23, 0.8) 45%,  
-            rgba(28, 25, 23, 0.6) 60%,  
+            rgba(28, 25, 23, 0.7) 45%,    
             rgba(28, 25, 23, 1.0) 100%  
         ),
+        url("assets/the-calling-of-saint-matthew.avif"); 
 
-        /* Layer 3: The Artwork */
-        url("hero.png"); 
-
-    background-size: auto, cover, cover;
-    background-repeat: repeat, no-repeat, no-repeat;
-    background-position: center, center, center 28%;
-
-    border-bottom: 1px solid var(--border-subtle);
+    background-size: cover;
+    background-position: center top;
+    transition: background-image 0.3s ease-in-out; 
     box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+}
+
+/* Desktop Adjustment */
+@media (min-width: 768px) {
+    header {
+        padding-top: 8rem;
+        min-height: auto;
+        padding-bottom: 6rem;
+        background-position: center 50%;
+    }
 }
 
 .header-content {
@@ -181,57 +365,78 @@ header {
     align-items: center;
 }
 
-/* --- 5. PROFILE AVATAR & RING --- */
-.instagram-ring {
-    display: inline-block;
-    position: relative;
-    border-radius: 50%;
-    padding: 3px; 
-    margin-bottom: var(--space-phi);
-    transition: transform 0.5s var(--ease-out), box-shadow 0.5s ease;
-
-    /* GRADIENT: Terra Adami -> Velvet Passio -> Lux Divina */
-    background: linear-gradient(
-        45deg, 
-        var(--accent-secondary) 0%, 
-        var(--accent-error) 40%,    
-        var(--accent-main) 80%,     
-        var(--accent-secondary) 100%
-    );
-
-    box-shadow: 0 5px 20px rgba(120, 38, 38, 0.4);
-    animation: goldenAura 8s infinite ease-in-out;
-}
-
-@keyframes goldenAura {
-    0% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(227, 181, 5, 0.4); } 
-    100% { box-shadow: 0 0 20px rgba(120, 38, 38, 0.3); }
-}
-
-.instagram-ring:hover {
-    transform: scale(1.05);
-    animation: none;
-    box-shadow: 0 0 35px rgba(227, 181, 5, 0.6);
-}
+/* --- 6. PROFILE AVATAR (Gothic Cathedral Theme) --- */
+/* * Replaces the old 'instagram-ring' with a single, cleaner implementation.
+ */
 
 .avatar {
-    display: block;
-    width: 120px;
-    height: 120px;
+    /* Dimensions and Shape */
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--bg-body); 
-    margin: 0;
+    margin-bottom: var(--space-phi);
+
+    /* * Gothic Cathedral Gradient Background.
+     * Sequence: Antique Gold -> Deep Crimson -> Royal Purple -> Midnight Blue.
+     */
+    background: linear-gradient(45deg, #c5a059 0%, #722f37 40%, #3d1c51 70%, #1a1a2e 100%);
+    
+    /* Border thickness */
+    padding: 3px; 
+
+    /* Layout centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* * Smooth Transition Configuration */
+    transition: transform 0.4s ease-in-out;
+    will-change: transform;
 }
 
-/* --- 6. SOCIAL NAVIGATION --- */
+/* Hover State: Slight Zoom */
+.avatar:hover {
+    transform: scale(1.05);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    
+    /* * Gap Border
+     * Ensure this matches your specific background color (#1C1917).
+     */
+    border: 3px solid var(--bg-body); 
+    box-sizing: border-box;
+}
+
+/* --- 7. SOCIAL NAVIGATION --- */
 .socials {
     display: flex;
     justify-content: center;
-    gap: var(--space-phi);       /* 1.618rem */
-    margin-top: var(--space-phi-double); /* 2.618rem */
+    gap: var(--space-phi);       
+    margin-top: var(--space-phi-double); 
     flex-wrap: wrap;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; 
+    height: 44px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.03); 
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: rgba(227, 181, 5, 0.1); 
+    border-color: rgba(227, 181, 5, 0.3);
+    transform: translateY(-2px);
 }
 
 .social-link svg {
@@ -248,7 +453,7 @@ header {
     filter: drop-shadow(0 0 8px var(--accent-main));
 }
 
-/* --- 7. SCROLL HINT --- */
+/* --- 8. SCROLL HINT --- */
 .scroll-hint {
     position: absolute;
     bottom: 20px;
@@ -266,7 +471,7 @@ header {
     50% { transform: translateX(-50%) translateY(6px); opacity: 0.8; color: var(--accent-main); }
 }
 
-/* --- 8. ATMOSPHERIC EFFECTS (Particles) --- */
+/* --- 9. ATMOSPHERIC EFFECTS (Particles) --- */
 .particles {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -281,21 +486,174 @@ header {
     background: var(--accent-main);
     box-shadow: 0 0 10px var(--accent-main);
     opacity: 0;
-    animation: floatUp 15s infinite linear;
+    animation: floatUp linear infinite;
 }
 
-.dust-1 { width: 4px; height: 4px; left: 20%; animation-duration: 18s; animation-delay: 0s; }
-.dust-2 { width: 3px; height: 3px; left: 50%; animation-duration: 25s; animation-delay: 5s; }
-.dust-3 { width: 5px; height: 5px; left: 80%; animation-duration: 22s; animation-delay: 2s; }
+/* Particle Configuration */
+.dust-1 { width: 3px; height: 3px; left: 10%; animation-duration: 45s; animation-delay: 0s; }
+.dust-2 { width: 4px; height: 4px; left: 30%; animation-duration: 55s; animation-delay: 5s; }
+.dust-3 { width: 2px; height: 2px; left: 50%; animation-duration: 40s; animation-delay: 15s; }
+.dust-4 { width: 3px; height: 3px; left: 70%; animation-duration: 60s; animation-delay: 8s; }
+.dust-5 { width: 5px; height: 5px; left: 85%; animation-duration: 48s; animation-delay: 2s; }
+.dust-6 { width: 2px; height: 2px; left: 20%; animation-duration: 35s; animation-delay: 25s; }
 
 @keyframes floatUp {
     0% { transform: translateY(100vh) scale(0); opacity: 0; }
-    20% { opacity: 0.6; }
-    80% { opacity: 0.6; }
+    20% { opacity: 0.5; } 
+    80% { opacity: 0.5; }
     100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 
-/* --- 9. ARTWORK INDICATOR (Tooltip System) --- */
+/* --- 10. MAIN CONTENT & LINKS --- */
+.container {
+    width: 100%;
+    max-width: 618px; 
+    display: flex; flex-direction: column;
+    gap: var(--space-phi-double); 
+    padding: var(--space-phi-double) 1rem;
+}
+
+.link-stack {
+    display: flex; flex-direction: column;
+    gap: var(--space-phi); 
+    padding-bottom: 2rem;
+}
+
+/* Orchestrated Entrance */
+header, .link-stack, footer {
+    opacity: 0; transform: translateY(40px); filter: blur(4px);
+    will-change: opacity, transform, filter;
+}
+
+body.reveal-content header { animation: slideUpFade 1.4s var(--ease-out) forwards; }
+body.reveal-content .link-stack { animation: slideUpFade 1.4s var(--ease-out) forwards; animation-delay: 0.2s; }
+body.reveal-content footer { animation: slideUpFade 1.4s var(--ease-out) forwards; animation-delay: 0.5s; }
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Construction Notice */
+.construction-notice {
+    text-align: center;
+    padding: 2rem 1rem;
+    border: 1px dashed var(--border-subtle);
+    border-radius: 4px;
+    background: rgba(28, 25, 23, 0.4);
+    margin-bottom: 2rem;
+}
+
+.construction-notice h3 {
+    font-family: var(--font-serif);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.construction-notice p {
+    font-family: var(--font-serif); 
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Rosette Spinner */
+.rosette-spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    color: var(--accent-main);
+    opacity: 0.7;
+    animation: rotateSacred 20s linear infinite; 
+}
+
+/* Fortress Links */
+.fortress-link {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem;
+    background: rgba(28, 25, 23, 0.6); 
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--border-subtle); 
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 1.2rem;
+    color: var(--text-secondary);
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0,0,0,0.2);
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.link-icon svg { width: 20px; height: 20px; }
+
+.link-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.link-title {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.link-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.link-action {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    color: var(--accent-main);
+}
+
+.fortress-link:hover {
+    background: rgba(35, 30, 28, 0.9);
+    border-color: var(--accent-main);
+    border-left-color: var(--accent-main); 
+    transform: translateX(5px); 
+    box-shadow: 
+        -5px 5px 0px rgba(0,0,0,0.5), 
+        0 0 20px var(--accent-glow); 
+}
+
+.fortress-link:hover .link-icon {
+    color: var(--accent-main);
+    border-color: var(--accent-main);
+}
+
+.fortress-link:hover .link-title {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(227, 181, 5, 0.5);
+}
+
+.fortress-link:hover .link-action {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- 11. ARTWORK INDICATOR (Tooltip System) --- */
 .art-wrapper {
     position: absolute;
     bottom: 20px; right: 20px; z-index: 20;
@@ -334,210 +692,24 @@ header {
     transform: scale(1.1); box-shadow: 0 0 15px rgba(227, 181, 5, 0.5);
 }
 
-/* --- 10. LAYOUT & CARDS (Golden Ratio) --- */
-.container {
-    width: 100%;
-    max-width: 618px; /* Golden Section of 1000px */
-    display: flex; flex-direction: column;
-    gap: var(--space-phi-double); /* 2.618rem */
-    padding: var(--space-phi-double) 1rem;
-}
-
-/* --- TECH GRIMURE (Skills Shelf) --- */
-.tech-shelf {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.2rem; 
-    margin-bottom: var(--space-phi); 
-    padding: 0 1rem;
-    
-    /* INITIAL STATE: Hidden & Pushed Down */
-    opacity: 0;
-    transform: translateY(20px);
-    
-    /* Hardware Acceleration for smoother rendering */
-    will-change: opacity, transform;
-}
-
-/* TRIGGERED ANIMATION (Controlled by JS via 'reveal-content' class) */
-body.reveal-content .tech-shelf {
-    animation: slideUpFade 1.2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-    /* Delay set to 0.2s to appear right after header but before cards */
-    animation-delay: 0.2s; 
-}
-
-/* Icon Styles */
-.tech-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    color: var(--text-secondary);
-    opacity: 0.6;
-    
-    transition: all 0.3s var(--ease-out);
-    cursor: help;
-}
-
-.tech-icon svg {
-    /* FORCE DIMENSIONS: Ensures SVG fills the container */
-    width: 100%;
-    height: 100%;
-    /* FORCE COLOR: Ensures it uses the parent's color */
-    fill: currentColor;
-    display: block; /* Removes any line-height gaps */
-}
-
-/* Interaction: Alchemy Transmutation (Stone -> Gold) */
-.tech-icon:hover {
-    color: var(--accent-main);
-    opacity: 1;
-    transform: translateY(-3px) scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(227, 181, 5, 0.4));
-}
-
-/* Mobile Adjustment */
-@media (max-width: 500px) {
-    .tech-shelf {
-        gap: 1rem;
-        padding: 0 2rem;
-    }
-}
-
-.link-stack {
-    display: flex; flex-direction: column;
-    gap: var(--space-phi); /* 1.618rem */
-    
-    /* Scroll Snap: Creates a magnetic feeling when scrolling through projects */
-    scroll-snap-type: y proximity;
-    padding-bottom: 2rem;
-}
-
-/* ORCHESTRATED ENTRANCE (Controlled by JS) */
-header, .link-stack, footer {
-    opacity: 0; transform: translateY(40px); filter: blur(4px);
-    will-change: opacity, transform, filter;
-}
-
-body.reveal-content header { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
-body.reveal-content .link-stack { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 0.2s; }
-body.reveal-content footer { animation: slideUpFade 1.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 0.5s; }
-
-@keyframes slideUpFade {
-    0% { opacity: 0; transform: translateY(40px); filter: blur(4px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-.card {
-    position: relative;
-    /* Glass Effect */
-    background: rgba(28, 24, 22, 0.7); 
-    backdrop-filter: blur(5px);
-
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-card);
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text-primary);
-    display: flex;
-    height: 120px;
-    transition: all 0.3s ease;
-    
-    /* Scroll Snap Alignment */
-    scroll-snap-align: start;
-    scroll-margin-top: 1rem;
-}
-
-/* Active State: Tactile Feedback for Mobile */
-.card:active {
-    transform: scale(0.98); 
-    background-color: var(--accent-glow);
-    border-color: var(--accent-main);
-    transition: transform 0.1s, background-color 0.1s;
-}
-
-.card:hover {
-    border-color: var(--accent-main);
-    background-color: #2a2a37; 
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-.card-visual {
-    width: 38.2%; /* Golden Cut */
-    position: relative;
-    overflow: hidden;
-    border-right: 1px solid var(--border-subtle);
-}
-
-.card-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(80%) sepia(10%);
-    transition: filter 0.5s ease, transform 0.8s ease;
-}
-
-.card:hover .card-visual img {
-    filter: grayscale(0%) sepia(0%);
-    transform: scale(1.1);
-}
-
-.card-content {
-    width: 61.8%; /* Golden Cut */
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-}
-
-.card-label {
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
-    font-weight: 600;
-    font-style: italic;
-    margin-bottom: 0.25rem;
-    color: var(--text-primary);
-}
-
-.card-desc {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-}
-
-.placeholder {
-    text-align: center; padding: 3rem 1rem; color: var(--text-secondary);
-    border: 1px dashed var(--border-subtle); border-radius: var(--radius-card);
-    font-size: 0.9rem; font-style: italic; background: rgba(35, 32, 30, 0.5);
-}
-
-/* --- 11. FOOTER (Full Width Colophon) --- */
+/* --- 12. FOOTER --- */
 footer {
     width: 100%;
     margin-top: auto;
-    padding: 3rem 0 1.5rem; /* Padding lateral removido aqui, controlado no container */
-    
-    border-top: 1px solid rgba(214, 206, 179, 0.05);
-    background: linear-gradient(to bottom, rgba(28, 25, 23, 0), rgba(28, 25, 23, 0.8));
-    
-    /* Animation */
+    padding: 0; 
+    border-top: 1px solid rgba(214, 206, 179, 0.08);
+    background: linear-gradient(to bottom, rgba(28, 25, 23, 0), #12100e);
+    display: flex;
+    justify-content: center; 
     opacity: 0;
     animation: revealSlow 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
     animation-delay: 0.8s;
 }
 
 .footer-container {
-    /* FULL WIDTH CONFIGURATION */
     width: 100%;
-    max-width: 100%; /* Quebra a regra do Golden Ratio apenas no rodapé para expandir */
-    padding: 0 3rem; /* Margem de respiro nas laterais (aumente ou diminua conforme gosto) */
-    
+    max-width: 618px; 
+    padding: 2.5rem 1rem; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -545,7 +717,6 @@ footer {
     gap: 1.5rem;
 }
 
-/* Colunas Base */
 .footer-col {
     display: flex;
     flex-direction: column;
@@ -556,30 +727,25 @@ footer {
     transition: opacity 0.3s ease;
 }
 
-/* Alinhamentos */
 .footer-col.left { align-items: flex-start; }
 .footer-col.center { align-items: center; }
 .footer-col.right { align-items: flex-end; }
 
-/* Identidade */
 .copyright { color: var(--text-primary); font-weight: 500; }
 .role { font-size: 0.65rem; opacity: 0.6; }
 
-/* --- THE EXPANDED BADGE (Heart, Flag, Vim) --- */
+/* Expanded Badge (Heart, Flag, Vim) */
 .made-in-badge {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espaço entre palavras e ícones */
-    
+    gap: 8px; 
     background: rgba(255, 255, 255, 0.03);
     padding: 8px 16px;
     border-radius: 100px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    
     font-size: 0.7rem;
     letter-spacing: 0.02em;
     color: var(--text-secondary);
-    
     transition: all 0.3s ease;
 }
 
@@ -590,19 +756,30 @@ footer {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-/* Icon Colors & Animations */
+/* Ascetic Icons (Silence Law) */
+.made-in-badge svg {
+    filter: grayscale(100%) contrast(0.8); 
+    opacity: 0.6; 
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
 .icon-heart {
-    color: #782626; /* Velvet Passio (Red) */
-    animation: heartBeat 1.5s infinite ease-in-out;
+    color: var(--text-secondary); 
+    animation: none; 
 }
 
-.icon-vim {
-    color: #4B5F44; /* Vim Green (muted) */
-    transition: color 0.3s ease;
+/* State of Grace (Hover on Badge) */
+.made-in-badge:hover svg {
+    filter: grayscale(0%) contrast(1); 
+    opacity: 1;
+    transform: scale(1.1); 
 }
 
-.made-in-badge:hover .icon-heart { color: #e04a4a; } /* Brighter red on hover */
-.made-in-badge:hover .icon-vim { color: #76c76c; } /* Brighter green on hover */
+.made-in-badge:hover .icon-heart {
+    color: #e04a4a; 
+    animation: heartBeat 1.5s infinite ease-in-out; 
+    filter: drop-shadow(0 0 5px rgba(224, 74, 74, 0.5)); 
+}
 
 @keyframes heartBeat {
     0%, 100% { transform: scale(1); }
@@ -612,7 +789,6 @@ footer {
     60% { transform: scale(1); }
 }
 
-/* Tags Técnicas */
 .tech-stack { letter-spacing: 0.1em; font-size: 0.65rem; opacity: 0.5; }
 .version-tag {
     color: var(--accent-main); opacity: 0.6; letter-spacing: 0.05em;
@@ -622,190 +798,57 @@ footer {
 }
 .footer-col:hover .version-tag { opacity: 1; border-color: var(--accent-main); }
 
-/* Mobile Adaptation */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        padding: 0 1rem;
-        gap: 2rem;
-    }
-    
-    .footer-col.left, .footer-col.right { align-items: center; text-align: center; }
-    
-    .footer-col.center { order: -1; margin-bottom: 0.5rem; }
-    
-    .made-in-badge {
-        width: 100%;
-        justify-content: center;
-        white-space: nowrap; /* Evita quebra de linha feia no badge */
-    }
-}
+/* --- 13. ARTWORK MODAL (The Illuminated Parchment) --- */
 
-/* --- 12. PRELOADER (The Ink Veil) --- */
-#preloader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--bg-body); z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.8s var(--ease-out), visibility 0.8s var(--ease-out);
-}
-
-#preloader.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
-
-.loader-icon svg {
-    color: var(--accent-main);
-    animation: preloaderPulse 2s infinite ease-in-out;
-}
-
-@keyframes preloaderPulse {
-    0% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
-    50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.4)); }
-    100% { opacity: 0.5; transform: scale(0.95); filter: drop-shadow(0 0 0 rgba(227, 181, 5, 0)); }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-body); }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg-body); }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
-
-/* --- 13. MOBILE & RESPONSIVE OPTIMIZATIONS (v2.1 Patch) --- */
-
-@media (max-width: 768px) {
-    /* 1. Typography Adjustments */
-    h1 {
-        font-size: 2.2rem; /* Reduced from 3.2rem to prevent overflow */
-        line-height: 1.1;
-    }
-    
-    /* 2. Header Compactness & Focus */
-    header {
-        padding: 4rem 1rem 2rem; /* Reduced vertical whitespace */
-        /* Shift background focus to the right (65%) to frame faces in portrait */
-        background-position: 65% center, 65% center, 65% 28%;
-    }
-
-    /* 3. Adaptive Cards */
-    .card {
-        height: auto; /* Allow growth for longer text */
-        min-height: 100px;
-    }
-    
-    .card-content {
-        padding: 1rem;
-    }
-
-    .card-label {
-        font-size: 1.3rem; 
-    }
-
-    /* 4. Art Button Accessibility (Hit Area) */
-    .art-wrapper {
-        bottom: 10px;
-        right: 10px;
-    }
-    
-    .art-button {
-        width: 44px; /* Apple/Google minimum touch target size */
-        height: 44px;
-    }
-
-    /* 5. Tooltip Readability on Mobile */
-    .art-text {
-        white-space: normal;
-        width: 180px;
-        text-align: right;
-    }
-}
-
-/* 6. Touch Device Optimizations (No Hover) */
-@media (hover: none) {
-    /* Remove sticky hover effects on tap */
-    .card:hover {
-        transform: none;
-        box-shadow: none;
-        background-color: rgba(28, 24, 22, 0.7); 
-    }
-    
-    .social-link:hover svg {
-        transform: none;
-        fill: var(--text-secondary); 
-    }
-
-    /* Performance: Disable expensive backdrop-filter on mobile GPUs */
-    .card, .art-button {
-        backdrop-filter: none;
-        /* Compensate with slightly more opaque background */
-        background: rgba(28, 24, 22, 0.95); 
-    }
-}
-
-/* --- ARTWORK MODAL (The Illuminated Parchment) --- */
-
-/* 1. The Backdrop (Dimmed Background) */
 .modal-backdrop {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: rgba(18, 16, 14, 0.85); /* Deep Umbra opacity */
-    backdrop-filter: blur(8px); /* Blur the site behind */
-    z-index: 10000; /* Highest layer */
-    
+    background-color: rgba(18, 16, 14, 0.85); /* Deep Umbra */
+    backdrop-filter: blur(8px); 
+    z-index: 10000; 
+
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Ensures the modal never touches the absolute screen edges */
     padding: 2rem; 
-    
+
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s var(--ease-out), visibility 0.4s;
 }
 
-/* State: Open */
 .modal-backdrop.is-open {
     opacity: 1;
     visibility: visible;
 }
 
-/* 2. The Parchment (Container) */
 .modal-parchment {
     position: relative;
     max-width: 600px;
     width: 100%;
-    
-    /* Height Control: Ensures breathing room top/bottom */
     max-height: 85vh; 
-    overflow-y: auto; /* Internal scrolling for long text */
-    
+    overflow-y: auto; 
+
     /* Paper Texture Look */
-    background-color: #E6E2D3; /* Lighter Pergamena */
+    background-color: #E6E2D3; 
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
-    
-    color: #1C1917; /* Dark Ink text (Inverted contrast) */
+
+    color: #1C1917; 
     padding: 3rem 2.5rem;
-    
-    /* Soft Geometry */
     border-radius: 12px; 
-    
     box-shadow: 
         0 20px 50px rgba(0,0,0,0.8),
         0 0 0 1px rgba(255,255,255,0.1) inset; 
-    
+
     transform: scale(0.95) translateY(10px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-/* Custom Scrollbar for the Parchment (Elegant & Slim) */
-.modal-parchment::-webkit-scrollbar { width: 6px; }
-.modal-parchment::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); margin: 12px 0; }
-.modal-parchment::-webkit-scrollbar-thumb { background: rgba(28, 25, 23, 0.2); border-radius: 3px; }
-.modal-parchment::-webkit-scrollbar-thumb:hover { background: rgba(120, 38, 38, 0.5); }
 
 .modal-backdrop.is-open .modal-parchment {
     transform: scale(1) translateY(0);
 }
 
-/* 3. Close Button (Classic 'X') */
 .modal-close {
     position: absolute;
     top: 1rem; right: 1rem;
@@ -815,15 +858,14 @@ footer {
     cursor: pointer;
     padding: 0.5rem;
     transition: color 0.2s, transform 0.2s;
-    z-index: 10; /* Ensures it stays above content */
+    z-index: 10; 
 }
 
 .modal-close:hover {
-    color: #782626; /* Velvet Passio hover */
+    color: #782626; 
     transform: scale(1.1);
 }
 
-/* 4. Typography & Layout */
 .parchment-content {
     text-align: left;
     font-family: var(--font-serif);
@@ -865,49 +907,36 @@ footer {
     font-family: var(--font-serif);
 }
 
-/* Decoration */
 .parchment-decoration {
     margin-top: 2rem;
     text-align: center;
     opacity: 0.6;
 }
 
-/* Mobile Adjustment */
-@media (max-width: 600px) {
-    .modal-parchment {
-        padding: 2rem 1.5rem;
-        /* Increase spacing slightly on mobile */
-        max-height: 80vh; 
-    }
-    .parchment-title { font-size: 1.6rem; }
-    .parchment-body p { font-size: 1rem; }
-}
-
-/* --- TOAST NOTIFICATION (Clipboard Feedback) --- */
+/* --- 14. TOAST NOTIFICATION --- */
 .toast-notification {
     position: fixed;
     bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%) translateY(20px); /* Start slightly below */
-    
+    transform: translateX(-50%) translateY(20px); 
+
     display: flex;
     align-items: center;
     gap: 12px;
-    
-    background-color: rgba(28, 25, 23, 0.95); /* Umbra Aeterna */
-    border: 1px solid var(--accent-main); /* Lux Divina Border */
+
+    background-color: rgba(28, 25, 23, 0.95); 
+    border: 1px solid var(--accent-main); 
     padding: 12px 24px;
-    border-radius: 50px; /* Pill shape */
-    
+    border-radius: 50px; 
+
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    z-index: 11000; /* Above modal and preloader */
-    
+    z-index: 11000; 
+
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy entrance */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 
-/* State: Active/Visible */
 .toast-notification.show {
     opacity: 1;
     visibility: visible;
@@ -932,11 +961,47 @@ footer {
     letter-spacing: 0.05em;
 }
 
-/* Mobile Adjustment: Ensure it doesn't overlap bottom UI on phones */
-@media (max-width: 500px) {
-    .toast-notification {
-        bottom: 3rem;
-        width: 90%;
-        justify-content: center;
+/* --- 15. RESPONSIVE OPTIMIZATIONS --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.2rem; 
+        line-height: 1.1;
     }
+
+    header {
+        padding: 4rem 1rem 2rem; 
+        background-position: 65% center;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        padding: 0 1rem;
+        gap: 2rem;
+    }
+
+    .footer-col.left, .footer-col.right { align-items: center; text-align: center; }
+    .footer-col.center { order: -1; margin-bottom: 0.5rem; }
+
+    .made-in-badge {
+        width: 100%;
+        justify-content: center;
+        white-space: nowrap; 
+    }
+}
+
+@media (max-width: 600px) {
+    .fortress-link { padding: 1rem; }
+    .link-title { font-size: 1.1rem; }
+    .link-action { opacity: 0.5; transform: translateX(0); }
+    
+    .modal-parchment { padding: 2rem 1.5rem; max-height: 80vh; }
+    .parchment-title { font-size: 1.6rem; }
+    .parchment-body p { font-size: 1rem; }
+
+    .toast-notification { bottom: 3rem; width: 90%; justify-content: center; }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+    .fortress-link:hover, .social-link:hover { transform: none; box-shadow: none; }
 }
