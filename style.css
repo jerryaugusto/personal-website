@@ -78,7 +78,25 @@ body {
     padding-right: env(safe-area-inset-right);
 
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+
+    /* FONT RENDERING (High-Definition) */
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+/* CUSTOM SELECTION (The Wax Seal) */
+/* "Vermelho Ferrugem" para um toque dramático e gótico */
+::selection {
+    background-color: var(--accent-error); /* #782626 */
+    color: var(--text-primary); /* Texto claro para contraste no fundo escuro */
+    text-shadow: none;
+}
+
+/* Suporte para Firefox */
+::-moz-selection {
+    background-color: var(--accent-error);
+    color: var(--text-primary);
+    text-shadow: none;
 }
 
 /* --- 3. PRELOADER & SPINNERS (Counter-Rotation Logic) --- */
