@@ -493,3 +493,144 @@ footer {
         margin-top: 1.5rem;
     }
 }
+
+/* --- MOBILE MASTERY (iOS & Android Native Feel) --- */
+@media screen and (max-width: 768px) {
+
+    /* 1. TYPOGRAPHY & SCALING (Readable & Compact) */
+    :root {
+        /* Redefine font size specifically for small screens */
+        --fs-base: 16px; 
+    }
+
+    body {
+        /* Prevent horizontal scroll caused by animations */
+        overflow-x: hidden; 
+        width: 100%;
+        /* Better scrolling momentum on iOS */
+        -webkit-overflow-scrolling: touch; 
+    }
+
+    h1 {
+        /* Allows the name to wrap if it's too long on small phones (iPhone SE) */
+        font-size: clamp(2.2rem, 12vw, 3rem);
+        white-space: normal; 
+        padding: 0 10px;
+        line-height: 1.1;
+    }
+
+    /* 2. HEADER: THE IMMERSIVE VIEWPORT (100dvh) */
+    header {
+        /* FIX: Solves the jumping address bar issue on iOS/Android */
+        min-height: 100dvh; 
+        
+        /* Adjust background for portrait orientation */
+        background-position: 65% center; 
+        background-attachment: scroll; /* Performance fix for mobile scrolling */
+        
+        /* Ensure content doesn't touch the notch or home indicator */
+        padding-top: max(2rem, env(safe-area-inset-top));
+        padding-bottom: max(4rem, env(safe-area-inset-bottom));
+    }
+
+    /* 3. LAYOUT & RHYTHM (Efficiency) */
+    .container {
+        /* Remove the luxury gap of desktop. Mobile needs content density. */
+        padding: 3rem 1.25rem; 
+        gap: 2rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* 4. FORTRESS LINKS (Thumb-Friendly Physics) */
+    .fortress-link {
+        /* Taller links for easier tapping (Fat Finger Rule) */
+        min-height: 80px; 
+        padding: 1.25rem;
+        
+        /* Mobile Feedback: Slightly darker background for contrast */
+        background: rgba(28, 25, 23, 0.7);
+    }
+    
+    .link-icon {
+        /* Slightly smaller icons to balance the text */
+        width: 42px; height: 42px;
+        margin-right: 1rem;
+    }
+
+    .link-title {
+        font-size: 1.2rem;
+    }
+
+    /* ACTIVE STATE (The "Tap" Feel) - Crucial for UX */
+    .fortress-link:active {
+        transform: scale(0.96); /* Significant physical compression */
+        background: rgba(227, 181, 5, 0.15); /* Immediate gold flash */
+        border-color: var(--accent-main);
+        transition: transform 0.1s, background 0.1s; /* Instant response */
+    }
+
+    /* 5. UI CONTROLS (Language & Art) */
+    .language-switch {
+        /* Larger touch target */
+        top: max(1.5rem, env(safe-area-inset-top));
+        right: max(1rem, env(safe-area-inset-right));
+        padding: 0.6rem 1.2rem;
+    }
+
+    .art-wrapper {
+        /* Move away from the edge to avoid conflict with "Back" gestures */
+        bottom: max(20px, env(safe-area-inset-bottom));
+        right: 20px;
+    }
+    
+    .art-button {
+        /* A bit larger for easy thumb access */
+        width: 48px; height: 48px;
+        background: rgba(28, 25, 23, 0.8); /* More visibility */
+    }
+
+    /* 6. MODAL (Bottom Sheet Style) */
+    .modal-parchment {
+        max-height: 80dvh; /* Use dynamic height */
+        width: 95%; /* Almost full width */
+        margin-bottom: env(safe-area-inset-bottom); /* Respect iPhone Home Bar */
+        overflow-y: scroll; /* Native scroll momentum */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 7. FOOTER (Vertical Stack) */
+    .footer-container {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+    }
+    
+    .footer-col.left, .footer-col.right {
+        align-items: center; /* Center everything on mobile */
+    }
+    
+    .footer-col.center {
+        order: -1; /* Keep "Made with" at the top or center as preferred */
+        margin-bottom: 1rem;
+    }
+
+    /* Dentro de @media (max-width: 768px) */
+
+    .socials {
+        /* Muda de Flex para Grid para controle total */
+        display: grid;
+
+        /* Cria exatamente 3 colunas de tamanho automático */
+        grid-template-columns: repeat(3, auto);
+
+        /* Centraliza o grid na tela */
+        justify-content: center;
+
+        /* Espaçamento generoso entre os ícones */
+        gap: 1.5rem 2rem; /* 1.5rem vertical, 2rem horizontal */
+
+        padding: 0; /* Remove padding desnecessário */
+    }
+}
