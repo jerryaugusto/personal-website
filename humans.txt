@@ -1,0 +1,18 @@
+/* THE HUMAN BEHIND THE CODE */
+
+    Name: Jerry Augusto
+    Role: Software Artisan
+    Location: Mato Grosso, Brazil
+    Tools: Neovim, Git, Pure HTML/CSS/JS.
+
+/* THE PHILOSOPHY */
+
+    This site contains 0% frameworks.
+    It was forged, not assembled.
+    
+    "Age Quod Debes."
+
+/* CONTACT */
+
+    If you are reading this text file, you are the kind of person I want to work with.
+    Email me with the subject: "I read the humans.txt".
