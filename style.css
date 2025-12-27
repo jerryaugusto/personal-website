@@ -1,77 +1,76 @@
 /* * PROJECT: LinkHub Personal Site
- * COMPONENT: Main Stylesheet (Mobile Optimized)
- * SYSTEM: Scriptorium Design System v3.1
+ * COMPONENT: Main Stylesheet (Desktop UX Optimized)
+ * SYSTEM: Scriptorium Design System v3.3 (Golden Ratio Edition)
  * AUTHOR: Jerry Augusto
  */
 
-/* --- 1. DESIGN TOKENS & FLUIDITY --- */
+/* --- 1. DESIGN TOKENS (The Golden Ratio) --- */
+/* --- 1. DESIGN TOKENS (The Golden Ratio) --- */
 :root {
-    /* --- CORES (Mantidas) --- */
+    /* --- PALETA --- */
     --bg-body: #1C1917; 
-    --accent-main: #E3B505; 
-    --text-primary: #E7E5E4;
-    --text-secondary: #A8A29E;
-    --border-subtle: rgba(197, 160, 89, 0.2); 
-    --accent-glow: #E3B505;
-    --accent-structure: #C5A059;
-    --accent-warmth: #78350F;
-    --accent-error: #782626;
-    --accent-secondary: #722f37;
+    --accent-main: #E3B505;       
+    --accent-structure: #C5A059;  
+    --accent-warmth: #78350F;     
+    --accent-error: #782626;      
+    
+    --text-primary: #E7E5E4;      
+    --text-secondary: #A8A29E;    
+    --border-subtle: rgba(197, 160, 89, 0.15);
 
-    /* --- TYPOGRAPHY (Now Fluid) --- */
+    /* --- THE GOLDEN MODULAR SCALE --- */
+    --ratio: 1.618;
+    
+    /* Font Sizes (Base * Ratio^n) */
+    --fs-base: 1rem;                       /* ~16px */
+    --fs-md: calc(1rem * var(--ratio));    /* ~25.8px */
+    --fs-lg: calc(1rem * var(--ratio) * var(--ratio)); /* ~41.8px */
+    --fs-xl: calc(1rem * var(--ratio) * var(--ratio) * var(--ratio)); /* ~67px */
+    --fs-sm: calc(1rem / var(--ratio));    /* ~9.8px */
+
+    /* Typography */
     --font-serif: 'EB Garamond', serif;
     --font-mono: 'JetBrains Mono', monospace;
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-    /* * FLUID TYPOGRAPHY: clamp(MIN, VAL, MAX)
-     * Isso garante que o texto escale matematicamente entre 320px e 1200px.
-     * H1: Mínimo 2rem, Ideal 5vw + 1rem, Máximo 3.5rem.
-     */
-    --fs-h1: clamp(2.2rem, 5vw + 1rem, 3.5rem);
-    --fs-body: clamp(0.95rem, 0.5vw + 0.8rem, 1.1rem);
-    --fs-small: clamp(0.75rem, 0.5vw + 0.6rem, 0.85rem);
+    /* --- ESPAÇAMENTO (Rhythm) --- */
+    --space-unit: 1rem;
+    --space-phi: calc(var(--space-unit) * var(--ratio));            /* ~26px */
+    --space-phi-double: calc(var(--space-unit) * var(--ratio) * 2); /* ~52px */
+    --space-section: calc(var(--space-unit) * var(--ratio) * var(--ratio) * var(--ratio)); /* ~100px */
 
-    /* --- SPACING & UI --- */
-    --space-phi: 1.618rem;       
-    --space-phi-double: 2.618rem; 
-    --radius-card: 4px;
-    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --radius-card: 2px;
     
-    /* Tamanho mínimo de toque para mobile (Apple Interface Guidelines) */
+    /* CORREÇÃO CRÍTICA: Definindo ambas as variáveis para compatibilidade */
+    --ease-physics: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1); /* Recuperado para as animações */
+    
     --touch-target: 44px; 
 }
 
 /* --- 2. RESET & GLOBAL BASE --- */
 * { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-    /* Previne o highlight azul padrão ao tocar em links no Android/iOS */
+    box-sizing: border-box; margin: 0; padding: 0; 
     -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
     overscroll-behavior-y: none; 
     background-color: var(--bg-body);
-    /* Garante que nada exceda a largura da tela */
-    overflow-x: hidden; 
-    width: 100%;
+    overflow-x: hidden; width: 100%;
 }
 
 body {
-    background-color: var(--bg-body);
     color: var(--text-primary);
     font-family: var(--font-sans); 
-    font-size: var(--fs-body); /* Base fluida */
+    font-size: 1.125rem; /* Desktop Luxury Base */
     line-height: 1.6;
     min-height: 100vh;
     
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex; flex-direction: column; align-items: center;
     padding: 0; 
 
-    /* SAFE AREAS: Crucial para iPhone X/11/12/13/14+ */
+    /* Safe Areas */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
@@ -79,33 +78,20 @@ body {
 
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 
-    /* FONT RENDERING (High-Definition) */
+    /* Font Rendering */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
-/* CUSTOM SELECTION (The Wax Seal) */
-/* "Vermelho Ferrugem" para um toque dramático e gótico */
-::selection {
-    background-color: var(--accent-error); /* #782626 */
-    color: var(--text-primary); /* Texto claro para contraste no fundo escuro */
-    text-shadow: none;
-}
 
-/* Suporte para Firefox */
-::-moz-selection {
-    background-color: var(--accent-error);
-    color: var(--text-primary);
-    text-shadow: none;
-}
+/* Selection (Rust Red) */
+::selection { background-color: var(--accent-error); color: var(--text-primary); text-shadow: none; }
+::-moz-selection { background-color: var(--accent-error); color: var(--text-primary); text-shadow: none; }
 
 /* --- 3. PRELOADER & SPINNERS (Counter-Rotation Logic) --- */
-
 #preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--bg-body); 
-    background-image: none;
-    z-index: 9999; 
+    background-color: var(--bg-body); z-index: 9999; 
     display: flex; justify-content: center; align-items: center;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
 }
@@ -113,9 +99,7 @@ body.reveal-content #preloader { opacity: 0; visibility: hidden; pointer-events:
 
 /* Configuração dos Containers SVG */
 .loader-star svg, .rosette-spinner svg {
-    /* Não giramos mais o SVG inteiro! */
-    width: 100%; height: 100%;
-    overflow: visible;
+    width: 100%; height: 100%; overflow: visible;
 }
 
 .loader-star {
@@ -123,6 +107,7 @@ body.reveal-content #preloader { opacity: 0; visibility: hidden; pointer-events:
     filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.3));
 }
 
+/* O container do Aviso de Construção */
 .rosette-spinner {
     width: 60px; height: 60px;
     margin: 0 auto 1.5rem;
@@ -130,233 +115,110 @@ body.reveal-content #preloader { opacity: 0; visibility: hidden; pointer-events:
     opacity: 0.7;
 }
 
-/* --- A LÓGICA DE ROTAÇÃO DUPLA --- */
-
-/* 1. Define o ponto de pivô exato no centro do SVG (50, 50) */
+/* Lógica de Rotação Dupla (Aplica-se a ambos) */
 .spin-clockwise, .spin-counter-clockwise {
     transform-origin: 50px 50px;
     will-change: transform;
 }
+.spin-clockwise { animation: rotateSacred 12s linear infinite; }
+.spin-counter-clockwise { animation: rotateSacred 12s linear infinite reverse; }
 
-/* 2. O Anel Externo (Horário - Clockwise) */
-.spin-clockwise {
-    animation: rotateSacred 12s linear infinite;
-}
-
-/* 3. O Quadrado Interno (Anti-Horário - Counter-Clockwise) 
-   O 'reverse' faz ele girar para o outro lado.
-*/
-.spin-counter-clockwise {
-    animation: rotateSacred 12s linear infinite reverse;
-}
-
-/* Ajuste de velocidade específico para o Preloader (Mais majestoso) */
-.loader-star .spin-clockwise { animation-duration: 12s; }
-.loader-star .spin-counter-clockwise { animation-duration: 12s; }
-
-/* Ajuste de velocidade para o Aviso (Mais lento/background) */
+/* Ajustes de Velocidade por Contexto */
 .rosette-spinner .spin-clockwise { animation-duration: 20s; }
 .rosette-spinner .spin-counter-clockwise { animation-duration: 20s; }
 
-
-/* KEYFRAMES (Padrão) */
 @keyframes rotateSacred {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-/* --- 4. HERO HEADER (Mobile Perfected) --- */
+/* --- 4. HERO HEADER --- */
 header {
-    position: relative;
-    width: 100%;
-    
-    /* Altura Dinâmica para Mobile */
-    min-height: 100vh; 
-    min-height: 100dvh; 
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    
-    /* Padding lateral para evitar que texto toque as bordas em telas pequenas */
+    position: relative; width: 100%;
+    min-height: 100vh; min-height: 100dvh; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     padding: 0 1.5rem; 
 
     background-image: 
-        linear-gradient(to bottom, 
-            rgba(28, 25, 23, 0.9) 0%,   
-            rgba(28, 25, 23, 0.7) 45%,    
-            rgba(28, 25, 23, 1.0) 100%  
-        ),
+        linear-gradient(to bottom, rgba(28, 25, 23, 0.9) 0%, rgba(28, 25, 23, 0.7) 45%, rgba(28, 25, 23, 1.0) 100%),
         url("assets/the-calling-of-saint-matthew.avif"); 
-
-    background-size: cover;
-    /* Foco Mobile: Rosto de Jesus/Mateus geralmente está à direita ou centro */
-    background-position: 65% center; 
-    
-    transition: background-image 0.3s ease-in-out; 
-    box-shadow: 0 15px 50px rgba(0,0,0,0.8);
-    z-index: 2;
+    background-size: cover; background-position: 65% center; 
+    transition: background-image 0.3s ease-in-out; box-shadow: 0 15px 50px rgba(0,0,0,0.8); z-index: 2;
 }
-
 @media (min-width: 768px) {
-    header {
-        background-position: center 50%;
-        padding-bottom: 4rem; 
-    }
+    header { background-position: center 50%; padding-bottom: 4rem; }
 }
 
-/* --- LANGUAGE SWITCHER (Touch Optimized) --- */
+/* Language Switcher */
 .language-switch {
-    position: absolute;
-    /* Mais espaço do topo para não colidir com notch/status bar */
-    top: max(2rem, env(safe-area-inset-top)); 
-    right: max(1.5rem, env(safe-area-inset-right));
-    z-index: 50;
-    
-    display: flex; align-items: center; gap: 0.5rem;
-    
-    background: rgba(28, 25, 23, 0.6); /* Mais contraste no mobile */
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--border-subtle);
-    padding: 0.5rem 1rem; /* Área de toque maior */
-    border-radius: 50px;
-    
-    font-family: var(--font-mono); font-size: var(--fs-small);
-    color: var(--text-secondary);
+    position: absolute; top: max(2rem, env(safe-area-inset-top)); right: max(1.5rem, env(safe-area-inset-right));
+    z-index: 50; display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle); padding: 0.5rem 1rem; border-radius: 50px;
+    font-family: var(--font-mono); font-size: var(--fs-small); color: var(--text-secondary);
 }
-
 .lang-btn {
-    background: none; border: none; padding: 4px; /* Aumenta a área de toque interna */
-    color: var(--text-secondary); cursor: pointer;
-    font-family: inherit; font-size: inherit;
-    opacity: 0.6; transition: all 0.2s ease;
+    background: none; border: none; padding: 4px; color: var(--text-secondary); cursor: pointer;
+    font-family: inherit; font-size: inherit; opacity: 0.6; transition: all 0.2s ease;
 }
-
 .lang-btn.active { color: var(--accent-main); opacity: 1; font-weight: bold; }
 
 /* --- 5. TYPOGRAPHY & ELEMENTS --- */
 .header-content {
-    width: 100%;
-    max-width: 618px; 
-    margin: 0 auto;
+    width: 100%; max-width: 618px; margin: 0 auto;
     display: flex; flex-direction: column; align-items: center;
 }
 
 h1 {
-    font-family: var(--font-serif);
-    font-weight: 500; 
-    font-size: var(--fs-h1); /* Tamanho Fluido */
-    letter-spacing: -0.03em; /* Mais apertado em tamanhos grandes */
-    font-style: italic;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6);
-    
-    /* Previne quebra de linha feia em nomes longos */
-    white-space: nowrap; 
+    font-family: var(--font-serif); font-weight: 500; 
+    font-size: clamp(2.5rem, 5vw, var(--fs-xl)); /* Escala Modular */
+    line-height: 1.1; letter-spacing: -0.04em; font-style: italic;
+    margin-bottom: 0.5rem; color: var(--text-primary);
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; white-space: nowrap; 
 }
-/* Fallback se o nome for muito longo em telas minúsculas */
 @media (max-width: 350px) { h1 { white-space: normal; } }
 
 .subtitle {
-    font-family: var(--font-mono);
-    font-size: var(--fs-small);
-    color: var(--accent-main);
-    letter-spacing: 0.12em; 
-    text-transform: uppercase;
-    margin-bottom: var(--space-phi);
-    background: rgba(227, 181, 5, 0.08);
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid rgba(227, 181, 5, 0.3);
-    display: inline-block;
-    text-align: center; /* Garante centralização se quebrar linha */
+    font-family: var(--font-mono); font-size: var(--fs-small); color: var(--accent-main);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: var(--space-phi);
+    background: rgba(227, 181, 5, 0.08); padding: 8px 16px; border-radius: 4px;
+    border: 1px solid rgba(227, 181, 5, 0.3); display: inline-block; text-align: center;
 }
 
-/* --- AVATAR (The Radiating Vessel) --- */
-
-/* --- AVATAR (The Ethereal Vessel) --- */
-
+/* AVATAR (Ethereal Vessel) */
 .avatar {
-    width: clamp(120px, 20vw, 150px);
-    height: clamp(120px, 20vw, 150px);
-    border-radius: 50%;
-    margin-bottom: var(--space-phi);
-
+    width: clamp(120px, 20vw, 150px); height: clamp(120px, 20vw, 150px);
+    border-radius: 50%; margin-bottom: var(--space-phi);
     background: linear-gradient(45deg, #c5a059 0%, #722f37 40%, #3d1c51 70%, #1a1a2e 100%);
-    padding: 3px; 
-    
-    display: flex; align-items: center; justify-content: center;
-    
-    /* ANIMATION: Extremely Slow & Subtle Radiance
-     * 8s: Tempo muito lento para parecer uma respiração profunda.
-     */
+    padding: 3px; display: flex; align-items: center; justify-content: center;
     animation: sacredPulse 8s ease-in-out infinite;
-
-    /* Transição suave para o Hover */
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
-    will-change: transform, box-shadow;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease; will-change: transform, box-shadow;
 }
-
 .avatar img {
     width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
-    border: 3px solid var(--bg-body); box-sizing: border-box;
-    transition: filter 0.5s ease;
+    border: 3px solid var(--bg-body); box-sizing: border-box; transition: filter 0.5s ease;
 }
-
-/* --- HOVER STATE --- */
 @media (hover: hover) {
-    .avatar:hover {
-        transform: scale(1.03) translateY(-2px); /* Movimento mais contido/elegante */
-        /* No hover, a luz se intensifica, mas ainda mantendo a classe */
-        box-shadow: 0 0 40px rgba(227, 181, 5, 0.5); 
-        cursor: pointer;
-    }
+    .avatar:hover { transform: scale(1.03) translateY(-2px); box-shadow: 0 0 40px rgba(227, 181, 5, 0.5); cursor: pointer; }
 }
-
-/* --- KEYFRAMES (The Breathing Light) --- */
 @keyframes sacredPulse {
-    0% {
-        /* Quase invisível, apenas uma sugestão de presença */
-        box-shadow: 0 0 15px rgba(227, 181, 5, 0.05);
-    }
-    50% {
-        /* Expansão suave e difusa (energia irradiando) */
-        box-shadow: 0 0 35px rgba(227, 181, 5, 0.25);
-    }
-    100% {
-        box-shadow: 0 0 15px rgba(227, 181, 5, 0.05);
-    }
+    0%, 100% { box-shadow: 0 0 15px rgba(227, 181, 5, 0.05); }
+    50% { box-shadow: 0 0 35px rgba(227, 181, 5, 0.25); }
 }
 
-/* MANIFESTO */
-.manifesto-container {
-    margin: 1.5rem 0 2rem; padding: 0 0.5rem;
-    display: flex; justify-content: center;
-    width: 100%;
-}
+/* Manifesto */
+.manifesto-container { margin: 1.5rem 0 2rem; padding: 0 0.5rem; display: flex; justify-content: center; width: 100%; }
 .manifesto {
-    position: relative; 
-    font-family: var(--font-serif); 
-    font-size: clamp(1.1rem, 4vw, 1.25rem); /* Fluido */
-    line-height: 1.4;
-    color: var(--text-primary); 
-    text-align: center;
-    max-width: 90%; /* Evita tocar nas bordas */
+    position: relative; font-family: var(--font-serif); font-size: clamp(1.1rem, 4vw, 1.25rem);
+    line-height: 1.4; color: var(--text-primary); text-align: center; max-width: 90%;
 }
 .manifesto .highlight { color: var(--accent-main); font-style: italic; font-weight: 500; }
-
-/* Tooltip Mobile Logic: Escondemos tooltips em telas de toque puro */
 @media (hover: hover) {
     .manifesto { cursor: help; }
     .manifesto::after {
-        content: attr(data-subtext); 
-        position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(0px); 
+        content: attr(data-subtext); position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(0px); 
         width: max-content; max-width: 300px; padding: 0.8rem 1rem;
-        background-color: rgba(28, 25, 23, 0.98); 
-        border: 1px solid var(--border-subtle); border-bottom: 2px solid var(--accent-main); 
+        background-color: rgba(28, 25, 23, 0.98); border: 1px solid var(--border-subtle); border-bottom: 2px solid var(--accent-main); 
         border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);
         opacity: 0; visibility: hidden; pointer-events: none; z-index: 100;
@@ -365,122 +227,57 @@ h1 {
     .manifesto:hover::after { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(10px); }
 }
 
-/* QUOTE */
+/* Quote Tooltip (Ghost Fade Refined) */
 .quote {
-    position: relative;
-    font-family: var(--font-mono); 
-    font-size: var(--fs-small);
-    text-transform: uppercase; letter-spacing: 0.15em;
-    color: var(--text-secondary); opacity: 0.8; 
+    position: relative; font-family: var(--font-mono); font-size: var(--fs-small);
+    text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-secondary); opacity: 0.8; 
     margin-top: 1rem; margin-bottom: 2rem; display: inline-block;
     border-top: 1px solid var(--border-subtle); padding-top: 1rem;
 }
-/* Tooltip da Quote (Desktop Only) */
-/* --- QUOTE TOOLTIP (Ghost Fade) --- */
-
 @media (hover: hover) {
     .quote::after {
-        content: attr(data-meaning);
-        
-        /* Posicionamento Fixo (Acima do texto) */
-        position: absolute; 
-        bottom: 100%; 
-        left: 50%; 
-        
-        /* * TRANSFORM ESTÁTICO:
-         * translateX(-50%): Centraliza horizontalmente.
-         * translateY(-10px): Dá um espaçamento fixo do texto.
-         * NÃO mudaremos isso no hover, eliminando o movimento de subida.
-         */
-        transform: translateX(-50%) translateY(-10px); 
-        
-        /* Estilização da Caixa */
-        background-color: rgba(28, 25, 23, 0.98); 
-        border: 1px solid var(--accent-main);
-        color: var(--text-primary); 
-        border-radius: 4px; 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-        padding: 0.6rem 1rem 0.6rem 2.4rem;
-        
-        /* Ícone da Cruz/Espada (SVG Background) */
+        content: attr(data-meaning); position: absolute; bottom: 100%; left: 50%; 
+        transform: translateX(-50%) translateY(-10px); /* Posição Estática */
+        background-color: rgba(28, 25, 23, 0.98); border: 1px solid var(--accent-main); color: var(--text-primary); 
+        border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); padding: 0.6rem 1rem 0.6rem 2.4rem;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E3B505' d='M9 3a1 1 0 0 1 1 1v1h3a1 1 0 1 1 0 2h-.055c-.223 2.032-1.116 3.99-2.545 5.688a13 13 0 0 0 2.121 1.494l2.067-4.592a1 1 0 0 1 1.824 0l4.5 10a1 1 0 0 1-1.824.82L18.003 18h-5.007l-1.084 2.41a1 1 0 0 1-1.824-.82l1.61-3.576a15.2 15.2 0 0 1-2.7-1.895c-1.287 1.136-2.848 2.098-4.627 2.81a1 1 0 1 1-.743-1.857c1.557-.623 2.887-1.441 3.972-2.382a11.5 11.5 0 0 1-1.978-3.34a1 1 0 0 1 1.873-.702A9.4 9.4 0 0 0 9 11.244C10.065 9.921 10.72 8.458 10.928 7H4a1 1 0 0 1 0-2h4V4a1 1 0 0 1 1-1m8.103 13L15.5 12.437L13.898 16z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat; 
-        background-size: 16px; 
-        background-position: 12px center;
+        background-repeat: no-repeat; background-size: 16px; background-position: 12px center;
+        font-family: var(--font-serif); font-size: 0.95rem; font-style: italic; white-space: nowrap; pointer-events: none;
         
-        font-family: var(--font-serif); 
-        font-size: 0.95rem; 
-        font-style: italic; 
-        white-space: nowrap; 
-        pointer-events: none;
-        
-        /* ESTADO INICIAL (Invisível) */
-        opacity: 0; 
-        visibility: hidden; 
-        
-        /* TRANSIÇÃO LENTA (Pure Fade)
-         * 0.8s: Tempo para surgir suavemente.
-         * Nenhuma transição de 'transform' aqui.
-         */
-        transition: opacity 6s ease, visibility 0.8s ease;
+        opacity: 0; visibility: hidden; 
+        transition: opacity 0.8s ease, visibility 0.8s ease; /* Fade-in Fantasma ideal */
     }
-
     .quote:hover::after {
-        /* ESTADO FINAL (Visível) */
-        opacity: 1; 
-        visibility: visible; 
-        /* Mantemos o transform idêntico ao estado inicial para não haver movimento */
-        transform: translateX(-50%) translateY(-10px); 
-        
-        /* Pequeno delay opcional para evitar flickers acidentais */
-        transition-delay: 4s; 
+        opacity: 1; visibility: visible; 
+        transition-delay: 0.1s; /* Delay sutil para não piscar */
     }
 }
 
-/* SOCIALS */
+/* Socials */
 .socials {
-    display: flex; justify-content: center; gap: var(--space-phi); margin-top: var(--space-phi-double); flex-wrap: wrap;
-    width: 100%;
+    display: flex; justify-content: center; gap: var(--space-phi); margin-top: var(--space-phi-double); flex-wrap: wrap; width: 100%;
 }
 .social-link {
-    display: flex; align-items: center; justify-content: center;
-    /* TOUCH TARGET OTIMIZADO (44px min) */
-    width: var(--touch-target); height: var(--touch-target);
-    border-radius: 4px;
-    border: 1px solid transparent; background: rgba(255, 255, 255, 0.03); 
-    transition: all 0.3s ease;
+    display: flex; align-items: center; justify-content: center; width: var(--touch-target); height: var(--touch-target);
+    border-radius: 4px; border: 1px solid transparent; background: rgba(255, 255, 255, 0.03); transition: all 0.3s ease;
 }
-/* Efeito de toque ativo para Mobile */
-.social-link:active {
-    background: rgba(227, 181, 5, 0.2); 
-    transform: scale(0.95);
-}
-.social-link svg {
-    width: 24px; height: 24px; fill: var(--text-secondary); filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9)); transition: all 0.3s ease;
-}
-/* Hover apenas para desktop */
+.social-link:active { background: rgba(227, 181, 5, 0.2); transform: scale(0.95); }
+.social-link svg { width: 24px; height: 24px; fill: var(--text-secondary); filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9)); transition: all 0.3s ease; }
 @media (hover: hover) {
-    .social-link:hover {
-        background: rgba(227, 181, 5, 0.1); border-color: rgba(227, 181, 5, 0.3); transform: translateY(-2px);
-    }
-    .social-link:hover svg { 
-        fill: var(--accent-main); transform: translateY(-2px); filter: drop-shadow(0 0 8px var(--accent-main));
-    }
+    .social-link:hover { background: rgba(227, 181, 5, 0.1); border-color: rgba(227, 181, 5, 0.3); transform: translateY(-2px); }
+    .social-link:hover svg { fill: var(--accent-main); transform: translateY(-2px); filter: drop-shadow(0 0 8px var(--accent-main)); }
 }
 
-/* --- 6. PARTICLES & SCROLL HINT (Mantidos) --- */
+/* --- 6. PARTICLES (Background) --- */
 .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; }
-.dust {
-    position: absolute; border-radius: 50%; background: var(--accent-main);
-    box-shadow: 0 0 10px var(--accent-main); opacity: 0; animation: floatUp linear infinite;
-}
+.dust { position: absolute; border-radius: 50%; background: var(--accent-main); box-shadow: 0 0 10px var(--accent-main); opacity: 0; animation: floatUp linear infinite; }
 .dust-1 { width: 3px; height: 3px; left: 10%; animation-duration: 45s; }
 .dust-2 { width: 4px; height: 4px; left: 30%; animation-duration: 55s; animation-delay: 5s; }
 .dust-3 { width: 2px; height: 2px; left: 50%; animation-duration: 40s; animation-delay: 15s; }
 .dust-4 { width: 3px; height: 3px; left: 70%; animation-duration: 60s; animation-delay: 8s; }
 .dust-5 { width: 5px; height: 5px; left: 85%; animation-duration: 48s; animation-delay: 2s; }
 .dust-6 { width: 2px; height: 2px; left: 20%; animation-duration: 35s; animation-delay: 25s; }
-@keyframes floatUp { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 20% { opacity: 0.5; } 80% { opacity: 0.5; } 100% { transform: translateY(-10vh) scale(1); opacity: 0; } }
+@keyframes floatUp { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 20%, 80% { opacity: 0.5; } 100% { transform: translateY(-10vh) scale(1); opacity: 0; } }
 
 .scroll-hint {
     position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10;
@@ -488,109 +285,63 @@ h1 {
 }
 @keyframes scrollBeckon { 0%, 100% { transform: translateY(0); opacity: 0.3; } 50% { transform: translateY(6px); opacity: 0.8; color: var(--accent-main); } }
 
-/* --- 7. MAIN CONTENT --- */
+/* --- 7. MAIN CONTENT & FORTRESS LINKS --- */
 .container {
-    width: 100%; 
-    max-width: 618px; 
+    width: 100%; max-width: 618px; 
     display: flex; flex-direction: column; gap: var(--space-phi-double); 
-    padding: var(--space-phi-double) 1.5rem; /* Mais respiro lateral no mobile */
+    padding: var(--space-section) 1.5rem; /* Respiro de luxo */
 }
 
-.link-stack {
-    display: flex; flex-direction: column; gap: var(--space-phi); padding-bottom: 2rem;
-    width: 100%;
-}
+.link-stack { display: flex; flex-direction: column; gap: var(--space-phi); padding-bottom: 2rem; width: 100%; }
 
 /* Animações de Entrada */
-header, .link-stack, footer {
-    opacity: 0; transform: translateY(40px); filter: blur(4px); will-change: opacity, transform, filter;
-}
+header, .link-stack, footer { opacity: 0; transform: translateY(40px); filter: blur(4px); will-change: opacity, transform, filter; }
 body.reveal-content header { animation: slideUpFade 1.4s var(--ease-out) forwards; }
 body.reveal-content .link-stack { animation: slideUpFade 1.4s var(--ease-out) forwards; animation-delay: 0.2s; }
 body.reveal-content footer { animation: slideUpFade 1.4s var(--ease-out) forwards; animation-delay: 0.5s; }
 @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(40px); filter: blur(4px); } 100% { opacity: 1; transform: translateY(0); filter: blur(0); } }
 
+/* Construction Notice */
 .construction-notice {
-    text-align: center; padding: 2rem 1rem; border: 1px dashed var(--border-subtle);
-    border-radius: 4px; background: rgba(28, 25, 23, 0.4); margin-bottom: 2rem;
+    text-align: center; padding: var(--space-phi-double) var(--space-phi); 
+    border: 1px dashed var(--border-subtle); border-radius: 2px; background: rgba(28, 25, 23, 0.3); 
+    margin-bottom: var(--space-phi-double); max-width: 90%; margin-left: auto; margin-right: auto;
 }
 .construction-notice h3 { font-family: var(--font-serif); color: var(--text-primary); font-size: 1.4rem; margin-bottom: 0.5rem; font-style: italic; }
 .construction-notice p { font-family: var(--font-serif); color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
 
-/* --- CONSTRUCTION NOTICE SPINNER (The Eternal Star) --- */
-
-.star-spinner {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 1.5rem;
-    
-    /* Cor base (Cinza/Metálico) */
-    color: var(--text-secondary); 
-    
-    /* NOVA ANIMAÇÃO:
-     * 1. 'starRotate': Nome da animação definida abaixo.
-     * 2. '12s': Duração muito lenta (mais solene).
-     * 3. 'linear': Velocidade constante (sem acelerar ou frear).
-     * 4. 'infinite': Nunca para.
-     */
-    animation: starRotate 50s linear infinite;
-}
-
-.star-spinner svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible; 
-}
-
-/* Nova Keyframe: Rotação Constante (0 a 360 graus) */
-@keyframes starRotate {
-    from { 
-        transform: rotate(0deg); 
-    }
-    to { 
-        transform: rotate(360deg); 
-    }
-}
-
-/* FORTRESS LINK (Action Button) */
+/* Fortress Links (Desktop Physics) */
 .fortress-link {
-    display: flex; align-items: center; padding: 1.2rem;
-    background: rgba(28, 25, 23, 0.6); border: 1px solid var(--border-subtle); border-left: 3px solid var(--border-subtle); 
+    display: flex; align-items: center; padding: var(--space-phi); 
+    background: rgba(28, 25, 23, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-subtle); border-left: 2px solid var(--border-subtle); 
     color: var(--text-primary); text-decoration: none; 
-    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative; overflow: hidden;
-    /* Garante área de toque mínima confortável */
-    min-height: 60px; 
+    transition: all 0.4s var(--ease-physics); position: relative; overflow: hidden;
+    min-height: calc(var(--space-phi) * 3); 
 }
 .link-icon {
-    display: flex; align-items: center; justify-content: center;
-    width: 40px; height: 40px; margin-right: 1.2rem; color: var(--text-secondary);
-    border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); transition: color 0.3s ease, border-color 0.3s ease;
-    /* Impede que o ícone encolha se o texto for longo */
-    flex-shrink: 0; 
+    display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin-right: var(--space-phi); 
+    color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); transition: all 0.4s var(--ease-physics);
 }
 .link-icon svg { width: 20px; height: 20px; }
-.link-content { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; }
-.link-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 500; letter-spacing: 0.02em; }
-.link-meta { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
-.link-action { opacity: 0.5; transform: translateX(0); color: var(--accent-main); transition: all 0.3s ease; } /* Seta sempre visível no mobile */
+.link-content { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; }
+.link-title { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; letter-spacing: 0.01em; }
+.link-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; }
+.link-action { opacity: 0.4; transform: translateX(0); color: var(--accent-main); font-size: 1.2rem; transition: all 0.4s var(--ease-physics); }
 
-/* Estados de Interação */
-.fortress-link:active {
-    transform: scale(0.98); background: rgba(28, 25, 23, 0.9); border-color: var(--accent-main);
-}
+.fortress-link:active { transform: scale(0.98); background: rgba(28, 25, 23, 0.9); border-color: var(--accent-main); }
 @media (hover: hover) {
-    .link-action { opacity: 0; transform: translateX(-10px); }
     .fortress-link:hover {
-        background: rgba(35, 30, 28, 0.9); border-color: var(--accent-main); border-left-color: var(--accent-main); 
-        transform: translateX(5px); box-shadow: -5px 5px 0px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow); 
+        background: rgba(35, 30, 28, 0.85); border-color: var(--accent-structure); border-left-color: var(--accent-main); 
+        transform: translateY(-2px) scale(1.005); /* Physics Lift */
+        box-shadow: -4px 4px 0px rgba(0,0,0,0.5), 0 0 25px rgba(227, 181, 5, 0.15);
     }
-    .fortress-link:hover .link-icon { color: var(--accent-main); border-color: var(--accent-main); }
-    .fortress-link:hover .link-title { color: #fff; text-shadow: 0 0 10px rgba(227, 181, 5, 0.5); }
-    .fortress-link:hover .link-action { opacity: 1; transform: translateX(0); }
+    .fortress-link:hover .link-icon { color: var(--accent-main); border-color: var(--accent-main); background: rgba(227, 181, 5, 0.05); transform: scale(1.1); }
+    .fortress-link:hover .link-title { color: #fff; text-shadow: 0 0 15px rgba(227, 181, 5, 0.3); }
+    .fortress-link:hover .link-action { opacity: 1; transform: translateX(5px); filter: drop-shadow(0 0 5px var(--accent-main)); }
 }
 
-/* --- 8. FOOTER (Fluid Columns) --- */
+/* --- 8. FOOTER --- */
 footer {
     width: 100%; margin-top: auto; padding: 0; 
     border-top: 1px solid rgba(214, 206, 179, 0.08); background: linear-gradient(to bottom, rgba(28, 25, 23, 0), #12100e);
@@ -603,14 +354,12 @@ footer {
 }
 .footer-col { display: flex; flex-direction: column; gap: 4px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-secondary); transition: opacity 0.3s ease; }
 .footer-col.left { align-items: flex-start; }
-.footer-col.center { align-items: center; order: -1; width: 100%; margin-bottom: 0.5rem; } /* Mobile Order */
+.footer-col.center { align-items: center; order: -1; width: 100%; margin-bottom: 0.5rem; }
 .footer-col.right { align-items: flex-end; }
-
 @media (min-width: 768px) {
     .footer-col.center { order: 0; width: auto; margin-bottom: 0; }
     .footer-container { gap: 1.5rem; padding: 2.5rem 1rem; }
 }
-
 .copyright { color: var(--text-primary); font-weight: 500; }
 .role { font-size: 0.65rem; opacity: 0.6; }
 .made-in-badge {
@@ -624,92 +373,43 @@ footer {
     .made-in-badge:hover svg { filter: grayscale(0%) contrast(1); opacity: 1; transform: scale(1.1); }
     .made-in-badge:hover .icon-heart { color: #e04a4a; animation: heartBeat 1.5s infinite ease-in-out; }
 }
-@keyframes heartBeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
+@keyframes heartBeat { 0%, 100% { transform: scale(1); } 15%, 45% { transform: scale(1.15); } 30%, 60% { transform: scale(1); } }
 .tech-stack { letter-spacing: 0.1em; font-size: 0.65rem; opacity: 0.5; }
 .version-tag { color: var(--accent-main); opacity: 0.6; letter-spacing: 0.05em; background: rgba(227, 181, 5, 0.05); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(227, 181, 5, 0.2); cursor: default; }
 
-/* --- 9. MODAL & ARTWORK --- */
+/* --- 9. MODAL & UTILITIES --- */
 .art-wrapper {
     position: absolute; bottom: 20px; right: 20px; z-index: 20;
     display: flex; flex-direction: row-reverse; align-items: center; gap: 12px; pointer-events: none; 
 }
-/* --- ART BUTTON (The Quill) --- */
-
 .art-button {
-    position: relative; 
-    width: 32px; height: 32px; 
-    border-radius: 50%;
-    backdrop-filter: blur(4px); 
-    border: 1px solid var(--border-subtle);
+    position: relative; width: 32px; height: 32px; border-radius: 50%;
+    backdrop-filter: blur(4px); border: 1px solid var(--border-subtle);
     display: flex; align-items: center; justify-content: center;
-    color: var(--text-secondary); 
-    cursor: help; 
-    pointer-events: auto; 
-    transition: all 0.3s ease;
-    overflow: hidden;
+    color: var(--text-secondary); cursor: help; pointer-events: auto; transition: all 0.3s ease; overflow: hidden;
 }
-
-/* O Ícone da Pena (SVG) */
 .art-button svg {
-    width: 16px; height: 16px;
-    
-    /* Ponto de Pivô: A base da pena (como se estivesse num tinteiro) */
-    transform-origin: center 80%;
-    
-    /* ANIMATION: Quick Alert
-     * 8s total duration: 7.5s de silêncio + 0.5s de movimento rápido.
-     */
+    width: 16px; height: 16px; transform-origin: center 80%;
     animation: quillAlert 8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
 }
-
-/* Interação Hover: A pena se "levanta" pronta para escrever */
 @media (hover: hover) {
-    .art-button:hover {
-        background: var(--accent-main); 
-        border-color: var(--accent-main); 
-        color: var(--bg-body);
-        transform: scale(1.1); 
-        box-shadow: 0 0 15px rgba(227, 181, 5, 0.5);
-    }
-    
-    /* Pausa a animação de alerta quando o mouse já está em cima */
-    .art-button:hover svg {
-        animation-play-state: paused;
-        transform: rotate(0deg) scale(1.1);
-    }
+    .art-button:hover { background: var(--accent-main); border-color: var(--accent-main); color: var(--bg-body); transform: scale(1.1); box-shadow: 0 0 15px rgba(227, 181, 5, 0.5); }
+    .art-button:hover svg { animation-play-state: paused; transform: rotate(0deg) scale(1.1); }
+    .art-button:hover ~ .art-text { opacity: 1; visibility: visible; transform: translateX(0); }
 }
-
-/* --- KEYFRAMES (The Quill Gesture) --- */
 @keyframes quillAlert {
-    /* Estado de Repouso (Silêncio) - 0% a 90% */
-    0%, 90% { 
-        transform: rotate(0deg); 
-    }
-    
-    /* O Movimento Rápido (Call to Action) - 90% a 100% */
-    92% { transform: rotate(-15deg); } /* Inclina para trás */
-    94% { transform: rotate(10deg); }  /* Rabisca para frente */
-    96% { transform: rotate(-8deg); }  /* Volta um pouco */
-    98% { transform: rotate(4deg); }   /* Estabiliza */
-    100% { transform: rotate(0deg); }  /* Repouso */
-}
-.art-button::before {
-    content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(214, 206, 179, 0.4), transparent);
-    transform: skewX(-20deg); animation: whisperGlint 7s infinite ease-in-out; pointer-events: none;
+    0%, 90% { transform: rotate(0deg); }
+    92% { transform: rotate(-15deg); } 94% { transform: rotate(10deg); } 96% { transform: rotate(-8deg); } 98% { transform: rotate(4deg); } 100% { transform: rotate(0deg); }
 }
 .art-text {
     background: rgba(28, 25, 23, 0.95); color: var(--text-primary);
     padding: 6px 12px; border-radius: 4px; border-right: 2px solid var(--accent-main);
     font-size: 0.75rem; font-family: var(--font-mono); letter-spacing: 0.02em;
     opacity: 0; visibility: hidden; transform: translateX(10px); pointer-events: none; transition: all 0.4s var(--ease-out);
-    white-space: normal; width: 180px; text-align: right; /* Mobile friendly text wrapping */
-}
-@media (hover: hover) {
-    .art-button:hover ~ .art-text { opacity: 1; visibility: visible; transform: translateX(0); }
-    .art-button:hover { background: var(--accent-main); border-color: var(--accent-main); color: var(--bg-body); transform: scale(1.1); box-shadow: 0 0 15px rgba(227, 181, 5, 0.5); }
+    white-space: normal; width: 180px; text-align: right;
 }
 
+/* Modal */
 .modal-backdrop {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(18, 16, 14, 0.85); backdrop-filter: blur(8px); z-index: 10000; 
@@ -727,7 +427,7 @@ footer {
 }
 .modal-backdrop.is-open .modal-parchment { transform: scale(1) translateY(0); }
 .modal-close {
-    position: absolute; top: 0.5rem; right: 0.5rem; background: transparent; border: none; color: #5d5952; cursor: pointer; padding: 1rem; /* Hit area maior */ z-index: 10; 
+    position: absolute; top: 0.5rem; right: 0.5rem; background: transparent; border: none; color: #5d5952; cursor: pointer; padding: 1rem; z-index: 10; 
 }
 .parchment-content { text-align: left; font-family: var(--font-serif); }
 .parchment-title { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 600; font-style: italic; margin-bottom: 0.2rem; color: #1C1917; border-bottom: 1px solid rgba(28, 25, 23, 0.1); padding-bottom: 1rem; }
@@ -736,7 +436,7 @@ footer {
 .parchment-body p:first-of-type::first-letter { font-size: 3rem; float: left; line-height: 0.8; margin-right: 0.5rem; color: #782626; font-family: var(--font-serif); }
 .parchment-decoration { margin-top: 2rem; text-align: center; opacity: 0.6; }
 
-/* TOAST (Mobile Friendly) */
+/* Toast */
 .toast-notification {
     position: fixed; bottom: 3rem; left: 50%; transform: translateX(-50%) translateY(20px); 
     display: flex; align-items: center; gap: 12px;
@@ -749,25 +449,47 @@ footer {
 .toast-icon { display: flex; align-items: center; justify-content: center; color: var(--bg-body); background-color: var(--accent-main); width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
 .toast-message { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-primary); letter-spacing: 0.05em; }
 
-/* --- 10. SCROLLBAR --- */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-body); }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg-body); }
 
-@keyframes rotateMechanic {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Respiração do Núcleo (Zoom + Rotação Leve) */
-@keyframes coreBreathe {
-    0%, 100% { 
-        transform: scale(1) rotate(0deg); 
-        opacity: 0.9; 
+/* --- LAPTOP & LOW-HEIGHT SCREENS OPTIMIZATION (1366x768 Focus) --- */
+@media screen and (max-width: 1440px), screen and (max-height: 800px) {
+    
+    /* 1. Reduz a base da fonte de volta para 16px (1rem) 
+       Isso fará TODOS os textos e espaçamentos 'em/rem' diminuírem proporcionalmente (Magic!) */
+    body {
+        font-size: 1rem; 
     }
-    50% { 
-        transform: scale(1.15) rotate(0deg); 
-        opacity: 1; 
-        filter: drop-shadow(0 0 10px var(--accent-main)); 
+
+    /* 2. Ajuste do Container Principal 
+       Reduzimos o padding vertical drástico (--space-section) para algo mais contido */
+    .container {
+        padding: 4rem 1.5rem; /* ~64px vertical em vez de 100px */
+        gap: 3rem; /* Reduz o gap entre seções */
+    }
+
+    /* 3. Header mais compacto
+       Em telas baixas, garantimos que o conteúdo não toque as bordas */
+    header {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    /* 4. Título H1 levemente menor para não gritar na tela pequena */
+    h1 {
+        font-size: 2.5rem; 
+    }
+
+    /* 5. Ajuste fino no "Opus in Progressu" para ocupar menos altura */
+    .construction-notice {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* 6. Ícones sociais um pouco mais próximos */
+    .socials {
+        margin-top: 1.5rem;
     }
 }
