@@ -2,39 +2,217 @@
  * PROJECT: LinkHub Personal Site
  * COMPONENT: Main Logic Controller
  * AUTHOR: Jerry Augusto
- * VERSION: v2.1.0
- * * DESCRIPTION:
- * Handles application lifecycle, modal interactions (Art & Colophon),
- * and developer-focused easter eggs.
+ * VERSION: v2.1.2
+ * DESCRIPTION:
+ * Handles application lifecycle, exact HTML-to-Dictionary synchronization,
+ * Unified Modal System (Art/Colophon), and Developer Easter Eggs.
  */
 
 /* ==========================================================================
-   1. SYSTEM INITIALIZATION & PRELOADER
+   1. DICTIONARY & TRANSLATIONS
    ========================================================================== */
 
-/**
- * Initializes the application state once all resources are loaded.
- * Removes the preloader and reveals the main content.
- */
+const translations = {
+    en: {
+        // Header & Identity
+        role: "Software Engineering & Full-Stack Solutions",
+        manifesto: "Reject generic canned solutions.<br>Embrace the versatility of <span class=\"highlight\">hand-forged code</span>.",
+        manifestoSubtext: "Your site doesn't need to look like everyone else's.",
+        quote: "\"Age Quod Debes.\"",
+        quoteMeaning: "Do what you must.",
+        
+        // Header Art Metadata
+        artMetadata: "CARAVAGGIO. The Calling of Saint Matthew. 1599-1600. Oil on canvas. Rome: Contarelli Chapel.",
+        
+        // Main Content
+        wipDesc: "The forge is lit, and the metal is being tempered.<br>Projects will be revealed in due time.",
+        ctaTitle: "Start a Project",
+        ctaSubtitle: "Request a handcrafted estimate",
+        
+        // Footer
+        footerRole: "Engineering & Design",
+        madeWith: "Made with",
+        in: "in",
+        using: "using",
+        
+        // Socials / Utilities
+        copyLabel: "Copy Email",
+        toastMessage: "Email copied",
+
+        // Modal: The Art (HTML allowed)
+        artTitle: "\"The Calling of Saint Matthew\"",
+        artMeta: "Caravaggio, c. 1600 — Oil on canvas",
+        artBody: `
+            <p>This is one of the most famous works by the renowned Italian painter Caravaggio, completed around 1600.</p>
+            <p>The scene is set in a dark and somber environment, with a striking contrast between the light radiating from the window on the left and the darkness enveloping the rest of the room. In the center of the composition, we see Our Lord Jesus Christ pointing at Matthew, who is seated at the table, surrounded by other tax collectors.</p>
+            <p>The expression of surprise and disbelief on Saint Matthew's face is notable, as he seems to question the divine calling he is receiving. Around him, the other men are occupied with their daily activities, apparently oblivious to the supernatural event occurring before them.</p>
+            <p>The work is charged with religious symbolism, representing Matthew's spiritual transformation and the universal call to follow Christ. Caravaggio masterfully captures the emotion and profound meaning of this crucial moment in the saint's life.</p>
+        `
+    },
+    pt: {
+        // Header & Identity
+        role: "Engenharia de Software & Soluções Full-Stack",
+        manifesto: "Rejeite soluções enlatadas genéricas.<br>Abrace a versatilidade de um <span class=\"highlight\">código forjado à mão</span>.",
+        manifestoSubtext: "Seu site não precisa ser igual ao de todo mundo.",
+        quote: "\"Age Quod Debes.\"",
+        quoteMeaning: "Faça o que deve ser feito.",
+        
+        // Header Art Metadata
+        artMetadata: "CARAVAGGIO. A Vocação de São Mateus. 1599-1600. Óleo sobre tela. Roma: Capela Contarelli.",
+        
+        // Main Content
+        wipDesc: "A forja está acesa e o metal está sendo temperado.<br>Os projetos serão revelados no momento certo.",
+        ctaTitle: "Iniciar um Projeto",
+        ctaSubtitle: "Solicite um orçamento artesanal",
+        
+        // Footer
+        footerRole: "Engenharia & Design",
+        madeWith: "Feito com",
+        in: "no",
+        using: "usando",
+        
+        // Socials / Utilities
+        copyLabel: "Copiar Email",
+        toastMessage: "Email copiado",
+
+        // Modal: The Art (HTML allowed)
+        artTitle: "\"A Vocação de São Mateus\"",
+        artMeta: "Caravaggio, c. 1600 — Óleo sobre tela",
+        artBody: `
+            <p>Esta é uma das obras mais famosas do renomado pintor italiano Caravaggio, concluída por volta de 1600.</p>
+            <p>A cena se passa em um ambiente escuro e sombrio, com um contraste marcante entre a luz que irradia da janela à esquerda e a escuridão que envolve o restante da sala. No centro da composição, vemos Nosso Senhor Jesus Cristo apontando para Mateus, que está sentado à mesa, cercado por outros cobradores de impostos.</p>
+            <p>A expressão de surpresa e descrença no rosto de São Mateus é notável, pois ele parece questionar o chamado divino que está recebendo. Ao seu redor, os outros homens estão ocupados com suas atividades diárias, aparentemente alheios ao evento sobrenatural que ocorre diante deles.</p>
+            <p>A obra é carregada de simbolismo religioso, representando a transformação espiritual de Mateus e o chamado universal para seguir a Cristo. Caravaggio captura com maestria a emoção e o significado profundo deste momento crucial na vida do santo.</p>
+        `
+    }
+};
+
+// Global State
+let currentLanguage = 'en';
+
+/* ==========================================================================
+   2. SYSTEM INITIALIZATION
+   ========================================================================== */
+
 window.addEventListener('load', () => {
-    // 1. Reveal Content (CSS transition handles the fade-out)
+    // 1. Reveal Content
     document.body.classList.add('reveal-content');
 
-    // 2. Initialize Subsystems
-    logSignature();
+    // 2. Initialize Core Systems
+    initLanguageSwitcher();
+    initCopyEmail(); // Specific handler for the copy button
     initUnifiedModals();
+    
+    // 3. Initialize Easter Eggs
+    logSignature();
     initEasterEggs();
 });
 
 /* ==========================================================================
-   2. UNIFIED MODAL SYSTEM (ARTWORK & COLOPHON)
+   3. LANGUAGE SWITCHER LOGIC
    ========================================================================== */
 
 /**
- * Manages the modal logic, allowing switching between the standard 
- * Artwork description and the technical "Colophon" (Inception) view
- * without losing original content.
+ * Initializes the language toggle buttons and handles text replacement.
  */
+function initLanguageSwitcher() {
+    const langBtns = document.querySelectorAll('.lang-btn');
+    
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            if (lang === currentLanguage) return;
+
+            // Update State
+            currentLanguage = lang;
+            
+            // Update UI Buttons
+            langBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Execute Translation
+            applyTranslations(lang);
+        });
+    });
+}
+
+/**
+ * Applies translations to the DOM based on the selected language key.
+ * @param {string} lang - 'en' or 'pt'
+ */
+function applyTranslations(lang) {
+    const t = translations[lang];
+    if (!t) return;
+
+    // 1. Text Content ([data-i18n])
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) el.innerHTML = t[key]; // innerHTML allows bold/spans inside simple text keys
+    });
+
+    // 2. HTML Content ([data-i18n-html]) - For large blocks
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (t[key]) el.innerHTML = t[key];
+    });
+
+    // 3. Special Attributes (Tooltips, Aria Labels, Data-Attrs)
+    
+    // Manifesto Subtext
+    const manifestoEl = document.querySelector('.manifesto');
+    if (manifestoEl && t.manifestoSubtext) {
+        manifestoEl.setAttribute('data-subtext', t.manifestoSubtext);
+    }
+
+    // Quote Meaning
+    const quoteEl = document.querySelector('.quote');
+    if (quoteEl && t.quoteMeaning) {
+        quoteEl.setAttribute('data-meaning', t.quoteMeaning);
+    }
+
+    // Copy Email Label
+    const copyBtn = document.querySelector('.copy-email');
+    if (copyBtn && t.copyLabel) {
+        copyBtn.setAttribute('aria-label', t.copyLabel);
+        copyBtn.setAttribute('title', t.copyLabel);
+    }
+
+    // 4. Footer Badge (Manual Handling due to complex structure)
+    const badgeSpans = document.querySelectorAll('.made-in-badge span');
+    // Expected order: [0]="Made with", [1]=Icon, [2]="in", [3]=Flag, [4]="using"
+    if (badgeSpans.length >= 5) {
+        badgeSpans[0].innerText = t.madeWith;
+        badgeSpans[2].innerText = t.in;
+        badgeSpans[4].innerText = t.using;
+    }
+}
+
+/* ==========================================================================
+   4. UTILITY: COPY EMAIL
+   ========================================================================== */
+
+function initCopyEmail() {
+    const copyBtn = document.querySelector('.copy-email');
+    if (!copyBtn) return;
+
+    copyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = copyBtn.getAttribute('data-email');
+        
+        navigator.clipboard.writeText(email).then(() => {
+            // Get message based on current language
+            const msg = translations[currentLanguage].toastMessage || "Email copied";
+            showToast(msg);
+        }).catch(() => {
+            alert(email);
+        });
+    });
+}
+
+/* ==========================================================================
+   5. UNIFIED MODAL SYSTEM (ARTWORK & COLOPHON)
+   ========================================================================== */
+
 function initUnifiedModals() {
     const artBtn = document.querySelector('.art-button');
     const colophonBtn = document.getElementById('trigger-colophon');
@@ -43,65 +221,61 @@ function initUnifiedModals() {
     const closeBtn = document.querySelector('.modal-close');
     const colophonTemplate = document.getElementById('colophon-content');
 
-    // SAFETY: Cache the original HTML (The Painting Description) 
-    // immediately upon load, before any interaction occurs.
-    let originalArtHTML = "";
+    // State to track what should be in the modal
+    let isShowingColophon = false;
+
+    // Backup the Original DOM Structure (The Art Description)
+    // We clone the node so we have a fresh copy of the structure
+    let artStructureBackup = null;
     if (contentContainer) {
-        originalArtHTML = contentContainer.innerHTML;
+        artStructureBackup = contentContainer.innerHTML; 
     }
 
-    /**
-     * Opens the modal by adding the active CSS class.
-     */
     function openModal() {
         if (backdrop) backdrop.classList.add('is-open');
     }
 
-    /**
-     * Closes the modal by removing the active CSS class.
-     */
     function closeModal() {
         if (backdrop) backdrop.classList.remove('is-open');
     }
 
-    // --- INTERACTION 1: THE QUILL (Restores Original Artwork) ---
+    // --- SCENARIO 1: OPEN ARTWORK (The Quill) ---
     if (artBtn) {
         artBtn.addEventListener('click', (e) => {
             e.preventDefault();
-
-            // Logic: If the content was changed (by the Colophon), restore the backup.
-            if (contentContainer && contentContainer.innerHTML !== originalArtHTML) {
-                contentContainer.innerHTML = originalArtHTML;
+            
+            // If we are currently showing Colophon (or if content was cleared), restore Art
+            if (isShowingColophon || contentContainer.innerHTML === '') {
+                contentContainer.innerHTML = artStructureBackup;
+                isShowingColophon = false;
+                
+                // CRITICAL: Re-apply translation to the restored HTML
+                // because the backup might be in the wrong language (English default)
+                applyTranslations(currentLanguage);
             }
             openModal();
         });
     }
 
-    // --- INTERACTION 2: THE BADGE (Injects Technical Blueprint) ---
+    // --- SCENARIO 2: OPEN COLOPHON (The Badge) ---
     if (colophonBtn && colophonTemplate) {
         colophonBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation(); // Prevent bubbling issues
+            e.stopPropagation(); 
 
             if (contentContainer) {
-                // 1. Clear current content
-                contentContainer.innerHTML = '';
-                
-                // 2. Clone the template content (The Inception Data)
+                contentContainer.innerHTML = ''; // Clear Art
                 const clone = colophonTemplate.content.cloneNode(true);
-                
-                // 3. Inject into the DOM
                 contentContainer.appendChild(clone);
+                isShowingColophon = true;
             }
             openModal();
         });
     }
 
-    // --- CLOSING LOGIC (UI/UX) ---
-    
-    // Handle "X" button click
+    // --- CLOSING LOGIC ---
     if (closeBtn) {
-        // Clone node to strip any previous event listeners (clean slate)
+        // Clean event listener replacement
         const newCloseBtn = closeBtn.cloneNode(true);
         if (closeBtn.parentNode) {
             closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
@@ -109,13 +283,10 @@ function initUnifiedModals() {
         newCloseBtn.addEventListener('click', closeModal);
     }
 
-    // Handle Backdrop click (Click outside to close)
     if (backdrop) {
         backdrop.addEventListener('click', (e) => {
             if (e.target === backdrop) closeModal();
         });
-
-        // Handle ESC Key (Accessibility)
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && backdrop.classList.contains('is-open')) {
                 closeModal();
@@ -125,13 +296,9 @@ function initUnifiedModals() {
 }
 
 /* ==========================================================================
-   3. UTILITIES & TOAST NOTIFICATIONS
+   6. TOAST NOTIFICATIONS
    ========================================================================== */
 
-/**
- * Displays a non-intrusive toast notification at the bottom of the screen.
- * @param {string} message - The text to display.
- */
 function showToast(message) {
     const toast = document.querySelector('.toast-notification');
     
@@ -140,24 +307,18 @@ function showToast(message) {
         if (toastMsg) toastMsg.innerText = message;
         
         toast.classList.add('show');
-        
-        // Auto-hide after 3 seconds
         setTimeout(() => {
             toast.classList.remove('show');
         }, 3000);
     } else {
-        // Fallback for older browsers or missing HTML structure
         alert(message);
     }
 }
 
 /* ==========================================================================
-   4. EASTER EGGS (DEVELOPER SECRETS)
+   7. EASTER EGGS (DEVELOPER SECRETS)
    ========================================================================== */
 
-/**
- * Initializes all hidden features for curious developers.
- */
 function initEasterEggs() {
     initKonamiCode();
     initTechSpecs();
@@ -165,27 +326,10 @@ function initEasterEggs() {
 
 /**
  * EASTER EGG 1: LUXURY CONSOLE SIGNATURE
- * Prints a stylized ASCII art and system status to the browser DevTools console.
  */
 function logSignature() {
-    const titleStyle = [
-        'font-family: "EB Garamond", serif',
-        'font-size: 30px',
-        'font-weight: bold',
-        'color: #E3B505',
-        'text-shadow: 2px 2px 0px #1C1917',
-        'padding: 10px 0'
-    ].join(';');
-
-    const bodyStyle = [
-        'font-family: "JetBrains Mono", monospace',
-        'font-size: 12px',
-        'color: #A8A29E',
-        'background-color: #1C1917',
-        'padding: 10px',
-        'border: 1px solid #E3B505',
-        'line-height: 1.5'
-    ].join(';');
+    const titleStyle = 'font-family: "EB Garamond", serif; font-size: 30px; font-weight: bold; color: #E3B505; text-shadow: 2px 2px 0px #1C1917; padding: 10px 0';
+    const bodyStyle = 'font-family: "JetBrains Mono", monospace; font-size: 12px; color: #A8A29E; background-color: #1C1917; padding: 10px; border: 1px solid #E3B505; line-height: 1.5';
 
     const asciiArt = `
     .       .
@@ -213,8 +357,6 @@ function logSignature() {
 
 /**
  * EASTER EGG 2: KONAMI CODE (X-RAY MODE)
- * Triggers a visual debug mode when the sequence is typed:
- * Up, Up, Down, Down, Left, Right, Left, Right, B, A
  */
 function initKonamiCode() {
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
@@ -235,7 +377,6 @@ function initKonamiCode() {
     function toggleXRayMode() {
         const isActive = document.body.classList.toggle('debug-mode');
         const message = isActive ? "SYSTEM OVERRIDE: DEBUG MODE ACTIVE" : "SYSTEM NORMALIZED";
-        
         console.log(`%c ${message} `, 'background: #782626; color: #fff; font-weight: bold; padding: 5px; border: 1px solid #E3B505;');
         showToast(message);
     }
@@ -243,7 +384,6 @@ function initKonamiCode() {
 
 /**
  * EASTER EGG 3: CLICK RAGE (TECH SPECS)
- * Copies system diagnostics to clipboard after 5 rapid clicks on the version tag.
  */
 function initTechSpecs() {
     const versionTag = document.querySelector('.version-tag');
@@ -251,20 +391,16 @@ function initTechSpecs() {
     let timer;
 
     if (versionTag) {
-        // UX: Indicate interactivity subtly via tooltip
         versionTag.title = 'System Diagnostics'; 
         versionTag.style.cursor = 'help';
 
         versionTag.addEventListener('click', (e) => {
             e.preventDefault();
             clicks++;
-            
-            // Reset count if user stops clicking for 500ms
             clearTimeout(timer);
             timer = setTimeout(() => { clicks = 0; }, 500);
 
             if (clicks === 5) {
-                // Gather environment data
                 const specs = {
                     "System Status": "OPERATIONAL",
                     "Resolution": `${window.innerWidth}x${window.innerHeight}`,
@@ -274,16 +410,12 @@ function initTechSpecs() {
                     "User Agent": navigator.userAgent,
                     "Timestamp": new Date().toISOString()
                 };
-
                 const message = JSON.stringify(specs, null, 4);
-                
-                // Copy to clipboard with feedback
                 navigator.clipboard.writeText(message).then(() => {
                      showToast("DIAGNOSTICS COPIED TO CLIPBOARD");
                 }).catch(() => {
                     alert(":: SYSTEM DIAGNOSTICS ::\n\n" + message);
                 });
-
                 clicks = 0;
             }
         });
