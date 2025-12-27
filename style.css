@@ -454,6 +454,85 @@ footer {
 ::-webkit-scrollbar-track { background: var(--bg-body); }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg-body); }
 
+
+/* --- COLOPHON (INCEPTION) STYLES --- */
+.interactive { cursor: pointer; transition: all 0.3s ease; }
+.made-in-badge.interactive:hover { 
+    background: rgba(227, 181, 5, 0.1); 
+    border-color: var(--accent-main);
+    transform: translateY(-2px);
+}
+
+.colophon-grid {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    font-family: var(--font-mono); 
+    /* CORREÇÃO: Usar cinza escuro em vez de claro */
+    color: #57534E; 
+}
+
+.colophon-header {
+    border-bottom: 1px solid rgba(28, 25, 23, 0.1); padding-bottom: 1rem; margin-bottom: 0.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.colophon-header h3 {
+    font-family: var(--font-serif); color: #B45309; /* Tom dourado escuro para fundo claro */
+    font-size: 1.4rem; margin: 0;
+}
+.mono-tag { 
+    font-size: 0.7rem; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; color: #78716C; 
+}
+
+.colophon-intro {
+    font-family: var(--font-serif); font-style: italic; 
+    /* CORREÇÃO: Texto quase preto para leitura */
+    color: #1C1917; 
+    line-height: 1.6; border-left: 2px solid #C5A059; padding-left: 1rem;
+}
+
+.spec-section h4 {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; 
+    color: #78350F; /* Marrom avermelhado */
+    margin-bottom: 0.8rem; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 4px;
+}
+
+.spec-row {
+    display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;
+}
+.spec-value { 
+    /* CORREÇÃO: Valor escuro */
+    color: #1C1917; font-weight: 600; 
+}
+
+/* Color Swatches */
+.color-swatch-row { display: flex; gap: 10px; }
+.swatch {
+    width: 30px; height: 30px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.1);
+    transition: transform 0.2s; cursor: help;
+}
+.swatch:hover { transform: scale(1.2); border-color: #000; }
+
+/* Font Preview */
+.font-preview { 
+    padding: 8px; 
+    /* Fundo escuro leve para destacar o texto branco do preview, OU invertemos */
+    background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 4px; margin-bottom: 5px; font-size: 0.9rem; color: #1C1917;
+}
+.font-preview.serif { font-family: var(--font-serif); }
+.font-preview.mono { font-family: var(--font-mono); font-size: 0.8rem; }
+
+/* Stack List */
+.stack-list {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none;
+}
+.stack-list li {
+    font-size: 0.8rem; display: flex; align-items: center; color: #44403C;
+}
+.stack-list li::before {
+    content: '>'; margin-right: 6px; color: #B45309; font-size: 0.7rem;
+}
+
+
 /* --- LAPTOP & LOW-HEIGHT SCREENS OPTIMIZATION (1366x768 Focus) --- */
 @media screen and (max-width: 1440px), screen and (max-height: 800px) {
     

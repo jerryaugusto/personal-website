@@ -163,19 +163,19 @@
                 </div>
 
                 <div class="footer-col center">
-                    <div class="made-in-badge">
-                        <span data-i18n="madeWith">Made with</span>
-                        <svg class="icon-heart" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <div class="made-in-badge interactive" id="trigger-colophon" role="button" tabindex="0" title="View Project Architecture">
+                        <span>Made with</span>
+                        <svg class="icon-heart" viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
                             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                         </svg>
-
-                        <span data-i18n="madeIn">in</span>
-                        
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 36 36"><path fill="#009B3A" d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v18z"/><path fill="#FEDF01" d="M32.728 18L18 29.124L3.272 18L18 6.875z"/><circle cx="17.976" cy="17.924" r="6.458" fill="#002776"/><path fill="#CBE9D4" d="M12.277 14.887a6.406 6.406 0 0 0-.672 2.023c3.995-.29 9.417 1.891 11.744 4.595c.402-.604.7-1.28.883-2.004c-2.872-2.808-7.917-4.63-11.955-4.614z"/><path fill="#88C9F9" d="M12 18.233h1v1h-1zm1 2h1v1h-1z"/><path fill="#55ACEE" d="M15 18.233h1v1h-1zm2 1h1v1h-1zm4 2h1v1h-1zm-3 1h1v1h-1zm3-6h1v1h-1z"/><path fill="#3B88C3" d="M19 20.233h1v1h-1z"/></svg>
-
-                        <span data-i18n="madeUsing">using</span>
-                        
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256"><g fill="none"><rect width="256" height="256" fill="#242938" rx="60"/><path fill="url(#skillIconsNeovimDark0)" fill-rule="evenodd" d="M46 71.006L88.595 28v199.957L46 185.45V71.006Z" clip-rule="evenodd"/><path fill="url(#skillIconsNeovimDark1)" fill-rule="evenodd" d="m210.584 71.41l-43.178-43.387l.876 199.935l42.596-42.508l-.294-114.04Z" clip-rule="evenodd"/><path fill="url(#skillIconsNeovimDark2)" fill-rule="evenodd" d="M88.567 28.033L199.31 197.012L168.32 228L57.52 59.395l31.047-31.362Z" clip-rule="evenodd"/><path fill="#000" fill-opacity=".13" fill-rule="evenodd" d="m88.605 106.416l-.059 6.656l-34.193-50.48l3.166-3.224l31.086 47.048Z" clip-rule="evenodd"/><defs><linearGradient id="skillIconsNeovimDark0" x1="67.297" x2="67.297" y1="28" y2="227.958" gradientUnits="userSpaceOnUse"><stop stop-color="#16B0ED" stop-opacity=".8"/><stop offset="1" stop-color="#0F59B2" stop-opacity=".837"/></linearGradient><linearGradient id="skillIconsNeovimDark1" x1="189.14" x2="189.14" y1="28.023" y2="227.957" gradientUnits="userSpaceOnUse"><stop stop-color="#7DB643"/><stop offset="1" stop-color="#367533"/></linearGradient><linearGradient id="skillIconsNeovimDark2" x1="128.414" x2="128.414" y1="28.033" y2="228.01" gradientUnits="userSpaceOnUse"><stop stop-color="#88C649" stop-opacity=".8"/><stop offset="1" stop-color="#439240" stop-opacity=".84"/></linearGradient></defs></g></svg>
+                        <span>in</span>
+                        <svg viewBox="0 0 24 24" width="14" height="14" style="margin:0 2px;">
+                            <rect width="24" height="24" fill="#009c3b" rx="2"/>
+                            <path d="M12 4L4 12l8 8 8-8-8-8z" fill="#ffdf00"/>
+                            <circle cx="12" cy="12" r="3.5" fill="#002776"/>
+                        </svg>
+                        <span>using</span>
+                        <span style="font-weight: 700; margin-left: 4px; color: #57A143;">N</span>
                     </div>
                 </div>
 
@@ -224,6 +224,61 @@
             <span class="toast-message" data-i18n="toastMessage">Email copied</span>
         </div>
 
+        <template id="colophon-content">
+            <div class="colophon-grid">
+                <div class="colophon-header">
+                    <h3>Project Architecture</h3>
+                    <span class="mono-tag">v2.1.0 :: SELF_REFERENCE</span>
+                </div>
+
+                <p class="colophon-intro">
+                    "A recursive artifact tailored to exhibit its own construction."
+                    Este portfólio foi forjado manualmente seguindo princípios de Design Áureo e Engenharia Limpa.
+                </p>
+
+                <div class="spec-section">
+                    <h4>01. The Geometry</h4>
+                    <div class="spec-row">
+                        <span class="spec-label">Ratio:</span>
+                        <span class="spec-value">Golden (φ ≈ 1.618)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Grid:</span>
+                        <span class="spec-value">Modular Scale</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Unit:</span>
+                        <span class="spec-value">1rem (Desktop) / 100dvh (Mobile)</span>
+                    </div>
+                </div>
+
+                <div class="spec-section">
+                    <h4>02. The Palette (Kanagawa/Gold)</h4>
+                    <div class="color-swatch-row">
+                        <div class="swatch" style="background: #1C1917" title="#1C1917 (Void)"></div>
+                        <div class="swatch" style="background: #E3B505" title="#E3B505 (Gold)"></div>
+                        <div class="swatch" style="background: #782626" title="#782626 (Rust)"></div>
+                        <div class="swatch" style="background: #E7E5E4" title="#E7E5E4 (Stone)"></div>
+                    </div>
+                </div>
+
+                <div class="spec-section">
+                    <h4>03. Typography</h4>
+                    <div class="font-preview serif">Aa Bb Cc (EB Garamond)</div>
+                    <div class="font-preview mono">func main() (JetBrains Mono)</div>
+                </div>
+
+                <div class="spec-section">
+                    <h4>04. The Forge</h4>
+                    <ul class="stack-list">
+                        <li>Neovim (LSP/Lua)</li>
+                        <li>Git / GitHub Pages</li>
+                        <li>Vanilla CSS3 (No Frameworks)</li>
+                        <li>Cloudflare CDN</li>
+                    </ul>
+                </div>
+            </div>
+        </template>
         <script src="main.js"></script>
     </body>
 </html>
