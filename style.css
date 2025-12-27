@@ -81,16 +81,71 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- 3. PRELOADER (Mantido igual) --- */
+/* --- 3. PRELOADER & SPINNERS (Counter-Rotation Logic) --- */
+
 #preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--bg-body); z-index: 9999; 
+    background-color: var(--bg-body); 
+    background-image: none;
+    z-index: 9999; 
     display: flex; justify-content: center; align-items: center;
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s ease;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s ease;
 }
 body.reveal-content #preloader { opacity: 0; visibility: hidden; pointer-events: none; }
-.loader-star svg { width: 80px; height: 80px; animation: rotateSacred 10s linear infinite; filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.3)); }
-@keyframes rotateSacred { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Configuração dos Containers SVG */
+.loader-star svg, .rosette-spinner svg {
+    /* Não giramos mais o SVG inteiro! */
+    width: 100%; height: 100%;
+    overflow: visible;
+}
+
+.loader-star {
+    width: 80px; height: 80px;
+    filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.3));
+}
+
+.rosette-spinner {
+    width: 60px; height: 60px;
+    margin: 0 auto 1.5rem;
+    color: var(--accent-main);
+    opacity: 0.7;
+}
+
+/* --- A LÓGICA DE ROTAÇÃO DUPLA --- */
+
+/* 1. Define o ponto de pivô exato no centro do SVG (50, 50) */
+.spin-clockwise, .spin-counter-clockwise {
+    transform-origin: 50px 50px;
+    will-change: transform;
+}
+
+/* 2. O Anel Externo (Horário - Clockwise) */
+.spin-clockwise {
+    animation: rotateSacred 12s linear infinite;
+}
+
+/* 3. O Quadrado Interno (Anti-Horário - Counter-Clockwise) 
+   O 'reverse' faz ele girar para o outro lado.
+*/
+.spin-counter-clockwise {
+    animation: rotateSacred 12s linear infinite reverse;
+}
+
+/* Ajuste de velocidade específico para o Preloader (Mais majestoso) */
+.loader-star .spin-clockwise { animation-duration: 12s; }
+.loader-star .spin-counter-clockwise { animation-duration: 12s; }
+
+/* Ajuste de velocidade para o Aviso (Mais lento/background) */
+.rosette-spinner .spin-clockwise { animation-duration: 20s; }
+.rosette-spinner .spin-counter-clockwise { animation-duration: 20s; }
+
+
+/* KEYFRAMES (Padrão) */
+@keyframes rotateSacred {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
 
 /* --- 4. HERO HEADER (Mobile Perfected) --- */
 header {
@@ -363,7 +418,41 @@ body.reveal-content footer { animation: slideUpFade 1.4s var(--ease-out) forward
 }
 .construction-notice h3 { font-family: var(--font-serif); color: var(--text-primary); font-size: 1.4rem; margin-bottom: 0.5rem; font-style: italic; }
 .construction-notice p { font-family: var(--font-serif); color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
-.rosette-spinner { width: 60px; height: 60px; margin: 0 auto 1.5rem; color: var(--accent-main); opacity: 0.7; animation: rotateSacred 20s linear infinite; }
+
+/* --- CONSTRUCTION NOTICE SPINNER (The Eternal Star) --- */
+
+.star-spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    
+    /* Cor base (Cinza/Metálico) */
+    color: var(--text-secondary); 
+    
+    /* NOVA ANIMAÇÃO:
+     * 1. 'starRotate': Nome da animação definida abaixo.
+     * 2. '12s': Duração muito lenta (mais solene).
+     * 3. 'linear': Velocidade constante (sem acelerar ou frear).
+     * 4. 'infinite': Nunca para.
+     */
+    animation: starRotate 50s linear infinite;
+}
+
+.star-spinner svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible; 
+}
+
+/* Nova Keyframe: Rotação Constante (0 a 360 graus) */
+@keyframes starRotate {
+    from { 
+        transform: rotate(0deg); 
+    }
+    to { 
+        transform: rotate(360deg); 
+    }
+}
 
 /* FORTRESS LINK (Action Button) */
 .fortress-link {
@@ -512,3 +601,21 @@ footer {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-body); }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; border: 2px solid var(--bg-body); }
+
+@keyframes rotateMechanic {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Respiração do Núcleo (Zoom + Rotação Leve) */
+@keyframes coreBreathe {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 0.9; 
+    }
+    50% { 
+        transform: scale(1.15) rotate(0deg); 
+        opacity: 1; 
+        filter: drop-shadow(0 0 10px var(--accent-main)); 
+    }
+}

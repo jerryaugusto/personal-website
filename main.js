@@ -6,7 +6,7 @@
  */
 
 /* --- CONFIGURATION --- */
-const MINIMUM_DURATION = 2000; 
+const MINIMUM_DURATION = 9000; 
 
 /* --- I18N DICTIONARY --- */
 const translations = {
