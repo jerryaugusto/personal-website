@@ -574,11 +574,65 @@ footer {
     position: absolute; bottom: 20px; right: 20px; z-index: 20;
     display: flex; flex-direction: row-reverse; align-items: center; gap: 12px; pointer-events: none; 
 }
+/* --- ART BUTTON (The Quill) --- */
+
 .art-button {
-    position: relative; width: 44px; height: 44px; /* Larger Touch Target */
-    border-radius: 50%; backdrop-filter: blur(4px); border: 1px solid var(--border-subtle);
+    position: relative; 
+    width: 32px; height: 32px; 
+    border-radius: 50%;
+    backdrop-filter: blur(4px); 
+    border: 1px solid var(--border-subtle);
     display: flex; align-items: center; justify-content: center;
-    color: var(--text-secondary); overflow: hidden; cursor: help; pointer-events: auto; transition: all 0.3s ease;
+    color: var(--text-secondary); 
+    cursor: help; 
+    pointer-events: auto; 
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+/* O Ícone da Pena (SVG) */
+.art-button svg {
+    width: 16px; height: 16px;
+    
+    /* Ponto de Pivô: A base da pena (como se estivesse num tinteiro) */
+    transform-origin: center 80%;
+    
+    /* ANIMATION: Quick Alert
+     * 8s total duration: 7.5s de silêncio + 0.5s de movimento rápido.
+     */
+    animation: quillAlert 8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+}
+
+/* Interação Hover: A pena se "levanta" pronta para escrever */
+@media (hover: hover) {
+    .art-button:hover {
+        background: var(--accent-main); 
+        border-color: var(--accent-main); 
+        color: var(--bg-body);
+        transform: scale(1.1); 
+        box-shadow: 0 0 15px rgba(227, 181, 5, 0.5);
+    }
+    
+    /* Pausa a animação de alerta quando o mouse já está em cima */
+    .art-button:hover svg {
+        animation-play-state: paused;
+        transform: rotate(0deg) scale(1.1);
+    }
+}
+
+/* --- KEYFRAMES (The Quill Gesture) --- */
+@keyframes quillAlert {
+    /* Estado de Repouso (Silêncio) - 0% a 90% */
+    0%, 90% { 
+        transform: rotate(0deg); 
+    }
+    
+    /* O Movimento Rápido (Call to Action) - 90% a 100% */
+    92% { transform: rotate(-15deg); } /* Inclina para trás */
+    94% { transform: rotate(10deg); }  /* Rabisca para frente */
+    96% { transform: rotate(-8deg); }  /* Volta um pouco */
+    98% { transform: rotate(4deg); }   /* Estabiliza */
+    100% { transform: rotate(0deg); }  /* Repouso */
 }
 .art-button::before {
     content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
