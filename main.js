@@ -1,18 +1,19 @@
 /**
  * PROJECT: LinkHub Personal Site
- * COMPONENT: Main Logic Script (with Internationalization)
+ * COMPONENT: Main Logic Script (Production Build)
  * AUTHOR: Jerry Augusto
  * DATE: 2025-12-26
  */
 
 /* --- CONFIGURATION --- */
-const MINIMUM_DURATION = 9000; 
+// Tempo mínimo de preloader em ms. 
+// 4000ms (4s) é o equilíbrio ideal entre "apreciar a animação" e UX.
+const MINIMUM_DURATION = 1000; 
 
 /* --- I18N DICTIONARY --- */
 const translations = {
     "en": {
         role: "Software Engineering & Full-Stack Solutions",
-        // Updated English version to match the new Portuguese meaning accurately but elegantly
         manifesto: "Reject the generic that hides your project's true identity.<br>Embrace the absolute distinction of <span class='highlight'>hand-forged code</span>, tailored just for you.",
         manifestoSubtext: "Your site doesn't need to look like everyone else's.",
         quote: "\"Age Quod Debes.\"",
@@ -38,7 +39,6 @@ const translations = {
     },
     "pt": {
         role: "Engenharia de Software & Soluções Full-Stack",
-        // Nova versão em Português solicitada
         manifesto: "Rejeite o genérico que esconde a verdadeira identidade do seu projeto.<br>Abrace o destaque absoluto de um <span class='highlight'>código forjado à mão</span>, feito sob medida.",
         manifestoSubtext: "Seu site não precisa ser igual a todos os outros que existem por aí.",
         quote: "\"Age Quod Debes.\"",
@@ -73,6 +73,7 @@ window.addEventListener('load', () => {
     handlePreloader();
     initModal();
     initClipboard();
+    logSignature();
 });
 
 /**
@@ -128,20 +129,16 @@ function updateInterface(lang) {
     });
 
     // Update Specific Attributes (Tooltips, Aria-Labels)
-    
-    // Manifesto Tooltip
     const manifesto = document.querySelector('.manifesto');
     if (manifesto && data.manifestoSubtext) {
         manifesto.setAttribute('data-subtext', data.manifestoSubtext);
     }
 
-    // Quote Tooltip
     const quote = document.querySelector('.quote');
     if (quote && data.quoteMeaning) {
         quote.setAttribute('data-meaning', data.quoteMeaning);
     }
 
-    // Copy Email Label
     const copyEmail = document.querySelector('.copy-email');
     if (copyEmail && data.copyLabel) {
         copyEmail.setAttribute('aria-label', data.copyLabel);
@@ -175,7 +172,7 @@ function handlePreloader() {
             document.body.classList.add('reveal-content'); 
             setTimeout(() => {
                 preloader.remove();
-            }, 800);
+            }, 800); // Matches CSS transition duration
         }, remainingTime);
     }
 }
@@ -244,9 +241,6 @@ function initClipboard() {
     function showToast() {
         if (!toast) return;
         
-        // We need to re-fetch the message from the DOM in case lang changed
-        // Actually, the I18n logic updates the innerText of the toast, so it is already correct.
-
         toast.classList.remove('show');
         clearTimeout(toastTimeout);
 
@@ -258,4 +252,16 @@ function initClipboard() {
             toast.classList.remove('show');
         }, 3000);
     }
+}
+
+/**
+ * Easter Egg: Developer Signature
+ */
+function logSignature() {
+    const styleTitle = 'font-family: serif; font-size: 14px; font-weight: bold; color: #E3B505;';
+    const styleBody = 'font-family: monospace; font-size: 12px; color: #A8A29E;';
+    
+    console.log('%cForged by Jerry Augusto', styleTitle);
+    console.log('%c"Age Quod Debes."', styleBody);
+    console.log('%chttps://github.com/jerryaugusto', styleBody);
 }
