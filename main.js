@@ -257,11 +257,156 @@ function initClipboard() {
 /**
  * Easter Egg: Developer Signature
  */
+/* --- EASTER EGG 1: LUXURY CONSOLE SIGNATURE --- */
 function logSignature() {
-    const styleTitle = 'font-family: serif; font-size: 14px; font-weight: bold; color: #E3B505;';
-    const styleBody = 'font-family: monospace; font-size: 12px; color: #A8A29E;';
+    // Estilos CSS para o Console
+    const titleStyle = [
+        'font-family: "EB Garamond", serif',
+        'font-size: 30px',
+        'font-weight: bold',
+        'color: #E3B505', // Dourado
+        'text-shadow: 2px 2px 0px #1C1917',
+        'padding: 10px 0'
+    ].join(';');
+
+    const bodyStyle = [
+        'font-family: "JetBrains Mono", monospace',
+        'font-size: 12px',
+        'color: #A8A29E',
+        'background-color: #1C1917',
+        'padding: 10px',
+        'border: 1px solid #E3B505',
+        'line-height: 1.5'
+    ].join(';');
+
+    const labelStyle = [
+        'font-weight: bold',
+        'color: #E3B505'
+    ].join(';');
+
+    // Arte ASCII (Escapada para JS)
+    const asciiArt = `
+    .       .
+    |\\     /|
+    | \\   / |  THE ARCHITECT IS WATCHING.
+     \\ \\ / / 
+      \\ | /    Est. 2025
+       \\|/
+    `;
+
+    console.clear(); // Limpa o lixo do navegador antes
+    console.log(`%c Jerry Augusto %c`, titleStyle, 'background: transparent');
+    console.log(`%c${asciiArt}`, 'color: #C5A059; font-family: monospace; font-weight: bold;');
     
-    console.log('%cForged by Jerry Augusto', styleTitle);
-    console.log('%c"Age Quod Debes."', styleBody);
-    console.log('%chttps://github.com/jerryaugusto', styleBody);
+    // O Bloco de Status
+    console.log(`%c
+:: SYSTEM STATUS ::  [ONLINE]
+:: RENDER ENGINE ::  [V8 / BLINK]
+:: PHILOSOPHY    ::  [TOMISTA / STOIC]
+
+"Nihil est in intellectu quod non prius fuerit in sensu."
+
+> Curious about the code? 
+> Check the repo: https://github.com/jerryaugusto
+    `, bodyStyle);
 }
+
+// Chame a função assim que o site carregar
+window.addEventListener('load', logSignature);
+
+/* --- EASTER EGG 2: KONAMI CODE (X-RAY MODE) --- */
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    // Verifica se a tecla pressionada corresponde à sequência
+    if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase() || e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            activateXRayMode();
+            konamiIndex = 0; // Reseta após ativar
+        }
+    } else {
+        konamiIndex = 0; // Errou a sequência? Reseta.
+    }
+});
+
+function activateXRayMode() {
+    // Adiciona uma classe ao body que desenha bordas em tudo
+    const isActive = document.body.classList.toggle('debug-mode');
+    
+    const message = isActive 
+        ? "SYSTEM OVERRIDE: DEBUG MODE ACTIVE" 
+        : "SYSTEM NORMALIZED";
+        
+    // Log no console com estilo
+    console.log(`%c ${message} `, 'background: #782626; color: #fff; font-weight: bold; padding: 5px; border: 1px solid #E3B505;');
+    
+    // Feedback visual usando o Toast (se ele existir na DOM)
+    const toast = document.querySelector('.toast-notification');
+    if(toast) {
+        // Se tiver ícone e texto, atualizamos o texto
+        const toastMsg = toast.querySelector('.toast-message');
+        if(toastMsg) toastMsg.innerText = message;
+        
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    } else {
+        // Fallback simples se não tiver toast
+        alert(message);
+    }
+}
+
+
+/* --- EASTER EGG 3: CLICK RAGE (TECH SPECS) --- */
+function initTechSpecs() {
+    const versionTag = document.querySelector('.version-tag');
+    let clicks = 0;
+    let timer;
+
+    if (versionTag) {
+        // Muda o cursor para indicar sutilmente que é interagível (opcional)
+        versionTag.style.cursor = 'help';
+        versionTag.title = 'System Diagnostics'; // Tooltip nativo
+
+        versionTag.addEventListener('click', (e) => {
+            // Previne seleção de texto ao clicar rápido
+            e.preventDefault(); 
+            
+            clicks++;
+            
+            // Reseta a contagem se o usuário parar de clicar por 500ms
+            clearTimeout(timer);
+            timer = setTimeout(() => { clicks = 0; }, 500);
+
+            if (clicks === 5) {
+                // Coleta os dados "crus" do ambiente
+                const specs = {
+                    "System Status": "OPERATIONAL",
+                    "Resolution": `${window.innerWidth}x${window.innerHeight}`,
+                    "Pixel Ratio": window.devicePixelRatio,
+                    "Touch Support": ('ontouchstart' in window) || (navigator.maxTouchPoints > 0),
+                    "Renderer": navigator.vendor || "Unknown",
+                    "User Agent": navigator.userAgent,
+                    "Time": new Date().toISOString()
+                };
+
+                // Formata como um JSON bonito
+                const message = JSON.stringify(specs, null, 4);
+                
+                // Feedback: Copia para o clipboard e avisa (High-End UX)
+                navigator.clipboard.writeText(message).then(() => {
+                     showToast("DIAGNOSTICS COPIED TO CLIPBOARD");
+                }).catch(() => {
+                    // Fallback se a cópia falhar: Alerta Clássico
+                    alert(":: SYSTEM DIAGNOSTICS ::\n\n" + message);
+                });
+
+                clicks = 0;
+            }
+        });
+    }
+}
+
+// Garante que iniciamos essa função junto com as outras
+window.addEventListener('load', initTechSpecs);

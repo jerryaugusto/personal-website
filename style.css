@@ -634,3 +634,26 @@ footer {
         padding: 0; /* Remove padding desnecessário */
     }
 }
+
+
+/* --- DEBUG MODE (KONAMI TRIGGER) --- */
+body.debug-mode * {
+    /* Desenha uma borda dourada translúcida em TODOS os elementos */
+    outline: 1px solid rgba(227, 181, 5, 0.3) !important; 
+    background: rgba(227, 181, 5, 0.02) !important; /* Leve tinta dourada */
+}
+body.debug-mode .container, 
+body.debug-mode header,
+body.debug-mode footer {
+    outline: 2px solid #E3B505 !important; /* Borda forte nos blocos principais */
+    position: relative;
+}
+/* Opcional: Mostra as tags HTML como pseudo-elementos (Avançado) */
+body.debug-mode div::before,
+body.debug-mode section::before, 
+body.debug-mode header::before {
+    content: '<' attr(class) '>';
+    position: absolute; top: 0; left: 0;
+    font-size: 10px; color: #E3B505; background: #000; padding: 2px;
+    opacity: 0.7; pointer-events: none;
+}
