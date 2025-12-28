@@ -227,6 +227,41 @@ header {
     }
 }
 
+/* --- TYPOGRAPHY REFINEMENT (Title & Subtitle) --- */
+
+header h1 {
+    /* 1. Scale Down: Reduced clamp values for a more controlled headline */
+    font-size: clamp(2.5rem, 5vw, 3.5rem); 
+    
+    /* 2. Increased Rhythm: More breathing room below the title */
+    margin-bottom: 1.5rem; /* Was likely smaller (e.g., 0.5rem) */
+    
+    /* Maintain existing aesthetic styles */
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+header .subtitle {
+    /* 1. Scale Down: Smaller text size for elegance */
+    font-size: 0.9rem; /* Reduced from ~1.1rem/1.2rem */
+    
+    /* 2. Refinement: Compensate small size with generous tracking */
+    letter-spacing: 0.2em; /* Wide spacing creates the "premium" feel */
+    text-transform: uppercase;
+    
+    /* Maintain readability */
+    color: var(--accent-main);
+    font-family: var(--font-mono);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
 /* Language Switcher */
 .language-switch {
     position: absolute;
