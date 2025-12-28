@@ -505,7 +505,7 @@ h1 {
     .quote:hover::after {
         opacity: 1;
         visibility: visible;
-        transition-delay: 0.1s; /* Delay sutil para não piscar */
+        transition-delay: 3s; /* Delay sutil para não piscar */
     }
 }
 
