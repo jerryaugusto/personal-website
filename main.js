@@ -14,6 +14,7 @@
 
 const translations = {
     en: {
+        avatarTooltip: "Open for new commissions",
         // Header & Identity
         role: "Software Engineering & Full-Stack Solutions",
         manifesto: "Reject generic canned solutions.<br>Embrace the versatility of <span class=\"highlight\">hand-forged code</span>.",
@@ -50,6 +51,7 @@ const translations = {
         `
     },
     pt: {
+        avatarTooltip: "Disponível para projetos",
         // Header & Identity
         role: "Engenharia de Software & Soluções Full-Stack",
         manifesto: "Rejeite soluções enlatadas genéricas.<br>Abrace a versatilidade de um <span class=\"highlight\">código forjado à mão</span>.",

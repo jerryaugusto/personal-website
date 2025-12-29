@@ -1537,6 +1537,18 @@ footer {
     transform: scale(0.95) translateY(10px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+/* Scrollbar customizada para o Modal */
+.modal-parchment::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-parchment::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 4px;
+}
+.modal-parchment::-webkit-scrollbar-thumb {
+    background: #c5a059; /* Accent Structure */
+    border-radius: 4px;
+}
 .modal-backdrop.is-open .modal-parchment {
     transform: scale(1) translateY(0);
 }
@@ -1951,24 +1963,8 @@ footer {
 
     /* Dentro de @media (max-width: 768px) */
 
-    .socials {
-        /* Muda de Flex para Grid para controle total */
-        display: grid;
-
-        /* Cria exatamente 3 colunas de tamanho automático */
-        grid-template-columns: repeat(3, auto);
-
-        /* Centraliza o grid na tela */
-        justify-content: center;
-
-        /* Espaçamento generoso entre os ícones */
-        gap: 1.5rem 2rem; /* 1.5rem vertical, 2rem horizontal */
-
-        padding: 0; /* Remove padding desnecessário */
-    }
 }
 
-/* --- TECH STACK: SYNTAX SLOT MACHINE --- */
 /* --- TECH STACK (Relocated to Footer) --- */
 
 .tech-grid-container {
