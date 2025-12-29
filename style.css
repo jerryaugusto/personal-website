@@ -839,7 +839,7 @@ h1 {
 .atelier-link:hover .link-icon {
     color: var(--accent-main);
     opacity: 1;
-    transform: scale(1.1) rotate(-5deg); /* Um charme extra no ícone */
+    transform: scale(1.1); /* Um charme extra no ícone */
     filter: drop-shadow(0 0 5px rgba(227, 181, 5, 0.4));
 }
 
@@ -974,6 +974,35 @@ h1 {
     gap: var(--space-phi);
     padding-bottom: 2rem;
     width: 100%;
+}
+
+/* --- PHILOSOPHY SECTION (Bottom Layout) --- */
+.philosophy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    margin-bottom: 4rem; /* Espaço antes do rodapé */
+    margin-top: 4rem;    /* Espaço depois das Tech Cards */
+    position: relative;
+    z-index: 1;
+}
+
+/* Ajuste fino para o Manifesto nesta nova posição */
+.philosophy-container .manifesto-container {
+    margin-bottom: 1.5rem; /* Menos espaço que no header */
+}
+
+/* Ajuste fino para a Citação */
+.philosophy-container .quote {
+    margin-top: 0;
+    margin-bottom: 0;
+    /* Remove a borda superior se quiser um visual mais limpo, 
+       ou mantenha para separar do manifesto */
+    border-top: none; 
+    padding-top: 0;
+    opacity: 0.6; /* Levemente mais discreto no rodapé */
 }
 
 /* Animações de Entrada */
