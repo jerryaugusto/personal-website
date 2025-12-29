@@ -2017,29 +2017,112 @@ footer {
     gap: 1.5rem;
 }
 
+/* --- TECH CARDS (Cinematic Sheen Upgrade) --- */
+
 .tech-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    padding: 1.5rem 1rem;
-    
+    position: relative; /* Necessário para o brilho absoluto */
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     
-    transition: all 0.3s ease;
+    /* Base: Vidro Escuro / Obsidiana (Igual aos Project Cards) */
+    background: linear-gradient(145deg, rgba(35, 30, 28, 0.4), rgba(20, 18, 16, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px; /* Cantos técnicos */
+    padding: 1.5rem 1rem;
+    
     cursor: default;
-    position: relative;
-    overflow: hidden; /* Mantém tudo contido */
+    overflow: hidden; /* Corta o brilho que passa */
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Hover Effect: Glow */
+/* O EFEITO DE LUZ (SHEEN) */
+.tech-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Começa escondido */
+    width: 100%;
+    height: 100%;
+    
+    /* O feixe de luz dourada */
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(227, 181, 5, 0.05), /* Ouro muito suave */
+        transparent
+    );
+    
+    transition: left 0.6s ease; /* Um pouco mais rápido que os cards grandes */
+    z-index: 0;
+}
+
+/* Conteúdo interno (precisa estar acima do brilho) */
+.tech-icon-wrapper,
+.tech-label {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ícones */
+.tech-svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--text-secondary); /* Começa cinza */
+    transition: all 0.4s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* Label (Slot Machine Container) */
+.tech-label {
+    display: inline-flex;
+    flex-direction: column;
+    height: 1.5rem;
+    overflow: hidden;
+    
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: -0.02em;
+    
+    background: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para ler melhor */
+    padding: 0 8px;
+    border-radius: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: border-color 0.3s ease;
+}
+
+/* --- INTERAÇÃO (HOVER) --- */
+
 .tech-card:hover {
-    background: rgba(28, 25, 23, 0.8);
-    border-color: var(--accent-main, #E3B505);
+    /* Elevação física */
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(145deg, rgba(40, 35, 33, 0.7), rgba(25, 23, 21, 0.9));
+    border-color: rgba(227, 181, 5, 0.3); /* Borda dourada */
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* Dispara o brilho */
+.tech-card:hover::before {
+    left: 100%;
+}
+
+/* O ícone acende */
+.tech-card:hover .tech-svg {
+    color: var(--accent-main);
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(227, 181, 5, 0.3));
+}
+
+/* A borda do label também reage */
+.tech-card:hover .tech-label {
+    border-color: rgba(227, 181, 5, 0.2);
+}
+
+/* Mantém a animação Slot Machine existente */
+.tech-card:hover .tech-label span {
+    transform: translateY(-100%);
 }
 
 /* --- ÍCONES --- */
