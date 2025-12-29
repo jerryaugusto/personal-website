@@ -1010,16 +1010,33 @@ body.reveal-content footer {
 }
 
 /* Construction Notice */
+/* --- CONSTRUCTION NOTICE (Refined Glass) --- */
 .construction-notice {
     text-align: center;
     padding: var(--space-phi-double) var(--space-phi);
-    border: 1px dashed var(--border-subtle);
+    
+    /* Vidro Sólido em vez de Tracejado */
+    background: rgba(20, 18, 16, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.03); /* Borda quase invisível */
     border-radius: 2px;
-    background: rgba(28, 25, 23, 0.3);
+    backdrop-filter: blur(4px);
+    
     margin-bottom: var(--space-phi-double);
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+    
+    /* Sombra interna sutil para profundidade */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+.construction-notice h3 {
+    font-family: var(--font-serif);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    opacity: 0.9;
 }
 .construction-notice h3 {
     font-family: var(--font-serif);
@@ -1036,21 +1053,93 @@ body.reveal-content footer {
 }
 
 /* Fortress Links (Desktop Physics) */
+/* --- FORTRESS LINK (CTA Upgrade: Obsidian Sheen) --- */
 .fortress-link {
     display: flex;
     align-items: center;
     padding: var(--space-phi);
-    background: rgba(28, 25, 23, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--border-subtle);
-    border-left: 2px solid var(--border-subtle);
+    
+    /* Base Obsidian igual aos Project Cards */
+    background: linear-gradient(145deg, rgba(35, 30, 28, 0.5), rgba(20, 18, 16, 0.7));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Mantemos a borda esquerda dourada como "assinatura" deste botão específico */
+    border-left: 2px solid var(--accent-structure); 
+    
     color: var(--text-primary);
     text-decoration: none;
-    transition: all 0.4s var(--ease-physics);
+    
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Corta o brilho */
     min-height: calc(var(--space-phi) * 3);
+    border-radius: 2px;
+    
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* O Feixe de Luz (Sheen) */
+.fortress-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(227, 181, 5, 0.1), /* Um pouco mais forte aqui para chamar atenção */
+        transparent
+    );
+    transition: left 0.7s ease;
+    z-index: 0;
+}
+
+/* Conteúdo (Z-Index para ficar acima do brilho) */
+.link-icon, .link-content, .link-action {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ajuste do Ícone */
+.link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-right: var(--space-phi);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+}
+
+/* Hover States */
+@media (hover: hover) {
+    .fortress-link:hover {
+        transform: translateY(-3px);
+        background: linear-gradient(145deg, rgba(40, 35, 33, 0.8), rgba(25, 23, 21, 0.95));
+        border-color: rgba(227, 181, 5, 0.3);
+        border-left-color: var(--accent-main); /* Acende a lateral */
+        box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Dispara o brilho */
+    .fortress-link:hover::before {
+        left: 100%;
+    }
+
+    .fortress-link:hover .link-icon {
+        color: var(--accent-main);
+        border-color: rgba(227, 181, 5, 0.3);
+        transform: scale(1.1);
+    }
+    
+    .fortress-link:hover .link-action {
+        color: var(--accent-main);
+        transform: translateX(5px);
+        opacity: 1;
+    }
 }
 .link-icon {
     display: flex;
@@ -1351,6 +1440,7 @@ footer {
     font-size: 0.65rem;
     opacity: 0.6;
 }
+/* --- FOOTER BADGE (Sepia Tone) --- */
 .made-in-badge {
     display: flex;
     align-items: center;
@@ -1358,27 +1448,33 @@ footer {
     gap: 8px;
     width: 100%;
     max-width: 300px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.02);
     padding: 8px 16px;
     border-radius: 100px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 0.7rem;
     letter-spacing: 0.02em;
     color: var(--text-secondary);
+    transition: all 0.4s ease;
 }
+
 .made-in-badge svg {
-    filter: grayscale(100%) contrast(0.8);
-    opacity: 0.6;
+    /* Sepia dá o tom "velho" em vez de apenas cinza morto */
+    filter: grayscale(100%) sepia(40%) contrast(0.8);
+    opacity: 0.5;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
 @media (hover: hover) {
     .made-in-badge:hover {
         border-color: var(--accent-main);
-        background: rgba(255, 255, 255, 0.05);
-        transform: translateY(-1px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        background: rgba(28, 25, 23, 0.8); /* Fundo mais escuro para contraste */
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
     .made-in-badge:hover svg {
-        filter: grayscale(0%) contrast(1);
+        /* Revela as cores originais gloriosas */
+        filter: grayscale(0%) sepia(0%) contrast(1);
         opacity: 1;
         transform: scale(1.1);
     }
