@@ -338,19 +338,73 @@ h1 {
     }
 }
 
+/* SUBTITLE: The Officer's Badge (Obsidian Effect) */
 .subtitle {
+    /* Layout */
+    display: inline-block;
+    position: relative;
+    overflow: hidden; /* Essencial para o brilho */
+    margin-bottom: var(--space-phi);
+    padding: 0.8rem 1.5rem;
+    
+    /* Base: Vidro Escuro / Obsidiana */
+    background: linear-gradient(145deg, rgba(35, 30, 28, 0.6), rgba(20, 18, 16, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    
+    /* Tipografia */
     font-family: var(--font-mono);
-    font-size: var(--fs-small);
-    color: var(--accent-main);
+    font-size: var(--fs-small); /* ou 0.75rem se preferir fixo */
+    color: rgba(227, 181, 5, 0.8); /* Dourado levemente contido */
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: var(--space-phi);
-    background: rgba(227, 181, 5, 0.08);
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid rgba(227, 181, 5, 0.3);
-    display: inline-block;
     text-align: center;
+    
+    /* Física */
+    cursor: default; /* Cursor padrão pois não é clicável */
+    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* O Feixe de Luz (Sheen) */
+.subtitle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    
+    /* Luz Dourada Passante */
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(227, 181, 5, 0.1), 
+        transparent
+    );
+    
+    transition: left 0.8s ease; /* Um pouco mais lento que os botões para ser mais solene */
+    z-index: 0;
+}
+
+/* --- HOVER EFFECT --- */
+.subtitle:hover {
+    /* Elevação e Luz */
+    background: linear-gradient(145deg, rgba(45, 40, 38, 0.8), rgba(30, 28, 26, 0.9));
+    border-color: rgba(227, 181, 5, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+    
+    /* Texto Acende */
+    color: var(--accent-main);
+    text-shadow: 0 0 15px rgba(227, 181, 5, 0.3);
+    
+    /* O detalhe do "Respiro" tipográfico */
+    letter-spacing: 0.15em;
+}
+
+.subtitle:hover::before {
+    left: 100%; /* Dispara o brilho */
 }
 
 /* AVATAR (Ethereal Vessel) */
@@ -376,30 +430,170 @@ h1 {
         box-shadow 0.5s ease;
     will-change: transform, box-shadow;
 }
-.avatar img {
+/* AVATAR (Ethereal Vessel) - Story Ring + Sonar Wave */
+.avatar-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    
+    /* O ANEL MÍSTICO (Story Style) */
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(
+        45deg,
+        #c5a059 0%,
+        #722f37 40%,
+        #3d1c51 70%,
+        #1a1a2e 100%
+    );
+    background-size: 200% 200%;
+    
+    animation: sacredPulse 8s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    
+    /* Borda sólida para separar a foto do anel */
+    border: 3px solid var(--bg-body); 
+    background-color: var(--bg-body);
+    
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* O Ponto Verde (Base Sólida) */
+.status-dot {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    
+    width: 16px; /* Levemente menor para a onda ter espaço para sair */
+    height: 16px;
+    background-color: #10B981;
     border: 3px solid var(--bg-body);
-    box-sizing: border-box;
-    transition: filter 0.5s ease;
+    border-radius: 50%;
+    z-index: 15;
+    
+    /* Importante para a onda nascer do centro dele */
+    transform: translate(0, 0); 
+    transition: transform 0.3s ease;
 }
-@media (hover: hover) {
-    .avatar:hover {
-        transform: scale(1.03) translateY(-2px);
-        box-shadow: 0 0 40px rgba(227, 181, 5, 0.5);
-        cursor: pointer;
+
+/* A ONDA (Wave/Sonar Effect) */
+.status-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: inherit; /* Herda o verde */
+    z-index: -1; /* Fica atrás do ponto */
+    
+    /* A animação da onda */
+    animation: statusWave 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* O Tooltip */
+.status-tooltip {
+    position: absolute;
+    top: 50%; 
+    left: 100%; 
+    transform: translateY(-50%) translateX(10px);
+    
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    
+    white-space: nowrap;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: #F5F5F4;
+    letter-spacing: 0.02em;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 20;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.status-tooltip::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent rgba(20, 20, 20, 0.95) transparent transparent;
+}
+
+/* --- INTERAÇÃO (HOVER) --- */
+
+.avatar-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(227, 181, 5, 0.3);
+}
+
+.avatar-wrapper:hover .status-dot {
+    /* O ponto para de emitir ondas no hover e fica focado */
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
+}
+.avatar-wrapper:hover .status-dot::after {
+    animation: none; /* Para a onda */
+    opacity: 0;
+}
+
+.avatar-wrapper:hover .status-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(20px);
+}
+
+/* --- KEYFRAMES --- */
+
+/* Onda do Status */
+@keyframes statusWave {
+    0% {
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
     }
-}
-@keyframes sacredPulse {
-    0%,
     100% {
-        box-shadow: 0 0 15px rgba(227, 181, 5, 0.05);
+        width: 300%; /* Expande até 3x o tamanho original */
+        height: 300%;
+        opacity: 0; /* Desaparece totalmente */
     }
-    50% {
-        box-shadow: 0 0 35px rgba(227, 181, 5, 0.25);
-    }
+}
+
+/* Pulso do Anel */
+@keyframes sacredPulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(227, 181, 5, 0.05); }
+    50% { box-shadow: 0 0 35px rgba(227, 181, 5, 0.25); }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .status-tooltip { display: none; }
 }
 
 /* Manifesto */
@@ -509,47 +703,146 @@ h1 {
     }
 }
 
-/* Socials */
+/* --- ATELIER LINKS: THE OBSIDIAN EFFECT --- */
+
 .socials {
     display: flex;
-    justify-content: center;
-    gap: var(--space-phi);
-    margin-top: var(--space-phi-double);
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2.5rem;
     width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
-.social-link {
+
+.atelier-link {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: var(--touch-target);
-    height: var(--touch-target);
-    border-radius: 4px;
-    border: 1px solid transparent;
-    background: rgba(255, 255, 255, 0.03);
-    transition: all 0.3s ease;
+    
+    /* Fundo Base: Um gradiente muito sutil para dar volume (Obsidiana) */
+    background: linear-gradient(145deg, rgba(35, 30, 28, 0.6), rgba(20, 18, 16, 0.8));
+    
+    /* Borda refinada */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Ligeiro peso embaixo */
+    
+    padding: 1.2rem 1.8rem; /* Um pouco mais de espaço para respirar */
+    text-decoration: none;
+    border-radius: 2px;
+    
+    color: var(--text-primary);
+    position: relative;
+    overflow: hidden; /* Importante para o brilho não vazar */
+    
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.social-link:active {
-    background: rgba(227, 181, 5, 0.2);
-    transform: scale(0.95);
+
+/* O EFEITO DE LUZ (SHEEN) - O SEGREDO */
+.atelier-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Começa fora da tela à esquerda */
+    width: 100%;
+    height: 100%;
+    
+    /* O feixe de luz dourada transparente */
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(227, 181, 5, 0.05), /* Ouro muito suave no meio */
+        transparent
+    );
+    
+    transition: left 0.7s ease; /* A velocidade do brilho */
+    z-index: 0;
 }
-.social-link svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--text-secondary);
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
-    transition: all 0.3s ease;
+
+/* Tipografia */
+.link-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: left;
+    z-index: 1; /* Garante que o texto fique acima do brilho */
 }
-@media (hover: hover) {
-    .social-link:hover {
-        background: rgba(227, 181, 5, 0.1);
-        border-color: rgba(227, 181, 5, 0.3);
-        transform: translateY(-2px);
-    }
-    .social-link:hover svg {
-        fill: var(--accent-main);
-        transform: translateY(-2px);
-        filter: drop-shadow(0 0 8px var(--accent-main));
+
+.link-title {
+    font-family: var(--font-serif);
+    font-size: 1.3rem; /* Levemente maior para destaque */
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    transition: color 0.5s ease;
+}
+
+.link-desc {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    transition: opacity 0.5s ease, letter-spacing 0.5s ease;
+}
+
+/* Ícone */
+.link-icon {
+    color: var(--text-secondary);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.5s ease;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.link-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
+
+/* --- HOVER STATES (A Mágica) --- */
+
+.atelier-link:hover {
+    /* O fundo clareia levemente */
+    background: linear-gradient(145deg, rgba(45, 40, 38, 0.8), rgba(30, 28, 26, 0.9));
+    border-color: rgba(227, 181, 5, 0.3); /* Borda fica dourada sutil */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5); /* Sombra de elevação */
+}
+
+/* O brilho passa pelo botão */
+.atelier-link:hover::before {
+    left: 100%; /* Move para a direita */
+}
+
+.atelier-link:hover .link-title {
+    color: var(--accent-main); /* Título vira ouro */
+    text-shadow: 0 0 20px rgba(227, 181, 5, 0.2); /* Leve glow no texto */
+}
+
+.atelier-link:hover .link-desc {
+    opacity: 1;
+    color: #d6d3d1; /* Fica mais claro (pedra polida) */
+    letter-spacing: 0.15em; /* As letras se espaçam levemente (efeito chique) */
+}
+
+.atelier-link:hover .link-icon {
+    color: var(--accent-main);
+    opacity: 1;
+    transform: scale(1.1) rotate(-5deg); /* Um charme extra no ícone */
+    filter: drop-shadow(0 0 5px rgba(227, 181, 5, 0.4));
+}
+
+/* Ajuste Mobile */
+@media (max-width: 768px) {
+    .socials {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
     }
 }
 
@@ -1512,6 +1805,233 @@ footer {
 
         padding: 0; /* Remove padding desnecessário */
     }
+}
+
+/* --- TECH STACK: SYNTAX SLOT MACHINE --- */
+.tech-grid-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.tech-grid {
+    display: grid;
+    /* Grid responsivo automático */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem;
+}
+
+.tech-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 1.5rem 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden; /* Mantém tudo contido */
+}
+
+/* Hover Effect: Glow */
+.tech-card:hover {
+    background: rgba(28, 25, 23, 0.8);
+    border-color: var(--accent-main, #E3B505);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* --- ÍCONES --- */
+.tech-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #57534E;
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover .tech-svg {
+    color: var(--accent-main, #E3B505);
+    filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.2));
+}
+
+/* --- THE SLOT MACHINE LABEL --- */
+.tech-label {
+    display: inline-flex;
+    flex-direction: column; /* Empilha os textos verticalmente */
+    height: 1.5rem; /* Altura exata de uma linha de texto */
+    overflow: hidden; /* Esconde o texto que está "fora" da bobina */
+    
+    /* Estilo Base do Texto */
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #A8A29E;
+    letter-spacing: -0.02em;
+    background: rgba(0,0,0,0.2);
+    padding: 0 8px; /* Padding lateral apenas */
+    border-radius: 4px;
+    
+    /* Centralização */
+    align-items: center; 
+    justify-content: flex-start;
+}
+
+/* Os itens dentro da bobina (Sintaxe e Nome) */
+.tech-label span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem; /* Mesma altura do container pai */
+    width: 100%;
+    
+    /* A Animação de Slide */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0; /* Impede que esmaguem */
+}
+
+/* Estilo do Nome da Tecnologia (O que sobe) */
+.tech-label span.highlight {
+    color: #F5F5F4;
+    font-weight: bold;
+    color: var(--accent-main, #E3B505); /* Dourado */
+}
+
+/* --- AÇÃO DE HOVER (TRIGGER) --- */
+/* Quando o mouse entra no CARD, movemos AMBOS os spans para cima */
+.tech-card:hover .tech-label span {
+    transform: translateY(-100%);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .tech-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .tech-card {
+        padding: 1rem 0.5rem;
+    }
+    .tech-svg {
+        width: 2rem;
+        height: 2rem;
+    }
+    /* Ajuste de escala para mobile */
+    .tech-label {
+        font-size: 0.65rem;
+        height: 1.2rem;
+    }
+    .tech-label span {
+        height: 1.2rem;
+    }
+}
+
+/* --- COMMAND LINKS (Action Buttons) --- */
+.link-stack {
+    width: 100%;
+    max-width: 600px; /* Mais estreito que o grid para focar a atenção */
+    margin: 0 auto 6rem auto; /* Margem inferior grande para o footer */
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.links-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cmd-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    background: rgba(28, 25, 23, 0.6); /* Stone Dark */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem 1.5rem;
+    text-decoration: none;
+    border-radius: 4px;
+    
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* O Efeito de Hover: "Terminal Selection" */
+.cmd-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%; /* Começa vazio */
+    height: 100%;
+    background: var(--accent-main); /* Gold Background */
+    opacity: 0.1; /* Transparente */
+    transition: width 0.4s ease;
+    z-index: 0;
+}
+
+.cmd-link:hover::before {
+    width: 100%; /* Enche a barra */
+}
+
+.cmd-link:hover {
+    border-color: var(--accent-main);
+    transform: translateX(5px); /* Move levemente para a direita */
+}
+
+/* Typo inside Link */
+.cmd-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    z-index: 1; /* Fica acima do background animado */
+}
+
+.cmd-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #78716C; /* Stone Gray */
+}
+
+.cmd-name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.cmd-link:hover .cmd-prefix {
+    color: var(--accent-main);
+}
+
+/* Seta/Icone na direita */
+.cmd-arrow, .cmd-icon {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 1;
+}
+
+.cmd-link:hover .cmd-arrow {
+    transform: translateX(5px);
+    color: var(--accent-main);
+}
+
+/* Estilo especial para o botão de Email (Highlight) */
+.cmd-link.highlight {
+    border-color: rgba(227, 181, 5, 0.3);
 }
 
 /* --- DEBUG MODE (KONAMI TRIGGER) --- */
