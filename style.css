@@ -338,35 +338,41 @@ h1 {
     }
 }
 
-/* SUBTITLE: The Officer's Badge (Obsidian Effect) */
+/* SUBTITLE: The Officer's Badge (Static Sheen) */
 .subtitle {
     /* Layout */
     display: inline-block;
     position: relative;
-    overflow: hidden; /* Essencial para o brilho */
+    overflow: hidden;
     margin-bottom: var(--space-phi);
     padding: 0.8rem 1.5rem;
     
-    /* Base: Vidro Escuro / Obsidiana */
+    /* Base: Obsidian Glass */
     background: linear-gradient(145deg, rgba(35, 30, 28, 0.6), rgba(20, 18, 16, 0.8));
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 2px;
     
-    /* Tipografia */
+    /* Typography */
     font-family: var(--font-mono);
-    font-size: var(--fs-small); /* ou 0.75rem se preferir fixo */
-    color: rgba(227, 181, 5, 0.8); /* Dourado levemente contido */
-    letter-spacing: 0.12em;
+    font-size: var(--fs-small);
+    color: rgba(227, 181, 5, 0.8);
+    letter-spacing: 0.12em; /* Espaçamento fixo */
     text-transform: uppercase;
     text-align: center;
     
-    /* Física */
-    cursor: default; /* Cursor padrão pois não é clicável */
-    transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* Physics */
+    cursor: default;
+    /* Transição suave apenas para cores e sombras, sem movimento */
+    transition: 
+        color 0.6s ease,
+        background 0.6s ease,
+        border-color 0.6s ease,
+        box-shadow 0.6s ease,
+        text-shadow 0.6s ease;
 }
 
-/* O Feixe de Luz (Sheen) */
+/* O Feixe de Luz (Mantido) */
 .subtitle::before {
     content: '';
     position: absolute;
@@ -383,28 +389,30 @@ h1 {
         transparent
     );
     
-    transition: left 0.8s ease; /* Um pouco mais lento que os botões para ser mais solene */
+    transition: left 0.8s ease;
     z-index: 0;
 }
 
-/* --- HOVER EFFECT --- */
+/* --- HOVER EFFECT (Static & Illuminated) --- */
 .subtitle:hover {
-    /* Elevação e Luz */
+    /* Apenas iluminação interna */
     background: linear-gradient(145deg, rgba(45, 40, 38, 0.8), rgba(30, 28, 26, 0.9));
     border-color: rgba(227, 181, 5, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
     
-    /* Texto Acende */
+    /* Glow estático (sem elevar o elemento) */
+    box-shadow: 0 0 20px rgba(227, 181, 5, 0.15);
+    
+    /* Texto acende */
     color: var(--accent-main);
     text-shadow: 0 0 15px rgba(227, 181, 5, 0.3);
     
-    /* O detalhe do "Respiro" tipográfico */
-    letter-spacing: 0.15em;
+    /* REMOVIDO: transform (movimento) */
+    /* REMOVIDO: letter-spacing (mudança de tamanho) */
 }
 
+/* Dispara o brilho */
 .subtitle:hover::before {
-    left: 100%; /* Dispara o brilho */
+    left: 100%;
 }
 
 /* AVATAR (Ethereal Vessel) */
