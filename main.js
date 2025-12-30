@@ -17,8 +17,7 @@ const translations = {
         avatarTooltip: "Open for new commissions",
         // Header & Identity
         role: "Software Engineering & Full-Stack Solutions",
-        manifesto: "Reject generic canned solutions.<br>Embrace the versatility of <span class=\"highlight\">hand-forged code</span>.",
-        manifestoSubtext: "Your site doesn't need to look like everyone else's.",
+        manifesto: "Your site doesn't need to look like everyone else's.",
         quote: "\"Age Quod Debes.\"",
         quoteMeaning: "Do what you must.",
         
@@ -54,8 +53,7 @@ const translations = {
         avatarTooltip: "Disponível para projetos",
         // Header & Identity
         role: "Engenharia de Software & Soluções Full-Stack",
-        manifesto: "Rejeite soluções enlatadas genéricas.<br>Abrace a versatilidade de um <span class=\"highlight\">código forjado à mão</span>.",
-        manifestoSubtext: "Seu site não precisa ser igual ao de todo mundo.",
+        manifesto: "Seu site não precisa ser igual ao de todo mundo.",
         quote: "\"Age Quod Debes.\"",
         quoteMeaning: "Faça o que deve ser feito.",
         

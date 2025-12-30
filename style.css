@@ -626,39 +626,6 @@ h1 {
     font-style: italic;
     font-weight: 500;
 }
-@media (hover: hover) {
-    .manifesto {
-        cursor: help;
-    }
-    .manifesto::after {
-        content: attr(data-subtext);
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%) translateY(0px);
-        width: max-content;
-        max-width: 300px;
-        padding: 0.8rem 1rem;
-        background-color: rgba(28, 25, 23, 0.98);
-        border: 1px solid var(--border-subtle);
-        border-bottom: 2px solid var(--accent-main);
-        border-radius: 4px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        z-index: 100;
-        transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .manifesto:hover::after {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(10px);
-    }
-}
 
 /* Quote Tooltip (Ghost Fade Refined) */
 .quote {
