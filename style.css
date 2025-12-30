@@ -339,80 +339,91 @@ h1 {
 }
 
 /* SUBTITLE: The Officer's Badge (Static Sheen) */
+/* SUBTITLE: The Alchemist's Flow (Molten Gold Effect) */
 .subtitle {
     /* Layout */
     display: inline-block;
     position: relative;
-    overflow: hidden;
     margin-bottom: var(--space-phi);
     padding: 0.8rem 1.5rem;
     
-    /* Base: Obsidian Glass */
-    background: linear-gradient(145deg, rgba(35, 30, 28, 0.6), rgba(20, 18, 16, 0.8));
+    /* Container: Obsidian Glass (Base Sólida) */
+    background: rgba(20, 18, 16, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
+    border-radius: 100px; /* Mudança para Pill Shape (mais orgânico) */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     
-    /* Typography */
+    /* Typography Setup for Liquid Fill */
     font-family: var(--font-mono);
-    font-size: var(--fs-small);
-    color: rgba(227, 181, 5, 0.8);
-    letter-spacing: 0.12em; /* Espaçamento fixo */
+    font-size: 0.85rem; /* Levemente menor para elegância */
+    font-weight: 500;
     text-transform: uppercase;
-    text-align: center;
+    letter-spacing: 0.15em;
     
-    /* Physics */
-    cursor: default;
-    /* Transição suave apenas para cores e sombras, sem movimento */
-    transition: 
-        color 0.6s ease,
-        background 0.6s ease,
-        border-color 0.6s ease,
-        box-shadow 0.6s ease,
-        text-shadow 0.6s ease;
-}
-
-/* O Feixe de Luz (Mantido) */
-.subtitle::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    
-    /* Luz Dourada Passante */
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(227, 181, 5, 0.1), 
-        transparent
+    /* THE MAGIC: Text Masking Gradient */
+    /* Camada 1: Ferro Escuro (Repouso) */
+    /* Camada 2: Ouro Líquido (Ativo) */
+    background-image: linear-gradient(
+        120deg,
+        var(--text-secondary) 0%,
+        var(--text-secondary) 40%,   /* Ferro Frio */
+        var(--accent-main) 50%,      /* O Núcleo Dourado */
+        #fff 55%,                    /* Brilho Intenso (Specular) */
+        var(--accent-main) 60%,      /* O Núcleo Dourado */
+        var(--text-secondary) 70%,   /* Ferro Frio */
+        var(--text-secondary) 100%
     );
     
-    transition: left 0.8s ease;
-    z-index: 0;
+    /* Tamanho do background expandido para permitir o movimento */
+    background-size: 200% auto;
+    background-position: 100% 0; /* Começa na parte escura */
+    
+    /* Aplica o fundo APENAS ao formato das letras */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Torna a cor original transparente para mostrar o fundo */
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    
+    /* Transições de Física */
+    cursor: default;
+    transition: 
+        background-position 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.5s ease,
+        box-shadow 0.5s ease,
+        transform 0.5s var(--ease-physics);
 }
 
-/* --- HOVER EFFECT (Static & Illuminated) --- */
+/* --- HOVER STATE (Ignition) --- */
 .subtitle:hover {
-    /* Apenas iluminação interna */
-    background: linear-gradient(145deg, rgba(45, 40, 38, 0.8), rgba(30, 28, 26, 0.9));
+    /* O texto "enche" de ouro (move o gradiente) */
+    background-position: 0% 0;
+    
+    /* O container reage sutilmente */
     border-color: rgba(227, 181, 5, 0.3);
-    
-    /* Glow estático (sem elevar o elemento) */
-    box-shadow: 0 0 20px rgba(227, 181, 5, 0.15);
-    
-    /* Texto acende */
-    color: var(--accent-main);
-    text-shadow: 0 0 15px rgba(227, 181, 5, 0.3);
-    
-    /* REMOVIDO: transform (movimento) */
-    /* REMOVIDO: letter-spacing (mudança de tamanho) */
+    box-shadow: 
+        0 10px 30px -5px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(227, 181, 5, 0.05); /* Glow interno sutil */
+        
+    /* Levitação Magnética (Muito sutil) */
+    transform: translateY(-2px);
 }
 
-/* Dispara o brilho */
-.subtitle:hover::before {
-    left: 100%;
+/* Optional: Um brilho suave atrás para dar profundidade */
+.subtitle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 100px;
+    box-shadow: 0 0 15px var(--accent-main);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    z-index: -1;
+}
+
+.subtitle:hover::after {
+    opacity: 0.15; /* Brilho difuso atrás do texto */
 }
 
 /* AVATAR (Ethereal Vessel) */
