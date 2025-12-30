@@ -297,24 +297,50 @@ header .subtitle {
 }
 
 /* Language Switcher */
+/* LANGUAGE SWITCH: The Mechanical Toggle */
 .language-switch {
     position: absolute;
-    top: max(2rem, env(safe-area-inset-top));
-    right: max(1.5rem, env(safe-area-inset-right));
-    display: flex;
-    align-items: center;
-    background: rgba(28, 25, 23, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--border-subtle);
+    top: 2rem;
+    right: 2rem;
+    z-index: 50;
+    
+    /* SHAPE: Matching the Subtitle (The Ingot) */
+    /* Deixamos de usar 20px/50% para usar o padrão "Sharp" */
+    border-radius: 4px;
+    
+    /* APPEARANCE */
+    background: rgba(20, 18, 16, 0.8); /* Obsidian Dark */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-family: var(--font-mono);
+    
+    /* TYPOGRAPHY */
+    /* Usamos Mono para dar a sensação de "Ferramenta" ou "Configuração" */
+    font-family: var(--font-mono); 
+    font-size: 0.75rem;
+    font-weight: 500;
     color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Disable user selection */
+    user-select: none;
+}
 
-    /* REFINEMENT: Smaller size and tighter gap */
-    gap: 0.3rem; /* Reduced gap for compactness */
-    font-size: 0.75rem; /* ~12px. Discrete and elegant */
-    z-index: 10;
+/* HOVER STATE */
+.language-switch:hover {
+    /* Acende sutilmente a borda com a cor de acento */
+    border-color: var(--accent-structure);
+    color: var(--text-primary);
+    background: rgba(20, 18, 16, 1);
+    
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ACTIVE STATE (Click) */
+.language-switch:active {
+    transform: translateY(1px);
 }
 .lang-btn {
     background: none;
@@ -379,12 +405,17 @@ h1 {
     display: inline-block;
     position: relative;
     margin-bottom: var(--space-phi);
-    padding: 0.8rem 1.5rem;
-
-    /* Container: Obsidian Glass (Base Sólida) */
+    /* SHAPE CORRECTION: */
+    /* De 100px (Pill) para 4px (Forged Plate) */
+    /* Isso alinha com a geometria "afiada" do resto do site */
+    border-radius: 4px; 
+    
+    /* Ajuste de Padding: Retângulos precisam de menos espaço lateral que pílulas */
+    padding: 0.6rem 1.2rem; 
+    
+    /* ... mantenha o background, font, e o efeito 'Molten Flow' ... */
     background: rgba(20, 18, 16, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 100px; /* Mudança para Pill Shape (mais orgânico) */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
     /* Typography Setup for Liquid Fill */
@@ -449,7 +480,7 @@ h1 {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 100px;
+    border-radius: 4px;
     box-shadow: 0 0 15px var(--accent-main);
     opacity: 0;
     transition: opacity 0.8s ease;
@@ -824,7 +855,7 @@ h1 {
 
     padding: 1.2rem 1.8rem; /* Um pouco mais de espaço para respirar */
     text-decoration: none;
-    border-radius: 2px;
+    border-radius: 4px;
 
     color: var(--text-primary);
     position: relative;
@@ -1141,7 +1172,7 @@ body.reveal-content footer {
     /* Vidro Sólido em vez de Tracejado */
     background: rgba(20, 18, 16, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.03); /* Borda quase invisível */
-    border-radius: 2px;
+    border-radius: 4px;
     backdrop-filter: blur(4px);
 
     margin-bottom: var(--space-phi-double);
@@ -1198,7 +1229,7 @@ body.reveal-content footer {
     position: relative;
     overflow: hidden; /* Corta o brilho */
     min-height: calc(var(--space-phi) * 3);
-    border-radius: 2px;
+    border-radius: 4px;
 
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -1465,7 +1496,7 @@ body.reveal-content footer {
     color: #78716c;
     background: rgba(255, 255, 255, 0.03);
     padding: 4px 8px;
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
 }
@@ -1605,7 +1636,7 @@ footer {
     max-width: 300px;
     background: rgba(255, 255, 255, 0.02);
     padding: 8px 16px;
-    border-radius: 100px;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 0.7rem;
     letter-spacing: 0.02em;
@@ -1799,7 +1830,7 @@ footer {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
     color: #1c1917;
     padding: 2rem 1.5rem;
-    border-radius: 12px;
+    border-radius: 8px;
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.8),
         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
@@ -1886,7 +1917,7 @@ footer {
     background-color: rgba(28, 25, 23, 0.95);
     border: 1px solid var(--accent-main);
     padding: 12px 24px;
-    border-radius: 50px;
+    border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 11000;
     width: 90%;
@@ -2356,7 +2387,7 @@ footer {
 
     background: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para ler melhor */
     padding: 0 8px;
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: border-color 0.3s ease;
 }
