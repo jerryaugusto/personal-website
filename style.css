@@ -616,26 +616,85 @@ h1 {
 }
 
 /* Manifesto */
+/* MANIFESTO: The Solemn Declaration */
+
+/* 1. O Palco (Container) */
 .manifesto-container {
-    margin: 1.5rem 0 2rem;
-    padding: 0 0.5rem;
+    position: relative;
+    width: 100%;
+    /* Centraliza e dá respiro */
+    padding: 1.5rem 0; 
+    margin: 2rem 0 2.5rem;
+    
     display: flex;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    
+    /* Fundo de vidro cinemático para separar do Caravaggio */
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(20, 18, 16, 0.6) 20%,
+        rgba(20, 18, 16, 0.6) 80%,
+        transparent 100%
+    );
+    /* Desfoque apenas atrás do texto para legibilidade */
+    backdrop-filter: blur(4px);
+    
+    /* Bordas Cinematográficas (Fading Lines) */
+    /* Cria linhas douradas em cima e embaixo que somem nas pontas */
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(227, 181, 5, 0.4), 
+        transparent
+    ) 1;
 }
+
+/* 2. O Texto (Ator Principal) */
 .manifesto {
-    position: relative;
     font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 4vw, 1.25rem);
+    /* Aumentado para ter presença de "Statement" */
+    font-size: clamp(1.2rem, 5vw, 1.5rem); 
+    font-weight: 400;
+    font-style: italic; /* O itálico clássico de citações */
     line-height: 1.4;
+    
     color: var(--text-primary);
     text-align: center;
-    max-width: 90%;
+    max-width: 800px;
+    padding: 0 1rem;
+    
+    /* Sombra sutil para destacar do fundo */
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+    
+    /* Animação suave de entrada */
+    opacity: 0;
+    animation: revealSlow 1.5s ease-out forwards;
+    animation-delay: 0.5s; /* Aparece depois do título */
 }
-.manifesto .highlight {
-    color: var(--accent-main);
-    font-style: italic;
+
+/* Um brilho extra na palavra chave se houver span (opcional, mas recomendado) */
+.manifesto strong, .manifesto span {
+    color: var(--text-primary);
     font-weight: 500;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+/* --- ADICIONAR ESTES KEYFRAMES PARA O MANIFESTO FUNCIONAR --- */
+
+@keyframes revealSlow {
+    0% {
+        opacity: 0;
+        transform: translateY(10px); /* Leve movimento de subida */
+        filter: blur(4px); /* Começa desfocado */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
 }
 
 /* Quote Tooltip (Ghost Fade Refined) */
