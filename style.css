@@ -33,11 +33,12 @@
     ); /* ~67px */
     --fs-sm: calc(1rem / var(--ratio)); /* ~9.8px */
 
-    /* Typography */
+    /* Typography Upgrade */
     --font-serif: "EB Garamond", serif;
     --font-mono: "JetBrains Mono", monospace;
+    /* REPLACED: System fonts with Inter for consistent UX geometry */
     --font-sans:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         sans-serif;
 
     /* --- ESPAÇAMENTO (Rhythm) --- */
@@ -102,9 +103,42 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 
     /* Font Rendering */
+    /* FONT SMOOTHING STRATEGY */
+    /* On dark backgrounds, standard antialiasing can make serif fonts look too thin.
+       We keep it for consistency, but might override on specific serif elements. */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
+    /* OPENTYPE FEATURES (The "Pro" Touch) */
+    /* kern: Controls spacing between specific letter pairs (AV, To) */
+    /* liga: Standard ligatures (fi, fl) */
+    /* calt: Contextual alternates (crucial for Inter and JetBrains) */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    
+    /* Performance: Tells browser to prioritize legibility over speed */
     text-rendering: optimizeLegibility;
+}
+/* 1. SERIF REFINEMENT (Headings & Manifesto) */
+h1, h2, h3, .manifesto, .link-title {
+    font-family: var(--font-serif);
+    /* dlig: Discretionary Ligatures (connects 'st', 'ct' for old-print aesthetic) */
+    font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+    font-optical-sizing: auto;
+}
+
+/* 2. MONO REFINEMENT (Code & Labels) */
+.tech-label, .link-desc, .version-tag, .subtitle {
+    font-family: var(--font-mono);
+    /* zero: Slashed zero to distinguish from 'O' */
+    font-feature-settings: "liga" 1, "zero" 1;
+}
+
+/* 3. SANS REFINEMENT (UI & Descriptions) */
+.project-desc, body, button {
+    /* tnum: Tabular numbers (better alignment for data) */
+    font-feature-settings: "calt" 1, "tnum" 1;
+    /* Negative tracking makes Inter look sharper/more professional */
+    letter-spacing: -0.015em; 
 }
 
 /* Selection (Rust Red) */
@@ -231,11 +265,11 @@ header {
 
 header h1 {
     /* 1. Scale Down: Reduced clamp values for a more controlled headline */
-    font-size: clamp(2.5rem, 5vw, 3.5rem); 
-    
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+
     /* 2. Increased Rhythm: More breathing room below the title */
     margin-bottom: 1.5rem; /* Was likely smaller (e.g., 0.5rem) */
-    
+
     /* Maintain existing aesthetic styles */
     font-family: var(--font-serif);
     font-weight: 500;
@@ -248,11 +282,11 @@ header h1 {
 header .subtitle {
     /* 1. Scale Down: Smaller text size for elegance */
     font-size: 0.9rem; /* Reduced from ~1.1rem/1.2rem */
-    
+
     /* 2. Refinement: Compensate small size with generous tracking */
     letter-spacing: 0.2em; /* Wide spacing creates the "premium" feel */
     text-transform: uppercase;
-    
+
     /* Maintain readability */
     color: var(--accent-main);
     font-family: var(--font-mono);
@@ -346,49 +380,49 @@ h1 {
     position: relative;
     margin-bottom: var(--space-phi);
     padding: 0.8rem 1.5rem;
-    
+
     /* Container: Obsidian Glass (Base Sólida) */
     background: rgba(20, 18, 16, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 100px; /* Mudança para Pill Shape (mais orgânico) */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    
+
     /* Typography Setup for Liquid Fill */
     font-family: var(--font-mono);
     font-size: 0.85rem; /* Levemente menor para elegância */
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    
+
     /* THE MAGIC: Text Masking Gradient */
     /* Camada 1: Ferro Escuro (Repouso) */
     /* Camada 2: Ouro Líquido (Ativo) */
     background-image: linear-gradient(
         120deg,
         var(--text-secondary) 0%,
-        var(--text-secondary) 40%,   /* Ferro Frio */
-        var(--accent-main) 50%,      /* O Núcleo Dourado */
-        #fff 55%,                    /* Brilho Intenso (Specular) */
-        var(--accent-main) 60%,      /* O Núcleo Dourado */
-        var(--text-secondary) 70%,   /* Ferro Frio */
+        var(--text-secondary) 40% /* Ferro Frio */,
+        var(--accent-main) 50% /* O Núcleo Dourado */,
+        #fff 55% /* Brilho Intenso (Specular) */,
+        var(--accent-main) 60% /* O Núcleo Dourado */,
+        var(--text-secondary) 70% /* Ferro Frio */,
         var(--text-secondary) 100%
     );
-    
+
     /* Tamanho do background expandido para permitir o movimento */
     background-size: 200% auto;
     background-position: 100% 0; /* Começa na parte escura */
-    
+
     /* Aplica o fundo APENAS ao formato das letras */
     -webkit-background-clip: text;
     background-clip: text;
-    
+
     /* Torna a cor original transparente para mostrar o fundo */
     -webkit-text-fill-color: transparent;
     color: transparent;
-    
+
     /* Transições de Física */
     cursor: default;
-    transition: 
+    transition:
         background-position 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
         border-color 0.5s ease,
         box-shadow 0.5s ease,
@@ -399,20 +433,20 @@ h1 {
 .subtitle:hover {
     /* O texto "enche" de ouro (move o gradiente) */
     background-position: 0% 0;
-    
+
     /* O container reage sutilmente */
     border-color: rgba(227, 181, 5, 0.3);
-    box-shadow: 
+    box-shadow:
         0 10px 30px -5px rgba(0, 0, 0, 0.5),
         inset 0 0 20px rgba(227, 181, 5, 0.05); /* Glow interno sutil */
-        
+
     /* Levitação Magnética (Muito sutil) */
     transform: translateY(-2px);
 }
 
 /* Optional: Um brilho suave atrás para dar profundidade */
 .subtitle::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: 100px;
@@ -455,13 +489,13 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     width: 120px;
     height: 120px;
     margin-bottom: 1.5rem;
     cursor: pointer;
     z-index: 10;
-    
+
     /* O ANEL MÍSTICO (Story Style) */
     border-radius: 50%;
     padding: 3px;
@@ -473,9 +507,11 @@ h1 {
         #1a1a2e 100%
     );
     background-size: 200% 200%;
-    
+
     animation: sacredPulse 8s ease-in-out infinite;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    transition:
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.3s ease;
 }
 
 .avatar-img {
@@ -483,11 +519,11 @@ h1 {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    
-    /* Borda sólida para separar a foto do anel */
-    border: 3px solid var(--bg-body); 
+
+    /* Borda sólida para separar a photo do anel */
+    border: 3px solid var(--bg-body);
     background-color: var(--bg-body);
-    
+
     display: block;
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -497,22 +533,22 @@ h1 {
     position: absolute;
     bottom: 5px;
     right: 5px;
-    
+
     width: 16px; /* Levemente menor para a onda ter espaço para sair */
     height: 16px;
-    background-color: #10B981;
+    background-color: #10b981;
     border: 3px solid var(--bg-body);
     border-radius: 50%;
     z-index: 15;
-    
-    /* Importante para a onda nascer do centro dele */
-    transform: translate(0, 0); 
+
+    /* Important para a onda nascer do centro dele */
+    transform: translate(0, 0);
     transition: transform 0.3s ease;
 }
 
 /* A ONDA (Wave/Sonar Effect) */
 .status-dot::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -522,7 +558,7 @@ h1 {
     border-radius: 50%;
     background-color: inherit; /* Herda o verde */
     z-index: -1; /* Fica atrás do ponto */
-    
+
     /* A animação da onda */
     animation: statusWave 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
@@ -530,32 +566,32 @@ h1 {
 /* O Tooltip */
 .status-tooltip {
     position: absolute;
-    top: 50%; 
-    left: 100%; 
+    top: 50%;
+    left: 100%;
     transform: translateY(-50%) translateX(10px);
-    
+
     background: rgba(20, 20, 20, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    
+
     white-space: nowrap;
     font-family: var(--font-mono, monospace);
     font-size: 0.75rem;
-    color: #F5F5F4;
+    color: #f5f5f4;
     letter-spacing: 0.02em;
-    
+
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 20;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
 .status-tooltip::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     right: 100%;
@@ -606,13 +642,20 @@ h1 {
 
 /* Pulso do Anel */
 @keyframes sacredPulse {
-    0%, 100% { box-shadow: 0 0 15px rgba(227, 181, 5, 0.05); }
-    50% { box-shadow: 0 0 35px rgba(227, 181, 5, 0.25); }
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(227, 181, 5, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 35px rgba(227, 181, 5, 0.25);
+    }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-    .status-tooltip { display: none; }
+    .status-tooltip {
+        display: none;
+    }
 }
 
 /* Manifesto */
@@ -623,13 +666,13 @@ h1 {
     position: relative;
     width: 100%;
     /* Centraliza e dá respiro */
-    padding: 1.5rem 0; 
+    padding: 1.5rem 0;
     margin: 2rem 0 2.5rem;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     /* Fundo de vidro cinemático para separar do Caravaggio */
     background: linear-gradient(
         90deg,
@@ -640,36 +683,37 @@ h1 {
     );
     /* Desfoque apenas atrás do texto para legibilidade */
     backdrop-filter: blur(4px);
-    
+
     /* Bordas Cinematográficas (Fading Lines) */
     /* Cria linhas douradas em cima e embaixo que somem nas pontas */
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     border-image: linear-gradient(
-        90deg, 
-        transparent, 
-        rgba(227, 181, 5, 0.4), 
-        transparent
-    ) 1;
+            90deg,
+            transparent,
+            rgba(227, 181, 5, 0.4),
+            transparent
+        )
+        1;
 }
 
 /* 2. O Texto (Ator Principal) */
 .manifesto {
     font-family: var(--font-serif);
     /* Aumentado para ter presença de "Statement" */
-    font-size: clamp(1.2rem, 5vw, 1.5rem); 
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
     font-weight: 400;
     font-style: italic; /* O itálico clássico de citações */
     line-height: 1.4;
-    
+
     color: var(--text-primary);
     text-align: center;
     max-width: 800px;
     padding: 0 1rem;
-    
+
     /* Sombra sutil para destacar do fundo */
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-    
+
     /* Animação suave de entrada */
     opacity: 0;
     animation: revealSlow 1.5s ease-out forwards;
@@ -677,7 +721,8 @@ h1 {
 }
 
 /* Um brilho extra na palavra chave se houver span (opcional, mas recomendado) */
-.manifesto strong, .manifesto span {
+.manifesto strong,
+.manifesto span {
     color: var(--text-primary);
     font-weight: 500;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
@@ -765,42 +810,46 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     /* Fundo Base: Um gradiente muito sutil para dar volume (Obsidiana) */
-    background: linear-gradient(145deg, rgba(35, 30, 28, 0.6), rgba(20, 18, 16, 0.8));
-    
+    background: linear-gradient(
+        145deg,
+        rgba(35, 30, 28, 0.6),
+        rgba(20, 18, 16, 0.8)
+    );
+
     /* Borda refinada */
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Ligeiro peso embaixo */
-    
+
     padding: 1.2rem 1.8rem; /* Um pouco mais de espaço para respirar */
     text-decoration: none;
     border-radius: 2px;
-    
+
     color: var(--text-primary);
     position: relative;
-    overflow: hidden; /* Importante para o brilho não vazar */
-    
+    overflow: hidden; /* Important para o brilho não vazar */
+
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* O EFEITO DE LUZ (SHEEN) - O SEGREDO */
 .atelier-link::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%; /* Começa fora da tela à esquerda */
     width: 100%;
     height: 100%;
-    
+
     /* O feixe de luz dourada transparente */
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(227, 181, 5, 0.05), /* Ouro muito suave no meio */
+        rgba(227, 181, 5, 0.05) /* Ouro muito suave no meio */,
         transparent
     );
-    
+
     transition: left 0.7s ease; /* A velocidade do brilho */
     z-index: 0;
 }
@@ -830,13 +879,17 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     opacity: 0.6;
-    transition: opacity 0.5s ease, letter-spacing 0.5s ease;
+    transition:
+        opacity 0.5s ease,
+        letter-spacing 0.5s ease;
 }
 
 /* Ícone */
 .link-icon {
     color: var(--text-secondary);
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.5s ease;
+    transition:
+        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+        color 0.5s ease;
     opacity: 0.5;
     z-index: 1;
 }
@@ -851,7 +904,11 @@ h1 {
 
 .atelier-link:hover {
     /* O fundo clareia levemente */
-    background: linear-gradient(145deg, rgba(45, 40, 38, 0.8), rgba(30, 28, 26, 0.9));
+    background: linear-gradient(
+        145deg,
+        rgba(45, 40, 38, 0.8),
+        rgba(30, 28, 26, 0.9)
+    );
     border-color: rgba(227, 181, 5, 0.3); /* Borda fica dourada sutil */
     transform: translateY(-2px);
     box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5); /* Sombra de elevação */
@@ -1021,7 +1078,7 @@ h1 {
     text-align: center;
     padding: 0 1.5rem;
     margin-bottom: 4rem; /* Espaço antes do rodapé */
-    margin-top: 4rem;    /* Espaço depois das Tech Cards */
+    margin-top: 4rem; /* Espaço depois das Tech Cards */
     position: relative;
     z-index: 1;
 }
@@ -1037,9 +1094,9 @@ h1 {
     margin-bottom: 0;
     /* Remove a borda superior se quiser um visual mais limpo, 
        ou mantenha para separar do manifesto */
-    border-top: none; 
+    border-top: none;
     padding-top: 0;
-    opacity: 0.6; /* Levemente mais discreto no rodapé */
+    opacity: 0.6; /* Levemente mais discretion no rodapé */
 }
 
 /* Animações de Entrada */
@@ -1080,20 +1137,20 @@ body.reveal-content footer {
 .construction-notice {
     text-align: center;
     padding: var(--space-phi-double) var(--space-phi);
-    
+
     /* Vidro Sólido em vez de Tracejado */
     background: rgba(20, 18, 16, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.03); /* Borda quase invisível */
     border-radius: 2px;
     backdrop-filter: blur(4px);
-    
+
     margin-bottom: var(--space-phi-double);
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
-    
+
     /* Sombra interna sutil para profundidade */
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .construction-notice h3 {
@@ -1124,27 +1181,31 @@ body.reveal-content footer {
     display: flex;
     align-items: center;
     padding: var(--space-phi);
-    
+
     /* Base Obsidian igual aos Project Cards */
-    background: linear-gradient(145deg, rgba(35, 30, 28, 0.5), rgba(20, 18, 16, 0.7));
+    background: linear-gradient(
+        145deg,
+        rgba(35, 30, 28, 0.5),
+        rgba(20, 18, 16, 0.7)
+    );
     border: 1px solid rgba(255, 255, 255, 0.05);
     /* Mantemos a borda esquerda dourada como "assinatura" deste botão específico */
-    border-left: 2px solid var(--accent-structure); 
-    
+    border-left: 2px solid var(--accent-structure);
+
     color: var(--text-primary);
     text-decoration: none;
-    
+
     position: relative;
     overflow: hidden; /* Corta o brilho */
     min-height: calc(var(--space-phi) * 3);
     border-radius: 2px;
-    
+
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* O Feixe de Luz (Sheen) */
 .fortress-link::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -1153,7 +1214,12 @@ body.reveal-content footer {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(227, 181, 5, 0.1), /* Um pouco mais forte aqui para chamar atenção */
+        rgba(
+            227,
+            181,
+            5,
+            0.1
+        ) /* Um pouco mais forte aqui para chamar atenção */,
         transparent
     );
     transition: left 0.7s ease;
@@ -1161,7 +1227,9 @@ body.reveal-content footer {
 }
 
 /* Conteúdo (Z-Index para ficar acima do brilho) */
-.link-icon, .link-content, .link-action {
+.link-icon,
+.link-content,
+.link-action {
     position: relative;
     z-index: 1;
 }
@@ -1184,12 +1252,16 @@ body.reveal-content footer {
 @media (hover: hover) {
     .fortress-link:hover {
         transform: translateY(-3px);
-        background: linear-gradient(145deg, rgba(40, 35, 33, 0.8), rgba(25, 23, 21, 0.95));
+        background: linear-gradient(
+            145deg,
+            rgba(40, 35, 33, 0.8),
+            rgba(25, 23, 21, 0.95)
+        );
         border-color: rgba(227, 181, 5, 0.3);
         border-left-color: var(--accent-main); /* Acende a lateral */
         box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.5);
     }
-    
+
     /* Dispara o brilho */
     .fortress-link:hover::before {
         left: 100%;
@@ -1200,7 +1272,7 @@ body.reveal-content footer {
         border-color: rgba(227, 181, 5, 0.3);
         transform: scale(1.1);
     }
-    
+
     .fortress-link:hover .link-action {
         color: var(--accent-main);
         transform: translateX(5px);
@@ -1297,12 +1369,16 @@ body.reveal-content footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
-    background: linear-gradient(145deg, rgba(35, 30, 28, 0.4), rgba(20, 18, 16, 0.6));
+
+    background: linear-gradient(
+        145deg,
+        rgba(35, 30, 28, 0.4),
+        rgba(20, 18, 16, 0.6)
+    );
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 4px;
     padding: 2rem;
-    
+
     text-decoration: none;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1311,7 +1387,7 @@ body.reveal-content footer {
 
 /* The Cinematic Sheen (Light Reflection) */
 .project-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -1320,7 +1396,7 @@ body.reveal-content footer {
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(227, 181, 5, 0.03), 
+        rgba(227, 181, 5, 0.03),
         transparent
     );
     transition: left 0.8s ease;
@@ -1358,11 +1434,20 @@ body.reveal-content footer {
 
 .project-desc {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
+    font-size: 0.95rem; /* Inter is legible even at smaller sizes */
+    font-weight: 300;   /* Light weight adds elegance */
     color: var(--text-secondary);
+    
+    /* Leading (Line Height): 150-160% is ideal for screens */
     line-height: 1.6;
-    opacity: 0.8;
-    max-width: 90%;
+    
+    /* Contrast fix: Increased opacity slightly for the thinner font weight */
+    opacity: 0.9; 
+    
+    /* UX Rule: Limit line length for comfortable scanning */
+    max-width: 60ch; 
+    
+    margin-bottom: 1.5rem;
 }
 
 /* Tech Tags (Pills) */
@@ -1377,7 +1462,7 @@ body.reveal-content footer {
 .project-tags li {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: #78716C;
+    color: #78716c;
     background: rgba(255, 255, 255, 0.03);
     padding: 4px 8px;
     border-radius: 2px;
@@ -1415,7 +1500,11 @@ body.reveal-content footer {
 /* --- HOVER INTERACTIONS --- */
 
 .project-card:hover {
-    background: linear-gradient(145deg, rgba(40, 35, 33, 0.7), rgba(25, 23, 21, 0.9));
+    background: linear-gradient(
+        145deg,
+        rgba(40, 35, 33, 0.7),
+        rgba(25, 23, 21, 0.9)
+    );
     border-color: rgba(227, 181, 5, 0.3); /* Gold border activates */
     transform: translateY(-5px);
     box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.6);
@@ -1534,7 +1623,12 @@ footer {
 @media (hover: hover) {
     .made-in-badge:hover {
         border-color: var(--accent-main);
-        background: rgba(28, 25, 23, 0.8); /* Fundo mais escuro para contraste */
+        background: rgba(
+            28,
+            25,
+            23,
+            0.8
+        ); /* Fundo mais escuro para contraste */
         transform: translateY(-2px);
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
@@ -1717,7 +1811,7 @@ footer {
     width: 6px;
 }
 .modal-parchment::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
 }
 .modal-parchment::-webkit-scrollbar-thumb {
@@ -2137,7 +2231,6 @@ footer {
     }
 
     /* Dentro de @media (max-width: 768px) */
-
 }
 
 /* --- TECH STACK (Relocated to Footer) --- */
@@ -2146,10 +2239,10 @@ footer {
     width: 100%;
     max-width: 1000px;
     /* Spacing: Large gap above to separate from projects, smaller gap below near footer */
-    margin: 4rem auto 2rem auto; 
+    margin: 4rem auto 2rem auto;
     padding: 3rem 2rem 0; /* Top padding to accommodate the border/label */
     position: relative;
-    
+
     /* The Divider Line */
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -2161,10 +2254,10 @@ footer {
     top: -0.6rem; /* Positions it exactly on the border line */
     left: 50%;
     transform: translateX(-50%);
-    
+
     background-color: var(--bg-body); /* Masks the line behind the text */
     padding: 0 1rem;
-    
+
     font-family: var(--font-mono);
     font-size: 0.65rem;
     letter-spacing: 0.2em;
@@ -2196,13 +2289,17 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    
+
     /* Base: Vidro Escuro / Obsidiana (Igual aos Project Cards) */
-    background: linear-gradient(145deg, rgba(35, 30, 28, 0.4), rgba(20, 18, 16, 0.6));
+    background: linear-gradient(
+        145deg,
+        rgba(35, 30, 28, 0.4),
+        rgba(20, 18, 16, 0.6)
+    );
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 4px; /* Cantos técnicos */
     padding: 1.5rem 1rem;
-    
+
     cursor: default;
     overflow: hidden; /* Corta o brilho que passa */
     transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -2210,21 +2307,21 @@ footer {
 
 /* O EFEITO DE LUZ (SHEEN) */
 .tech-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%; /* Começa escondido */
     width: 100%;
     height: 100%;
-    
+
     /* O feixe de luz dourada */
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(227, 181, 5, 0.05), /* Ouro muito suave */
+        rgba(227, 181, 5, 0.05) /* Ouro muito suave */,
         transparent
     );
-    
+
     transition: left 0.6s ease; /* Um pouco mais rápido que os cards grandes */
     z-index: 0;
 }
@@ -2242,7 +2339,7 @@ footer {
     height: 2.5rem;
     color: var(--text-secondary); /* Começa cinza */
     transition: all 0.4s ease;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 /* Label (Slot Machine Container) */
@@ -2251,12 +2348,12 @@ footer {
     flex-direction: column;
     height: 1.5rem;
     overflow: hidden;
-    
+
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--text-secondary);
     letter-spacing: -0.02em;
-    
+
     background: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para ler melhor */
     padding: 0 8px;
     border-radius: 2px;
@@ -2269,7 +2366,11 @@ footer {
 .tech-card:hover {
     /* Elevação física */
     transform: translateY(-5px);
-    background: linear-gradient(145deg, rgba(40, 35, 33, 0.7), rgba(25, 23, 21, 0.9));
+    background: linear-gradient(
+        145deg,
+        rgba(40, 35, 33, 0.7),
+        rgba(25, 23, 21, 0.9)
+    );
     border-color: rgba(227, 181, 5, 0.3); /* Borda dourada */
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
 }
@@ -2306,12 +2407,12 @@ footer {
 .tech-svg {
     width: 2.5rem;
     height: 2.5rem;
-    color: #57534E;
+    color: #57534e;
     transition: all 0.3s ease;
 }
 
 .tech-card:hover .tech-svg {
-    color: var(--accent-main, #E3B505);
+    color: var(--accent-main, #e3b505);
     filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.2));
 }
 
@@ -2321,29 +2422,29 @@ footer {
     flex-direction: column; /* Empilha os textos verticalmente */
     height: 1.5rem; /* Altura exata de uma linha de texto */
     overflow: hidden; /* Esconde o texto que está "fora" da bobina */
-    
+
     /* Estilo Base do Texto */
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: #A8A29E;
+    color: #a8a29e;
     letter-spacing: -0.02em;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     padding: 0 8px; /* Padding lateral apenas */
     border-radius: 4px;
-    
+
     /* Centralização */
-    align-items: center; 
+    align-items: center;
     justify-content: flex-start;
 }
 
-/* Os itens dentro da bobina (Sintaxe e Nome) */
+/* Os items dentro da bobina (Sintaxe e Nome) */
 .tech-label span {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 1.5rem; /* Mesma altura do container pai */
     width: 100%;
-    
+
     /* A Animação de Slide */
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     flex-shrink: 0; /* Impede que esmaguem */
@@ -2351,9 +2452,9 @@ footer {
 
 /* Estilo do Nome da Tecnologia (O que sobe) */
 .tech-label span.highlight {
-    color: #F5F5F4;
+    color: #f5f5f4;
     font-weight: bold;
-    color: var(--accent-main, #E3B505); /* Dourado */
+    color: var(--accent-main, #e3b505); /* Dourado */
 }
 
 /* --- AÇÃO DE HOVER (TRIGGER) --- */
@@ -2404,13 +2505,13 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     background: rgba(28, 25, 23, 0.6); /* Stone Dark */
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 1.2rem 1.5rem;
     text-decoration: none;
     border-radius: 4px;
-    
+
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
@@ -2418,7 +2519,7 @@ footer {
 
 /* O Efeito de Hover: "Terminal Selection" */
 .cmd-link::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -2450,7 +2551,7 @@ footer {
 .cmd-prefix {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: #78716C; /* Stone Gray */
+    color: #78716c; /* Stone Gray */
 }
 
 .cmd-name {
@@ -2465,11 +2566,14 @@ footer {
 }
 
 /* Seta/Icone na direita */
-.cmd-arrow, .cmd-icon {
+.cmd-arrow,
+.cmd-icon {
     color: var(--text-muted);
     font-family: var(--font-mono);
     font-size: 1.2rem;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
     z-index: 1;
 }
 
@@ -2533,14 +2637,16 @@ body.debug-mode header::before {
 
     /* 3. CRIAÇÃO DE "ACTIVE STATES" (Feedback Tátil Real) */
     /* Ao tocar com o dedo, o elemento reage instantaneamente */
-    
+
     .atelier-link:active,
     .project-card:active,
     .tech-card:active {
         transform: scale(0.96); /* Compressão física satisfatória */
         background: rgba(227, 181, 5, 0.05); /* Flash dourado sutil */
         border-color: var(--accent-main);
-        transition: transform 0.1s, background 0.1s; /* Resposta imediata */
+        transition:
+            transform 0.1s,
+            background 0.1s; /* Resposta imediata */
     }
 
     /* 4. Ajuste de Texto para Mobile (Legibilidade) */
@@ -2551,7 +2657,7 @@ body.debug-mode header::before {
 }
 
 /* --- OTIMIZAÇÃO DE PERFORMANCE (Hardware Acceleration) --- */
-.particles, 
+.particles,
 .dust {
     /* Desliga partículas em telas muito pequenas ou modo de economia */
     @media (prefers-reduced-motion: reduce) {
