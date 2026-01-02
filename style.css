@@ -138,49 +138,120 @@ button {
     letter-spacing: -0.015em;
 }
 
+/* style.css - SUBSTITUIR A SEÇÃO 3 */
+
 /* ==========================================================================
-3. PRELOADER & SPINNERS
-========================================================================== */
+   3. PRELOADER: THE GOTHIC ROSE
+   ========================================================================== */
 #preloader {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--bg-body);
     z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition:
-        opacity 0.8s var(--ease-physics),
-        visibility 0.8s ease;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    gap: 1.5rem;
+    transition: opacity 1s var(--ease-physics), visibility 1s ease;
 }
+
+/* Quando o site carrega, o preloader "ascende" em vez de apenas sumir */
 body.reveal-content #preloader {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    transform: scale(1.1); /* Efeito de expansão espiritual */
 }
 
-.loader-star {
-    width: 80px;
-    height: 80px;
-    filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.3));
+.gothic-rose {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    filter: drop-shadow(0 0 15px rgba(227, 181, 5, 0.2));
 }
-.spin-clockwise {
-    animation: rotateSacred 12s linear infinite;
+
+.gothic-rose svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
-.spin-counter-clockwise {
-    animation: rotateSacred 12s linear infinite reverse;
+
+/* --- CAMADA 1: ETERNIDADE (O Tempo Divino) --- */
+.ring-eternity {
+    transform-origin: 50px 50px;
+    animation: rotateSlow 20s linear infinite;
 }
-@keyframes rotateSacred {
-    from {
-        transform: rotate(0deg);
+
+/* --- CAMADA 2: RAZÃO (O Intelecto Humano) --- */
+.square-reason {
+    transform-origin: 50px 50px;
+    /* Gira ao contrário para criar tensão visual */
+    animation: rotateReverse 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* --- CAMADA 3: FÉ (O Coração Pulsante) --- */
+.cross-faith {
+    transform-origin: 50px 50px;
+    animation: sacredPulse 3s ease-in-out infinite;
+}
+
+/* Texto Litúrgico */
+/* style.css */
+
+.loading-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    
+    /* DEFINIÇÃO DO ESPAÇAMENTO */
+    letter-spacing: 0.3em;
+    
+    /* CORREÇÃO ÓPTICA (O Segredo) */
+    /* Adicionamos à esquerda o mesmo espaço que sobra à direita */
+    padding-left: 0.3em; 
+    
+    color: var(--accent-main);
+    opacity: 0.7;
+    text-transform: uppercase;
+    text-align: center; /* Garante alinhamento do texto */
+    
+    /* A animação precisa ser ajustada para manter o padding durante o breathe */
+    animation: textBreathe 3s ease-in-out infinite;
+}
+
+/* Atualize também o Keyframe para manter a proporção */
+@keyframes textBreathe {
+    0%, 100% { 
+        opacity: 0.4; 
+        letter-spacing: 0.3em; 
+        padding-left: 0.3em; /* Mantém sincronizado */
     }
-    to {
-        transform: rotate(360deg);
+    50% { 
+        opacity: 1; 
+        letter-spacing: 0.4em; 
+        padding-left: 0.4em; /* Aumenta junto com o spacing */
     }
 }
+
+/* --- ANIMAÇÕES SAGRADAS --- */
+
+@keyframes rotateSlow {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotateReverse {
+    0% { transform: rotate(0deg); opacity: 0.5; }
+    50% { transform: rotate(-180deg); opacity: 1; }
+    100% { transform: rotate(-360deg); opacity: 0.5; }
+}
+
+@keyframes sacredPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 5px var(--accent-main)); }
+}
+
+/* @keyframes textBreathe { */
+/*     0%, 100% { opacity: 0.4; letter-spacing: 0.3em; } */
+/*     50% { opacity: 1; letter-spacing: 0.4em; } */
+/* } */
 
 /* ==========================================================================
 4. HERO HEADER (The Stage)

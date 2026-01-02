@@ -90,6 +90,9 @@ let currentLanguage = "en";
 
 window.addEventListener("load", () => {
     // 1. Reveal Content (CSS Hook)
+    // setTimeout(() => {
+    //     document.body.classList.add("reveal-content");
+    // }, 10000);
     document.body.classList.add("reveal-content");
 
     // 2. Initialize Core Systems
