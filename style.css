@@ -251,7 +251,7 @@ header {
     background-size: cover;
     background-position: 65% center;
     transition: background-image 0.3s ease-in-out;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    box-shadow: none;
     z-index: 2;
 }
 @media (min-width: 768px) {
@@ -296,7 +296,6 @@ header .subtitle {
     line-height: 1.6;
 }
 
-/* Language Switcher */
 /* LANGUAGE SWITCH: The Mechanical Toggle */
 .language-switch {
     position: absolute;
@@ -1059,30 +1058,6 @@ h1 {
     }
 }
 
-.scroll-hint {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    color: var(--text-secondary);
-    opacity: 0.6;
-    animation: scrollBeckon 3s infinite ease-in-out;
-    pointer-events: none;
-}
-@keyframes scrollBeckon {
-    0%,
-    100% {
-        transform: translateY(0);
-        opacity: 0.3;
-    }
-    50% {
-        transform: translateY(6px);
-        opacity: 0.8;
-        color: var(--accent-main);
-    }
-}
-
 /* --- 7. MAIN CONTENT & FORTRESS LINKS --- */
 .container {
     width: 100%;
@@ -1564,17 +1539,28 @@ body.reveal-content footer {
 }
 
 /* --- 8. FOOTER --- */
+/* style.css - Atualização do Footer */
+
 footer {
     width: 100%;
-    margin-top: auto;
-    padding: 0;
-    border-top: 1px solid rgba(214, 206, 179, 0.08);
-    background: linear-gradient(to bottom, rgba(28, 25, 23, 0), #12100e);
-    display: flex;
-    justify-content: center;
+    
+    /* Ajuste de espaçamento para compensar a suavidade */
+    padding: 4rem 1.5rem 2rem; 
+    text-align: center;
+    
+    /* REMOVIDO: border-top: 1px solid ... */
+    border-top: none; 
+    
+    /* Fundo transparente para deixar o gradiente do body/hero reinar */
+    background: transparent;
+    
+    /* Mantém a animação de entrada */
     opacity: 0;
-    animation: revealSlow 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
-    animation-delay: 0.8s;
+    animation: revealSlow 1.5s ease-out forwards;
+    animation-delay: 1s;
+    
+    position: relative;
+    z-index: 3; /* Garante que fique acima de qualquer elemento de fundo */
 }
 .footer-container {
     width: 100%;
@@ -1705,95 +1691,128 @@ footer {
 }
 
 /* --- 9. MODAL & UTILITIES --- */
+/* --- THE CURATOR'S BADGE (Art Detail Trigger) --- */
+
 .art-wrapper {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    z-index: 20;
+    /* Movemos do rodapé para o Topo Esquerdo (Área nobre) */
+    top: 2rem;
+    left: 2rem;
+    bottom: auto;
+    right: auto;
+    
+    z-index: 50;
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
     gap: 12px;
-    pointer-events: none;
+    
+    /* Garante que o texto fique à direita do ícone agora */
+    flex-direction: row; 
 }
+
 .art-button {
     position: relative;
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
+    
+    /* Vidro escuro para destacar sobre qualquer parte da pintura */
+    background: rgba(20, 18, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(4px);
-    border: 1px solid var(--border-subtle);
+    
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
-    cursor: help;
-    pointer-events: auto;
-    transition: all 0.3s ease;
-    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    /* Sombra suave inicial */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+
 .art-button svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
+    /* A animação da pena continua, pois é charmosa */
     transform-origin: center 80%;
     animation: quillAlert 8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
-@media (hover: hover) {
-    .art-button:hover {
-        background: var(--accent-main);
-        border-color: var(--accent-main);
-        color: var(--bg-body);
-        transform: scale(1.1);
-        box-shadow: 0 0 15px rgba(227, 181, 5, 0.5);
-    }
-    .art-button:hover svg {
-        animation-play-state: paused;
-        transform: rotate(0deg) scale(1.1);
-    }
-    .art-button:hover ~ .art-text {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0);
-    }
-}
-@keyframes quillAlert {
-    0%,
-    90% {
-        transform: rotate(0deg);
-    }
-    92% {
-        transform: rotate(-15deg);
-    }
-    94% {
-        transform: rotate(10deg);
-    }
-    96% {
-        transform: rotate(-8deg);
-    }
-    98% {
-        transform: rotate(4deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
+
+/* O Texto (Agora visível como uma etiqueta de museu) */
 .art-text {
-    background: rgba(28, 25, 23, 0.95);
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    font-style: italic;
     color: var(--text-primary);
-    padding: 6px 12px;
+    
+    /* Visual de "Etiqueta" */
+    background: rgba(20, 18, 16, 0.0); /* Fundo transparente inicialmente */
+    padding: 4px 8px;
     border-radius: 4px;
-    border-right: 2px solid var(--accent-main);
-    font-size: 0.75rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.02em;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(10px);
-    pointer-events: none;
-    transition: all 0.4s var(--ease-out);
-    white-space: normal;
-    width: 180px;
-    text-align: right;
+    border-left: 1px solid transparent;
+    
+    opacity: 0.7; /* Discreto por padrão */
+    visibility: visible;
+    transform: none;
+    pointer-events: none; /* Deixa o clique passar */
+    transition: all 0.4s ease;
+    
+    /* Limita largura para não brigar com o título em telas pequenas */
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left; /* Alinha com o ícone */
+}
+
+/* --- INTERAÇÃO HOVER --- */
+
+.art-wrapper:hover .art-button {
+    /* O botão vira ouro */
+    border-color: var(--accent-main);
+    background: rgba(20, 18, 16, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(227, 181, 5, 0.4); /* Glow Dourado */
+}
+
+.art-wrapper:hover .art-button svg {
+    color: var(--accent-main);
+    animation-play-state: paused; /* Para a animação para focar */
+    transform: rotate(-15deg) scale(1.1); /* Posição de escrita */
+}
+
+.art-wrapper:hover .art-text {
+    opacity: 1;
+    color: var(--accent-main); /* Texto acende */
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    transform: translateX(5px); /* Leve movimento para a direita */
+}
+
+/* Animação da Pena (Mantida) */
+@keyframes quillAlert {
+    0%, 90% { transform: rotate(0deg); }
+    92% { transform: rotate(-15deg); }
+    94% { transform: rotate(10deg); }
+    96% { transform: rotate(-8deg); }
+    98% { transform: rotate(4deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* --- MOBILE ADJUSTMENT --- */
+@media (max-width: 768px) {
+    .art-wrapper {
+        top: 1.5rem;
+        left: 1rem;
+    }
+    /* No celular, escondemos o texto para economizar espaço,
+       deixando só o ícone misterioso */
+    .art-text {
+        display: none; 
+    }
 }
 
 /* Modal */
@@ -2693,5 +2712,180 @@ body.debug-mode header::before {
     /* Desliga partículas em telas muito pequenas ou modo de economia */
     @media (prefers-reduced-motion: reduce) {
         display: none;
+    }
+}
+
+/* --- THE PRIMARY GATEWAY (Portfolio Button Fix) --- */
+
+/* O botão em estado de repouso */
+.atelier-link.primary-gateway {
+    /* Borda dourada sutil em vez de cinza */
+    border-color: rgba(227, 181, 5, 0.3);
+    /* Um leve degradê dourado no fundo */
+    background: linear-gradient(
+        to right,
+        rgba(227, 181, 5, 0.05),
+        transparent
+    );
+    /* Garante espaço para a seta nova */
+    padding-right: 1rem;
+}
+
+/* Tinji o ícone e o título de ouro */
+.atelier-link.primary-gateway .link-icon,
+.atelier-link.primary-gateway .link-title {
+    color: var(--accent-main) !important;
+    transition: all 0.3s ease;
+}
+
+/* A seta de navegação na direita */
+.link-arrow {
+    margin-left: auto; /* Empurra para a direita */
+    color: var(--text-tertiary);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    transform: translateX(0);
+}
+
+/* --- HOVER STATE (Ao passar o mouse) --- */
+.atelier-link.primary-gateway:hover {
+    /* Brilho mais intenso */
+    border-color: var(--accent-main);
+    box-shadow: 0 4px 20px rgba(227, 181, 5, 0.15);
+    background: linear-gradient(
+        to right,
+        rgba(227, 181, 5, 0.1),
+        transparent
+    );
+}
+
+/* A seta se move e acende ao passar o mouse */
+.atelier-link.primary-gateway:hover .link-arrow {
+    opacity: 1;
+    color: var(--accent-main);
+    transform: translateX(4px); /* Pequeno movimento para a direita */
+}
+
+/* Garante que o html e body ocupem a altura total */
+html, body {
+    min-height: 100%;
+}
+
+/* --- FOOTER & QUOTE INTEGRATION --- */
+
+footer {
+    width: 100%;
+    margin-top: auto; /* Empurra para o fundo se a tela for grande */
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+    
+    /* Fade In Animation */
+    opacity: 0;
+    animation: revealSlow 1.5s ease-out forwards;
+    animation-delay: 1s; /* Aparece por último */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* A Citação (Estilo Inscrição) */
+.footer-quote-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.footer-quote {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    cursor: help; /* Indica que há algo escondido (o significado) */
+    position: relative;
+    padding: 0 0.5rem;
+}
+
+/* Linhas decorativas laterais (Fade out) */
+.separator-line {
+    height: 1px;
+    flex: 1; /* Ocupa o espaço restante */
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    max-width: 100px; /* Não deixa as linhas ficarem gigantes */
+}
+
+/* COPYRIGHT */
+.footer-legal {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    opacity: 0.4;
+    letter-spacing: 0.05em;
+}
+
+/* --- TOOLTIP DA CITAÇÃO (A Revelação) --- */
+/* Só funciona se o dispositivo tiver mouse (hover) */
+@media (hover: hover) {
+    .footer-quote-wrapper:hover {
+        opacity: 1; /* Aumenta o foco ao passar o mouse */
+    }
+
+    .footer-quote-wrapper:hover .separator-line {
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--accent-structure), /* Linhas ficam douradas */
+            transparent
+        );
+    }
+
+    /* O Tooltip com o Significado */
+    .footer-quote::after {
+        content: attr(data-meaning); /* Pega o texto do HTML/JS */
+        
+        position: absolute;
+        bottom: 100%; /* Aparece ACIMA da frase */
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        
+        background: rgba(20, 18, 16, 0.95);
+        border: 1px solid var(--accent-structure);
+        color: var(--text-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-style: normal;
+        white-space: nowrap;
+        pointer-events: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        
+        /* Estado inicial (Escondido) */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Revela o Tooltip no Hover */
+    .footer-quote:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-10px); /* Sobe suavemente */
     }
 }

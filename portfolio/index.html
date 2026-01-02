@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portfolio | Jerry Augusto</title>
+
+        <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+
+        <div class="ambient-canvas">
+            <div class="light-source light-gold"></div>
+            <div class="light-source light-rust"></div>
+        </div>
+
+        <nav style="padding: 2rem; display: flex; justify-content: center; position: relative; z-index: 10;">
+            <a href="/" class="tech-tag" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.8rem; background: rgba(0,0,0,0.3); padding: 8px 16px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Return to Hub
+            </a>
+        </nav>
+
+        <main class="container">
+
+            <header style="min-height: auto; padding: 2rem 0 4rem 0; background: none; box-shadow: none;">
+                <h1 style="font-family: var(--font-serif); font-size: 3rem; margin-bottom: 0.5rem;">Selected Works</h1>
+                <p class="subtitle">Opus in Progressu</p>
+            </header>
+
+            <section class="projects-section">
+                <div class="projects-grid">
+
+                    <a href="#" class="project-card">
+                        <div class="project-content">
+                            <div class="project-header">
+                                <span>2024</span>
+                                <span>Case Study</span>
+                            </div>
+                            <h3 class="project-title">Project Name</h3>
+                            <ul class="project-tags">
+                                <li>React</li>
+                                <li>TypeScript</li>
+                                <li>Node.js</li>
+                            </ul>
+                            <p class="project-desc">
+                                A brief description of the project goes here. Hand-forged solutions for complex problems.
+                            </p>
+                        </div>
+                        <div class="project-action">
+                            <span class="action-text">View Case</span>
+                            <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </div>
+                    </a>
+
+                    <div class="construction-notice">
+                        <div class="rosette-spinner">
+                            <svg viewBox="0 0 100 100" class="spin-clockwise">
+                                <path d="M50 0 L55 35 L90 35 L65 60 L75 95 L50 75 L25 95 L35 60 L10 35 L45 35 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+                            </svg>
+                        </div>
+                        <h3>More to Come</h3>
+                        <p data-i18n="wipDesc">The forge is lit, and the metal is being tempered.<br>Projects will be revealed in due time.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="tech-grid-container">
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon-wrapper">
+                            <svg class="tech-svg" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>JavaScript</title><path fill="currentColor" d="M24 0v24H0V0h24z" fill-opacity="0"/><path fill="currentColor" d="M12.75 5.86c-1.35 0-2.45.89-2.45 2s1.1 2 2.45 2c1.35 0 2.45-.89 2.45-2s-1.1-2-2.45-2zM6.9 8.29c0 1.34 1.33 2.42 2.96 2.42s2.96-1.08 2.96-2.42c0-1.34-1.33-2.42-2.96-2.42S6.9 6.95 6.9 8.29z"/></svg>
+                        </div>
+                        <div class="tech-label">
+                            <span class="highlight">JavaScript</span>
+                            <span>Language</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-col left">
+                    <span class="copyright">&copy; 2025 Jerry Augusto</span>
+                    <span class="role" data-i18n="footerRole">Engineering & Design</span>
+                </div>
+
+                <div class="footer-col center">
+                    <div class="made-in-badge interactive" id="trigger-colophon">
+                        <span data-i18n="madeWith">Made with</span>
+                        <svg class="icon-heart" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <span data-i18n="in">in</span>
+                        <span>🇧🇷</span>
+                        <span data-i18n="using">using</span>
+                        <span class="version-tag" title="v2.1.2-vanilla">v2.1</span>
+                    </div>
+                </div>
+
+                <div class="footer-col right">
+                    <span class="tech-stack">HTML5 • CSS3 • ES6+</span>
+                </div>
+            </div>
+        </footer>
+
+        <template id="colophon-content">
+            <div class="colophon-grid">
+                <div class="colophon-header">
+                    <h3>System Architecture</h3>
+                    <span class="mono-tag">BUILD 2025.1</span>
+                </div>
+                <div class="colophon-intro">
+                    "A recursive artifact tailored to exhibit its own construction."
+                </div>
+                <div class="spec-section">
+                    <h4>Core Stack</h4>
+                    <ul class="stack-list">
+                        <li>Semantic HTML5</li>
+                        <li>Vanilla CSS3 (No Frameworks)</li>
+                        <li>Vanilla ES6+ (No Bundlers)</li>
+                        <li>CSS Variables (Tokens)</li>
+                    </ul>
+                </div>
+                <div class="spec-section">
+                    <h4>Typography</h4>
+                    <div class="font-preview serif">Aa Bb Cc (EB Garamond)</div>
+                    <div class="font-preview mono">print("Hello World"); (JetBrains Mono)</div>
+                </div>
+            </div>
+        </template>
+
+        <div class="modal-backdrop">
+            <div class="modal-parchment">
+                <button class="modal-close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                <div class="parchment-content">
+                </div>
+            </div>
+        </div>
+
+        <template id="colophon-content">
+            <div class="colophon-grid">
+                <div class="colophon-header">
+                    <h3>Project Architecture</h3>
+                    <span class="mono-tag">v2.1.0 :: SELF_REFERENCE</span>
+                </div>
+
+                <p class="colophon-intro">
+                    "A recursive artifact tailored to exhibit its own construction."
+                    Este portfólio foi forjado manualmente seguindo princípios de Design Áureo e Engenharia Limpa.
+                </p>
+
+                <div class="spec-section">
+                    <h4>01. The Geometry</h4>
+                    <div class="spec-row">
+                        <span class="spec-label">Ratio:</span>
+                        <span class="spec-value">Golden (φ ≈ 1.618)</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Grid:</span>
+                        <span class="spec-value">Modular Scale</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Unit:</span>
+                        <span class="spec-value">1rem (Desktop) / 100dvh (Mobile)</span>
+                    </div>
+                </div>
+
+                <div class="spec-section">
+                    <h4>02. The Palette (Kanagawa/Gold)</h4>
+                    <div class="color-swatch-row">
+                        <div class="swatch" style="background: #1C1917" title="#1C1917 (Void)"></div>
+                        <div class="swatch" style="background: #E3B505" title="#E3B505 (Gold)"></div>
+                        <div class="swatch" style="background: #782626" title="#782626 (Rust)"></div>
+                        <div class="swatch" style="background: #E7E5E4" title="#E7E5E4 (Stone)"></div>
+                    </div>
+                </div>
+
+                <div class="spec-section">
+                    <h4>03. Typography</h4>
+                    <div class="font-preview serif">Aa Bb Cc (EB Garamond)</div>
+                    <div class="font-preview mono">func main() (JetBrains Mono)</div>
+                </div>
+
+                <div class="spec-section">
+                    <h4>04. The Forge</h4>
+                    <ul class="stack-list">
+                        <li>Neovim (LSP/Lua)</li>
+                        <li>Git / GitHub Pages</li>
+                        <li>Vanilla CSS3 (No Frameworks)</li>
+                        <li>Cloudflare CDN</li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+
+
+        <script src="../main.js"></script>
+    </body>
+</html>
