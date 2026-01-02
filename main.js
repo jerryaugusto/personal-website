@@ -86,7 +86,7 @@ window.addEventListener("load", () => {
     initArtModal();
 
     // 3. Initialize Aesthetics
-    updateRomanYear();
+    updateYearInscription();
 });
 
 /* ==========================================================================
@@ -226,42 +226,35 @@ function initArtModal() {
 }
 
 /* ==========================================================================
-   6. THE SCRIBE: ROMAN NUMERAL GENERATOR
+   6. THE SCRIBE: EPIPHANY BLESSING GENERATOR
    ========================================================================== */
 
-function toRoman(num) {
-    const lookup = {
-        M: 1000,
-        CM: 900,
-        D: 500,
-        CD: 400,
-        C: 100,
-        XC: 90,
-        L: 50,
-        XL: 40,
-        X: 10,
-        IX: 9,
-        V: 5,
-        IV: 4,
-        I: 1,
-    };
-    let roman = "";
-    for (let i in lookup) {
-        while (num >= lookup[i]) {
-            roman += i;
-            num -= lookup[i];
-        }
-    }
-    return roman;
+/**
+ * Generates the traditional Epiphany door blessing string (Christus Mansionem Benedicat).
+ * Format: Century + Cross + C + M + B + Cross + Year (e.g., "20 + C + M + B + 26")
+ * @returns {string} - The formatted blessing string.
+ */
+function getEpiphanyBlessing() {
+    const currentYear = new Date().getFullYear().toString();
+    
+    // Split the year (e.g., "2026" -> "20" and "26")
+    const century = currentYear.substring(0, 2);
+    const decade = currentYear.substring(2);
+    
+    // Note: Using standard plus signs (+) as requested, though '†' is also traditional.
+    return `${century} + C + M + B + ${decade}`;
 }
 
-function updateRomanYear() {
-    const year = new Date().getFullYear();
-    const romanYear = toRoman(year);
-    const yearEl = document.getElementById("roman-year");
-
+/**
+ * Injects the Epiphany Blessing into the footer.
+ * Executed on system initialization.
+ */
+function updateYearInscription() {
+    const yearEl = document.getElementById('year-inscription');
+    
     if (yearEl) {
-        yearEl.innerText = romanYear;
-        yearEl.setAttribute("title", `Anno Domini ${year}`);
+        const blessing = getEpiphanyBlessing();
+        yearEl.innerText = blessing;
+        yearEl.setAttribute('title', 'Christus Mansionem Benedicat (May Christ Bless This House)');
     }
 }
