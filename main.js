@@ -16,7 +16,7 @@ const translations = {
     en: {
         avatarTooltip: "Open for new commissions",
         // Header & Identity
-        role: "Software Engineering & Full-Stack Solutions",
+        role: "Software Engineering, Full-Stack Solutions & AI",
         manifesto: "Your site doesn't need to look like everyone else's.",
         quote: "\"Age Quod Debes.\"",
         quoteMeaning: "Do what you must.",
@@ -52,7 +52,7 @@ const translations = {
     pt: {
         avatarTooltip: "Disponível para projetos",
         // Header & Identity
-        role: "Engenharia de Software & Soluções Full-Stack",
+        role: "Engenharia de Software, Soluções Full-Stack & IA",
         manifesto: "Seu site não precisa ser igual ao de todo mundo.",
         quote: "\"Age Quod Debes.\"",
         quoteMeaning: "Faça o que deve ser feito.",
