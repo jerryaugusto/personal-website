@@ -20,6 +20,12 @@ const translations = {
         role: "Software Engineering, Full-Stack Solutions & AI",
         manifesto: "Your site doesn't need to look like everyone else's.",
 
+        // Button Descriptions
+        descGithub: "Source Code & Repositories",
+        descLinkedin: "Professional Network",
+        descWhatsapp: "Direct Message",
+        descEmail: "Get in Touch",
+
         // Footer Quote
         quote: '"Age Quod Debes."',
         quoteMeaning: "Do what you must.",
@@ -46,6 +52,12 @@ const translations = {
         // Identity
         role: "Engenharia de Software, Soluções Full-Stack & IA",
         manifesto: "Seu site não precisa set igual ao de todo mundo.",
+
+        // Button Descriptions
+        descGithub: "Código Fonte & Repositórios",
+        descLinkedin: "Rede Profissional",
+        descWhatsapp: "Mensagem Direta",
+        descEmail: "Entre em Contato",
 
         // Footer Quote
         quote: '"Age Quod Debes."',
