@@ -629,6 +629,8 @@ h1 {
     flex-direction: column;
     gap: 0.2rem;
     z-index: 1;
+    text-align: left; 
+    align-items: flex-start;
 }
 .link-title {
     font-family: var(--font-serif);
