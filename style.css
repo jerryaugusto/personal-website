@@ -1,72 +1,60 @@
 /* * PROJECT: LinkHub Personal Site
- * COMPONENT: Main Stylesheet (Desktop UX Optimized)
- * SYSTEM: Scriptorium Design System v3.3 (Golden Ratio Edition)
- * AUTHOR: Jerry Augusto
- */
+* COMPONENT: Main Stylesheet (Cleaned & Optimized)
+* VERSION: v3.4 (Final Audit)
+* AUTHOR: Jerry Augusto
+*/
 
-/* --- 1. DESIGN TOKENS (The Golden Ratio) --- */
-/* --- 1. DESIGN TOKENS (The Golden Ratio) --- */
+/* ==========================================================================
+1. DESIGN TOKENS (The Golden Ratio)
+========================================================================== */
 :root {
-    /* --- PALETA --- */
+    /* --- PALETTE --- */
     --bg-body: #1c1917;
-    --accent-main: #e3b505;
-    --accent-structure: #c5a059;
-    --accent-warmth: #78350f;
-    --accent-error: #782626;
+    --accent-main: #e3b505; /* Bright Gold */
+    --accent-structure: #c5a059; /* Muted Gold */
+    --accent-warmth: #78350f; /* Warm Earth */
+    --accent-error: #782626; /* Rust Red */
 
     --text-primary: #e7e5e4;
     --text-secondary: #a8a29e;
+    --text-muted: #57534e;
     --border-subtle: rgba(197, 160, 89, 0.15);
 
     /* --- THE GOLDEN MODULAR SCALE --- */
     --ratio: 1.618;
-
-    /* Font Sizes (Base * Ratio^n) */
     --fs-base: 1rem; /* ~16px */
-    --fs-md: calc(1rem * var(--ratio)); /* ~25.8px */
-    --fs-lg: calc(1rem * var(--ratio) * var(--ratio)); /* ~41.8px */
     --fs-xl: calc(
         1rem *
         var(--ratio) *
         var(--ratio) *
         var(--ratio)
     ); /* ~67px */
-    --fs-sm: calc(1rem / var(--ratio)); /* ~9.8px */
 
-    /* Typography Upgrade */
+    /* --- TYPOGRAPHY SYSTEM --- */
     --font-serif: "EB Garamond", serif;
     --font-mono: "JetBrains Mono", monospace;
-    /* REPLACED: System fonts with Inter for consistent UX geometry */
     --font-sans:
         "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         sans-serif;
 
-    /* --- ESPAÇAMENTO (Rhythm) --- */
+    /* --- SPACING & PHYSICS --- */
     --space-unit: 1rem;
-    --space-phi: calc(var(--space-unit) * var(--ratio)); /* ~26px */
-    --space-phi-double: calc(var(--space-unit) * var(--ratio) * 2); /* ~52px */
+    --space-phi: calc(var(--space-unit) * var(--ratio));
+    --space-phi-double: calc(var(--space-unit) * var(--ratio) * 2);
     --space-section: calc(
         var(--space-unit) *
         var(--ratio) *
         var(--ratio) *
         var(--ratio)
-    ); /* ~100px */
+    );
 
-    --radius-card: 2px;
-
-    /* CORREÇÃO CRÍTICA: Definindo ambas as variáveis para compatibilidade */
     --ease-physics: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --ease-out: cubic-bezier(
-        0.2,
-        0.8,
-        0.2,
-        1
-    ); /* Recuperado para as animações */
-
-    --touch-target: 44px;
+    --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* --- 2. RESET & GLOBAL BASE --- */
+/* ==========================================================================
+2. RESET & GLOBAL BASE
+========================================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -80,80 +68,79 @@ body {
     background-color: var(--bg-body);
     overflow-x: hidden;
     width: 100%;
+    min-height: 100%;
 }
 
 body {
     color: var(--text-primary);
     font-family: var(--font-sans);
-    font-size: 1.125rem; /* Desktop Luxury Base */
+    font-size: 1.125rem;
     line-height: 1.6;
-    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0;
 
-    /* Safe Areas */
+    /* Safe Areas for Mobile Notches */
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
 
+    /* Subtle Noise Texture */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 
-    /* Font Rendering */
-    /* FONT SMOOTHING STRATEGY */
-    /* On dark backgrounds, standard antialiasing can make serif fonts look too thin.
-       We keep it for consistency, but might override on specific serif elements. */
+    /* Font Rendering Optimization */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
-    /* OPENTYPE FEATURES (The "Pro" Touch) */
-    /* kern: Controls spacing between specific letter pairs (AV, To) */
-    /* liga: Standard ligatures (fi, fl) */
-    /* calt: Contextual alternates (crucial for Inter and JetBrains) */
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-    
-    /* Performance: Tells browser to prioritize legibility over speed */
     text-rendering: optimizeLegibility;
-}
-/* 1. SERIF REFINEMENT (Headings & Manifesto) */
-h1, h2, h3, .manifesto, .link-title {
-    font-family: var(--font-serif);
-    /* dlig: Discretionary Ligatures (connects 'st', 'ct' for old-print aesthetic) */
-    font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
-    font-optical-sizing: auto;
+    font-feature-settings:
+        "kern" 1,
+        "liga" 1,
+        "calt" 1;
 }
 
-/* 2. MONO REFINEMENT (Code & Labels) */
-.tech-label, .link-desc, .version-tag, .subtitle {
-    font-family: var(--font-mono);
-    /* zero: Slashed zero to distinguish from 'O' */
-    font-feature-settings: "liga" 1, "zero" 1;
-}
-
-/* 3. SANS REFINEMENT (UI & Descriptions) */
-.project-desc, body, button {
-    /* tnum: Tabular numbers (better alignment for data) */
-    font-feature-settings: "calt" 1, "tnum" 1;
-    /* Negative tracking makes Inter look sharper/more professional */
-    letter-spacing: -0.015em; 
-}
-
-/* Selection (Rust Red) */
+/* Selection Color */
 ::selection {
     background-color: var(--accent-error);
     color: var(--text-primary);
-    text-shadow: none;
-}
-::-moz-selection {
-    background-color: var(--accent-error);
-    color: var(--text-primary);
-    text-shadow: none;
 }
 
-/* --- 3. PRELOADER & SPINNERS (Counter-Rotation Logic) --- */
+/* --- TYPOGRAPHY REFINEMENT --- */
+h1,
+h2,
+h3,
+.manifesto,
+.link-title {
+    font-family: var(--font-serif);
+    font-feature-settings:
+        "kern" 1,
+        "liga" 1,
+        "dlig" 1;
+}
+
+.tech-label,
+.link-desc,
+.version-tag,
+.subtitle {
+    font-family: var(--font-mono);
+    font-feature-settings:
+        "liga" 1,
+        "zero" 1;
+}
+
+.project-desc,
+body,
+button {
+    font-feature-settings:
+        "calt" 1,
+        "tnum" 1;
+    letter-spacing: -0.015em;
+}
+
+/* ==========================================================================
+3. PRELOADER & SPINNERS
+========================================================================== */
 #preloader {
     position: fixed;
     top: 0;
@@ -166,7 +153,7 @@ h1, h2, h3, .manifesto, .link-title {
     justify-content: center;
     align-items: center;
     transition:
-        opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.8s var(--ease-physics),
         visibility 0.8s ease;
 }
 body.reveal-content #preloader {
@@ -175,34 +162,10 @@ body.reveal-content #preloader {
     pointer-events: none;
 }
 
-/* Configuração dos Containers SVG */
-.loader-star svg,
-.rosette-spinner svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
-
 .loader-star {
     width: 80px;
     height: 80px;
     filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.3));
-}
-
-/* O container do Aviso de Construção */
-.rosette-spinner {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 1.5rem;
-    color: var(--accent-main);
-    opacity: 0.7;
-}
-
-/* Lógica de Rotação Dupla (Aplica-se a ambos) */
-.spin-clockwise,
-.spin-counter-clockwise {
-    transform-origin: 50px 50px;
-    will-change: transform;
 }
 .spin-clockwise {
     animation: rotateSacred 12s linear infinite;
@@ -210,15 +173,6 @@ body.reveal-content #preloader {
 .spin-counter-clockwise {
     animation: rotateSacred 12s linear infinite reverse;
 }
-
-/* Ajustes de Velocidade por Contexto */
-.rosette-spinner .spin-clockwise {
-    animation-duration: 20s;
-}
-.rosette-spinner .spin-counter-clockwise {
-    animation-duration: 20s;
-}
-
 @keyframes rotateSacred {
     from {
         transform: rotate(0deg);
@@ -228,147 +182,50 @@ body.reveal-content #preloader {
     }
 }
 
-/* --- 4. HERO HEADER --- */
+/* ==========================================================================
+4. HERO HEADER (The Stage)
+========================================================================== */
 header {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 100dvh; /* Mobile viewport fix */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 1.5rem;
+    padding: 2rem 1.5rem; /* Adjusted padding */
 
+    /* Ethereal Fade Gradient + Caravaggio */
     background-image:
         linear-gradient(
             to bottom,
-            rgba(28, 25, 23, 0.9) 0%,
-            rgba(28, 25, 23, 0.7) 45%,
-            rgba(28, 25, 23, 1) 100%
+            rgba(28, 25, 23, 0.8) 0%,
+            rgba(28, 25, 23, 0.5) 40%,
+            rgba(28, 25, 23, 0.8) 80%,
+            #1c1917 100%
         ), url("assets/the-calling-of-saint-matthew.avif");
+
     background-size: cover;
     background-position: 65% center;
-    transition: background-image 0.3s ease-in-out;
     box-shadow: none;
     z-index: 2;
 }
+
 @media (min-width: 768px) {
     header {
         background-position: center 50%;
-        padding-bottom: 4rem;
     }
 }
 
-/* --- TYPOGRAPHY REFINEMENT (Title & Subtitle) --- */
-
-header h1 {
-    /* 1. Scale Down: Reduced clamp values for a more controlled headline */
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-
-    /* 2. Increased Rhythm: More breathing room below the title */
-    margin-bottom: 1.5rem; /* Was likely smaller (e.g., 0.5rem) */
-
-    /* Maintain existing aesthetic styles */
-    font-family: var(--font-serif);
-    font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+/* Ensure background interactions don't block clicks */
+header::before,
+header::after {
+    pointer-events: none;
 }
 
-header .subtitle {
-    /* 1. Scale Down: Smaller text size for elegance */
-    font-size: 0.9rem; /* Reduced from ~1.1rem/1.2rem */
-
-    /* 2. Refinement: Compensate small size with generous tracking */
-    letter-spacing: 0.2em; /* Wide spacing creates the "premium" feel */
-    text-transform: uppercase;
-
-    /* Maintain readability */
-    color: var(--accent-main);
-    font-family: var(--font-mono);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-}
-
-/* LANGUAGE SWITCH: The Mechanical Toggle */
-.language-switch {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    z-index: 50;
-    
-    /* SHAPE: Matching the Subtitle (The Ingot) */
-    /* Deixamos de usar 20px/50% para usar o padrão "Sharp" */
-    border-radius: 4px;
-    
-    /* APPEARANCE */
-    background: rgba(20, 18, 16, 0.8); /* Obsidian Dark */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    
-    /* TYPOGRAPHY */
-    /* Usamos Mono para dar a sensação de "Ferramenta" ou "Configuração" */
-    font-family: var(--font-mono); 
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: 0.05em;
-    
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    /* Disable user selection */
-    user-select: none;
-}
-
-/* HOVER STATE */
-.language-switch:hover {
-    /* Acende sutilmente a borda com a cor de acento */
-    border-color: var(--accent-structure);
-    color: var(--text-primary);
-    background: rgba(20, 18, 16, 1);
-    
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* ACTIVE STATE (Click) */
-.language-switch:active {
-    transform: translateY(1px);
-}
-.lang-btn {
-    background: none;
-    border: none;
-    /* padding: 4px; */
-    /* color: var(--text-secondary); */
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: inherit;
-    /* Increase letter-spacing to maintain readability at small sizes */
-    letter-spacing: 0.05em;
-    opacity: 0.6;
-    transition: color 0.3s ease;
-    padding: 2px; /* Small touch target buffer */
-}
-.lang-btn.active {
-    color: var(--accent-main);
-    opacity: 1;
-    font-weight: bold;
-}
-
-.separator {
-    color: var(--text-muted);
-    font-size: inherit;
-    opacity: 0.5; /* Make the slash very subtle */
-}
-
-/* --- 5. TYPOGRAPHY & ELEMENTS --- */
+/* --- HEADER CONTENT (The Focus) --- */
 .header-content {
     width: 100%;
     max-width: 618px;
@@ -376,19 +233,23 @@ header .subtitle {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    /* CRITICAL FIX: Z-Index Elevation for Touch Events */
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
+/* --- IDENTITY ELEMENTS --- */
 h1 {
-    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 500;
-    font-size: clamp(2.5rem, 5vw, var(--fs-xl)); /* Escala Modular */
-    line-height: 1.1;
-    letter-spacing: -0.04em;
     font-style: italic;
-    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-align: center;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1.5rem;
     white-space: nowrap;
 }
 @media (max-width: 350px) {
@@ -397,151 +258,72 @@ h1 {
     }
 }
 
-/* SUBTITLE: The Officer's Badge (Static Sheen) */
-/* SUBTITLE: The Alchemist's Flow (Molten Gold Effect) */
+/* SUBTITLE: The Ingot (Molten Gold Effect) */
 .subtitle {
-    /* Layout */
     display: inline-block;
     position: relative;
     margin-bottom: var(--space-phi);
-    /* SHAPE CORRECTION: */
-    /* De 100px (Pill) para 4px (Forged Plate) */
-    /* Isso alinha com a geometria "afiada" do resto do site */
-    border-radius: 4px; 
-    
-    /* Ajuste de Padding: Retângulos precisam de menos espaço lateral que pílulas */
-    padding: 0.6rem 1.2rem; 
-    
-    /* ... mantenha o background, font, e o efeito 'Molten Flow' ... */
+
+    /* Geometry: The Ingot */
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
     background: rgba(20, 18, 16, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
-    /* Typography Setup for Liquid Fill */
-    font-family: var(--font-mono);
-    font-size: 0.85rem; /* Levemente menor para elegância */
+    /* Typography */
+    font-size: 0.85rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.15em;
 
-    /* THE MAGIC: Text Masking Gradient */
-    /* Camada 1: Ferro Escuro (Repouso) */
-    /* Camada 2: Ouro Líquido (Ativo) */
+    /* Liquid Fill Magic */
     background-image: linear-gradient(
         120deg,
         var(--text-secondary) 0%,
-        var(--text-secondary) 40% /* Ferro Frio */,
-        var(--accent-main) 50% /* O Núcleo Dourado */,
-        #fff 55% /* Brilho Intenso (Specular) */,
-        var(--accent-main) 60% /* O Núcleo Dourado */,
-        var(--text-secondary) 70% /* Ferro Frio */,
+        var(--text-secondary) 40%,
+        var(--accent-main) 50%,
+        #fff 55%,
+        var(--accent-main) 60%,
+        var(--text-secondary) 70%,
         var(--text-secondary) 100%
     );
-
-    /* Tamanho do background expandido para permitir o movimento */
     background-size: 200% auto;
-    background-position: 100% 0; /* Começa na parte escura */
-
-    /* Aplica o fundo APENAS ao formato das letras */
+    background-position: 100% 0;
     -webkit-background-clip: text;
     background-clip: text;
-
-    /* Torna a cor original transparente para mostrar o fundo */
     -webkit-text-fill-color: transparent;
     color: transparent;
 
-    /* Transições de Física */
     cursor: default;
-    transition:
-        background-position 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
-        border-color 0.5s ease,
-        box-shadow 0.5s ease,
-        transform 0.5s var(--ease-physics);
+    transition: all 0.5s var(--ease-physics);
 }
 
-/* --- HOVER STATE (Ignition) --- */
 .subtitle:hover {
-    /* O texto "enche" de ouro (move o gradiente) */
-    background-position: 0% 0;
-
-    /* O container reage sutilmente */
+    background-position: 0% 0; /* Gold flow */
     border-color: rgba(227, 181, 5, 0.3);
-    box-shadow:
-        0 10px 30px -5px rgba(0, 0, 0, 0.5),
-        inset 0 0 20px rgba(227, 181, 5, 0.05); /* Glow interno sutil */
-
-    /* Levitação Magnética (Muito sutil) */
     transform: translateY(-2px);
 }
 
-/* Optional: Um brilho suave atrás para dar profundidade */
-.subtitle::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    box-shadow: 0 0 15px var(--accent-main);
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    z-index: -1;
-}
-
-.subtitle:hover::after {
-    opacity: 0.15; /* Brilho difuso atrás do texto */
-}
-
-/* AVATAR (Ethereal Vessel) */
-.avatar {
-    width: clamp(120px, 20vw, 150px);
-    height: clamp(120px, 20vw, 150px);
-    border-radius: 50%;
-    margin-bottom: var(--space-phi);
-    background: linear-gradient(
-        45deg,
-        #c5a059 0%,
-        #722f37 40%,
-        #3d1c51 70%,
-        #1a1a2e 100%
-    );
-    padding: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: sacredPulse 8s ease-in-out infinite;
-    transition:
-        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-        box-shadow 0.5s ease;
-    will-change: transform, box-shadow;
-}
-/* AVATAR (Ethereal Vessel) - Story Ring + Sonar Wave */
+/* AVATAR: The Sacred Vessel */
 .avatar-wrapper {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 120px;
     height: 120px;
     margin-bottom: 1.5rem;
     cursor: pointer;
     z-index: 10;
-
-    /* O ANEL MÍSTICO (Story Style) */
     border-radius: 50%;
     padding: 3px;
-    background: linear-gradient(
-        45deg,
-        #c5a059 0%,
-        #722f37 40%,
-        #3d1c51 70%,
-        #1a1a2e 100%
-    );
-    background-size: 200% 200%;
 
+    /* Mystic Ring */
+    background: linear-gradient(45deg, #c5a059, #722f37, #3d1c51, #1a1a2e);
+    background-size: 200% 200%;
     animation: sacredPulse 8s ease-in-out infinite;
-    transition:
-        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.3s ease;
+    transition: transform 0.5s var(--ease-physics);
 }
 
 .avatar-img {
@@ -549,34 +331,22 @@ h1 {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-
-    /* Borda sólida para separar a photo do anel */
     border: 3px solid var(--bg-body);
     background-color: var(--bg-body);
-
-    display: block;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* O Ponto Verde (Base Sólida) */
+/* Status Dot & Sonar */
 .status-dot {
     position: absolute;
     bottom: 5px;
     right: 5px;
-
-    width: 16px; /* Levemente menor para a onda ter espaço para sair */
+    width: 16px;
     height: 16px;
     background-color: #10b981;
     border: 3px solid var(--bg-body);
     border-radius: 50%;
     z-index: 15;
-
-    /* Important para a onda nascer do centro dele */
-    transform: translate(0, 0);
-    transition: transform 0.3s ease;
 }
-
-/* A ONDA (Wave/Sonar Effect) */
 .status-dot::after {
     content: "";
     position: absolute;
@@ -586,40 +356,31 @@ h1 {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: inherit; /* Herda o verde */
-    z-index: -1; /* Fica atrás do ponto */
-
-    /* A animação da onda */
+    background-color: inherit;
+    z-index: -1;
     animation: statusWave 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* O Tooltip */
+/* Tooltip */
 .status-tooltip {
     position: absolute;
     top: 50%;
     left: 100%;
     transform: translateY(-50%) translateX(10px);
-
     background: rgba(20, 20, 20, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     padding: 0.5rem 1rem;
     border-radius: 4px;
-
     white-space: nowrap;
-    font-family: var(--font-mono, monospace);
+    font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: #f5f5f4;
-    letter-spacing: 0.02em;
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s var(--ease-physics);
     z-index: 20;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
-
 .status-tooltip::before {
     content: "";
     position: absolute;
@@ -631,46 +392,33 @@ h1 {
     border-color: transparent rgba(20, 20, 20, 0.95) transparent transparent;
 }
 
-/* --- INTERAÇÃO (HOVER) --- */
-
+/* Interactions */
 .avatar-wrapper:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(227, 181, 5, 0.3);
 }
-
-.avatar-wrapper:hover .status-dot {
-    /* O ponto para de emitir ondas no hover e fica focado */
-    transform: scale(1.2);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
-}
-.avatar-wrapper:hover .status-dot::after {
-    animation: none; /* Para a onda */
-    opacity: 0;
-}
-
 .avatar-wrapper:hover .status-tooltip {
     opacity: 1;
     visibility: visible;
     transform: translateY(-50%) translateX(20px);
 }
-
-/* --- KEYFRAMES --- */
-
-/* Onda do Status */
-@keyframes statusWave {
-    0% {
-        width: 100%;
-        height: 100%;
-        opacity: 0.3;
-    }
-    100% {
-        width: 300%; /* Expande até 3x o tamanho original */
-        height: 300%;
-        opacity: 0; /* Desaparece totalmente */
+@media (max-width: 768px) {
+    .status-tooltip {
+        display: none;
     }
 }
 
-/* Pulso do Anel */
+@keyframes statusWave {
+    0% {
+        opacity: 0.3;
+        width: 100%;
+        height: 100%;
+    }
+    100% {
+        opacity: 0;
+        width: 300%;
+        height: 300%;
+    }
+}
 @keyframes sacredPulse {
     0%,
     100% {
@@ -681,41 +429,23 @@ h1 {
     }
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-    .status-tooltip {
-        display: none;
-    }
-}
-
-/* Manifesto */
-/* MANIFESTO: The Solemn Declaration */
-
-/* 1. O Palco (Container) */
+/* ==========================================================================
+5. MANIFESTO & SYSTEM CONTROLS
+========================================================================== */
 .manifesto-container {
     position: relative;
     width: 100%;
-    /* Centraliza e dá respiro */
     padding: 1.5rem 0;
     margin: 2rem 0 2.5rem;
-
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    /* Fundo de vidro cinemático para separar do Caravaggio */
     background: linear-gradient(
         90deg,
-        transparent 0%,
+        transparent,
         rgba(20, 18, 16, 0.6) 20%,
         rgba(20, 18, 16, 0.6) 80%,
-        transparent 100%
+        transparent
     );
-    /* Desfoque apenas atrás do texto para legibilidade */
-    backdrop-filter: blur(4px);
-
-    /* Bordas Cinematográficas (Fading Lines) */
-    /* Cria linhas douradas em cima e embaixo que somem nas pontas */
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     border-image: linear-gradient(
@@ -727,104 +457,118 @@ h1 {
         1;
 }
 
-/* 2. O Texto (Ator Principal) */
 .manifesto {
-    font-family: var(--font-serif);
-    /* Aumentado para ter presença de "Statement" */
     font-size: clamp(1.2rem, 5vw, 1.5rem);
     font-weight: 400;
-    font-style: italic; /* O itálico clássico de citações */
-    line-height: 1.4;
-
+    font-style: italic;
     color: var(--text-primary);
     text-align: center;
     max-width: 800px;
-    padding: 0 1rem;
-
-    /* Sombra sutil para destacar do fundo */
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-
-    /* Animação suave de entrada */
     opacity: 0;
-    animation: revealSlow 1.5s ease-out forwards;
-    animation-delay: 0.5s; /* Aparece depois do título */
+    animation: revealSlow 1.5s ease-out forwards 0.5s;
 }
 
-/* Um brilho extra na palavra chave se houver span (opcional, mas recomendado) */
-.manifesto strong,
-.manifesto span {
-    color: var(--text-primary);
-    font-weight: 500;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-/* --- ADICIONAR ESTES KEYFRAMES PARA O MANIFESTO FUNCIONAR --- */
-
-@keyframes revealSlow {
-    0% {
-        opacity: 0;
-        transform: translateY(10px); /* Leve movimento de subida */
-        filter: blur(4px); /* Começa desfocado */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-/* Quote Tooltip (Ghost Fade Refined) */
-.quote {
-    position: relative;
+/* LANGUAGE SWITCH: Tech Tag */
+.language-switch {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 50;
+    border-radius: 4px;
+    background: rgba(20, 18, 16, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
     font-family: var(--font-mono);
-    font-size: var(--fs-small);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
+    font-size: 0.75rem;
     color: var(--text-secondary);
-    opacity: 0.8;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    display: inline-block;
-    border-top: 1px solid var(--border-subtle);
-    padding-top: 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
 }
-@media (hover: hover) {
-    .quote::after {
-        content: attr(data-meaning);
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-10px); /* Posição Estática */
-        background-color: rgba(28, 25, 23, 0.98);
-        border: 1px solid var(--accent-main);
-        color: var(--text-primary);
-        border-radius: 4px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
-        padding: 0.6rem 1rem 0.6rem 2.4rem;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23E3B505' d='M9 3a1 1 0 0 1 1 1v1h3a1 1 0 1 1 0 2h-.055c-.223 2.032-1.116 3.99-2.545 5.688a13 13 0 0 0 2.121 1.494l2.067-4.592a1 1 0 0 1 1.824 0l4.5 10a1 1 0 0 1-1.824.82L18.003 18h-5.007l-1.084 2.41a1 1 0 0 1-1.824-.82l1.61-3.576a15.2 15.2 0 0 1-2.7-1.895c-1.287 1.136-2.848 2.098-4.627 2.81a1 1 0 1 1-.743-1.857c1.557-.623 2.887-1.441 3.972-2.382a11.5 11.5 0 0 1-1.978-3.34a1 1 0 0 1 1.873-.702A9.4 9.4 0 0 0 9 11.244C10.065 9.921 10.72 8.458 10.928 7H4a1 1 0 0 1 0-2h4V4a1 1 0 0 1 1-1m8.103 13L15.5 12.437L13.898 16z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: 16px;
-        background-position: 12px center;
-        font-family: var(--font-serif);
-        font-size: 0.95rem;
-        font-style: italic;
-        white-space: nowrap;
-        pointer-events: none;
-
-        opacity: 0;
-        visibility: hidden;
-        transition:
-            opacity 0.8s ease,
-            visibility 0.8s ease; /* Fade-in Fantasma ideal */
-    }
-    .quote:hover::after {
-        opacity: 1;
-        visibility: visible;
-        transition-delay: 3s; /* Delay sutil para não piscar */
-    }
+.language-switch:hover {
+    border-color: var(--accent-structure);
+    background: rgba(20, 18, 16, 1);
+}
+.lang-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    opacity: 0.6;
+}
+.lang-btn.active {
+    color: var(--accent-main);
+    opacity: 1;
+    font-weight: bold;
 }
 
-/* --- ATELIER LINKS: THE OBSIDIAN EFFECT --- */
+/* ART WRAPPER: Museum Tag (Top Left) */
+.art-wrapper {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.art-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(20, 18, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.4s var(--ease-physics);
+}
+.art-button svg {
+    width: 14px;
+    height: 14px;
+    transform-origin: center 80%;
+    animation: quillAlert 8s ease-in-out infinite;
+}
+.art-text {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-primary);
+    opacity: 0.7;
+    pointer-events: none;
+    transition: all 0.4s ease;
+}
+.art-wrapper:hover .art-button {
+    border-color: var(--accent-main);
+    transform: scale(1.1);
+    color: var(--accent-main);
+}
+.art-wrapper:hover .art-text {
+    opacity: 1;
+    color: var(--accent-main);
+    transform: translateX(5px);
+}
+@keyframes quillAlert {
+    0%,
+    90% {
+        transform: rotate(0deg);
+    }
+    92% {
+        transform: rotate(-15deg);
+    }
+    98% {
+        transform: rotate(4deg);
+    }
+}
 
+/* ==========================================================================
+6. ATELIER LINKS (The Interaction Core)
+========================================================================== */
 .socials {
     display: flex;
     flex-direction: column;
@@ -832,8 +576,10 @@ h1 {
     margin-top: 2.5rem;
     width: 100%;
     max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+
+    /* FIX: Elevate above background layers */
+    position: relative;
+    z-index: 20;
 }
 
 .atelier-link {
@@ -841,67 +587,55 @@ h1 {
     justify-content: space-between;
     align-items: center;
 
-    /* Fundo Base: Um gradiente muito sutil para dar volume (Obsidiana) */
     background: linear-gradient(
         145deg,
         rgba(35, 30, 28, 0.6),
         rgba(20, 18, 16, 0.8)
     );
-
-    /* Borda refinada */
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Ligeiro peso embaixo */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    padding: 1.2rem 1.8rem; /* Um pouco mais de espaço para respirar */
+    padding: 1.2rem 1.8rem;
     text-decoration: none;
     border-radius: 4px;
-
     color: var(--text-primary);
-    position: relative;
-    overflow: hidden; /* Important para o brilho não vazar */
 
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    z-index: 20; /* Interaction Priority */
+    overflow: hidden;
+    transition: all 0.5s var(--ease-physics);
 }
 
-/* O EFEITO DE LUZ (SHEEN) - O SEGREDO */
+/* Sheen Effect */
 .atelier-link::before {
     content: "";
     position: absolute;
     top: 0;
-    left: -100%; /* Começa fora da tela à esquerda */
+    left: -100%;
     width: 100%;
     height: 100%;
-
-    /* O feixe de luz dourada transparente */
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(227, 181, 5, 0.05) /* Ouro muito suave no meio */,
+        rgba(227, 181, 5, 0.05),
         transparent
     );
-
-    transition: left 0.7s ease; /* A velocidade do brilho */
+    transition: left 0.7s ease;
     z-index: 0;
 }
 
-/* Tipografia */
 .link-info {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
-    text-align: left;
-    z-index: 1; /* Garante que o texto fique acima do brilho */
+    z-index: 1;
 }
-
 .link-title {
     font-family: var(--font-serif);
-    font-size: 1.3rem; /* Levemente maior para destaque */
+    font-size: 1.3rem;
     font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--text-primary);
     transition: color 0.5s ease;
 }
-
 .link-desc {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -909,81 +643,70 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     opacity: 0.6;
-    transition:
-        opacity 0.5s ease,
-        letter-spacing 0.5s ease;
 }
-
-/* Ícone */
 .link-icon {
     color: var(--text-secondary);
-    transition:
-        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-        color 0.5s ease;
     opacity: 0.5;
     z-index: 1;
+    transition: all 0.5s ease;
 }
-
 .link-icon svg {
     width: 22px;
     height: 22px;
-    fill: currentColor;
 }
 
-/* --- HOVER STATES (A Mágica) --- */
-
+/* Interactions */
 .atelier-link:hover {
-    /* O fundo clareia levemente */
     background: linear-gradient(
         145deg,
         rgba(45, 40, 38, 0.8),
         rgba(30, 28, 26, 0.9)
     );
-    border-color: rgba(227, 181, 5, 0.3); /* Borda fica dourada sutil */
+    border-color: rgba(227, 181, 5, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5); /* Sombra de elevação */
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
 }
-
-/* O brilho passa pelo botão */
 .atelier-link:hover::before {
-    left: 100%; /* Move para a direita */
+    left: 100%;
 }
-
 .atelier-link:hover .link-title {
-    color: var(--accent-main); /* Título vira ouro */
-    text-shadow: 0 0 20px rgba(227, 181, 5, 0.2); /* Leve glow no texto */
+    color: var(--accent-main);
 }
-
-.atelier-link:hover .link-desc {
-    opacity: 1;
-    color: #d6d3d1; /* Fica mais claro (pedra polida) */
-    letter-spacing: 0.15em; /* As letras se espaçam levemente (efeito chique) */
-}
-
 .atelier-link:hover .link-icon {
     color: var(--accent-main);
     opacity: 1;
-    transform: scale(1.1); /* Um charme extra no ícone */
-    filter: drop-shadow(0 0 5px rgba(227, 181, 5, 0.4));
+    transform: scale(1.1);
 }
 
-/* Ajuste Mobile */
-@media (max-width: 768px) {
-    .socials {
-        display: flex; /* OBRIGATÓRIO: Flex para empilhar */
-        flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        padding: 0; /* O container pai já tem padding */
-    }
-
-    /* Garante que o texto dos botões não quebre feio */
-    .atelier-link {
-        padding: 1rem;
-    }
+/* SPECIAL VARIANT: Primary Gateway (Portfolio) */
+.atelier-link.primary-gateway {
+    border-color: rgba(227, 181, 5, 0.3);
+    background: linear-gradient(to right, rgba(227, 181, 5, 0.05), transparent);
+    padding-right: 1rem;
+}
+.atelier-link.primary-gateway .link-icon,
+.atelier-link.primary-gateway .link-title {
+    color: var(--accent-main) !important;
 }
 
-/* --- 6. PARTICLES (Background) --- */
+.link-arrow {
+    margin-left: auto;
+    color: var(--text-muted);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+.atelier-link.primary-gateway:hover {
+    box-shadow: 0 4px 20px rgba(227, 181, 5, 0.15);
+}
+.atelier-link.primary-gateway:hover .link-arrow {
+    opacity: 1;
+    color: var(--accent-main);
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+7. PARTICLES & ATMOSPHERE
+========================================================================== */
 .particles {
     position: absolute;
     top: 0;
@@ -992,7 +715,7 @@ h1 {
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-    z-index: 1;
+    z-index: 1; /* Below content */
 }
 .dust {
     position: absolute;
@@ -1002,6 +725,7 @@ h1 {
     opacity: 0;
     animation: floatUp linear infinite;
 }
+/* Dust Variations removed for brevity, assuming standard setup from original */
 .dust-1 {
     width: 3px;
     height: 3px;
@@ -1022,27 +746,6 @@ h1 {
     animation-duration: 40s;
     animation-delay: 15s;
 }
-.dust-4 {
-    width: 3px;
-    height: 3px;
-    left: 70%;
-    animation-duration: 60s;
-    animation-delay: 8s;
-}
-.dust-5 {
-    width: 5px;
-    height: 5px;
-    left: 85%;
-    animation-duration: 48s;
-    animation-delay: 2s;
-}
-.dust-6 {
-    width: 2px;
-    height: 2px;
-    left: 20%;
-    animation-duration: 35s;
-    animation-delay: 25s;
-}
 @keyframes floatUp {
     0% {
         transform: translateY(100vh) scale(0);
@@ -1058,764 +761,101 @@ h1 {
     }
 }
 
-/* --- 7. MAIN CONTENT & FORTRESS LINKS --- */
-.container {
-    width: 100%;
-    max-width: 618px;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-phi-double);
-    padding: var(--space-section) 1.5rem; /* Respiro de luxo */
-}
-
-.link-stack {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-phi);
-    padding-bottom: 2rem;
-    width: 100%;
-}
-
-/* --- PHILOSOPHY SECTION (Bottom Layout) --- */
-.philosophy-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0 1.5rem;
-    margin-bottom: 4rem; /* Espaço antes do rodapé */
-    margin-top: 4rem; /* Espaço depois das Tech Cards */
-    position: relative;
-    z-index: 1;
-}
-
-/* Ajuste fino para o Manifesto nesta nova posição */
-.philosophy-container .manifesto-container {
-    margin-bottom: 1.5rem; /* Menos espaço que no header */
-}
-
-/* Ajuste fino para a Citação */
-.philosophy-container .quote {
-    margin-top: 0;
-    margin-bottom: 0;
-    /* Remove a borda superior se quiser um visual mais limpo, 
-       ou mantenha para separar do manifesto */
-    border-top: none;
-    padding-top: 0;
-    opacity: 0.6; /* Levemente mais discretion no rodapé */
-}
-
-/* Animações de Entrada */
-header,
-.link-stack,
+/* ==========================================================================
+8. FOOTER
+========================================================================== */
 footer {
-    opacity: 0;
-    transform: translateY(40px);
-    filter: blur(4px);
-    will-change: opacity, transform, filter;
-}
-body.reveal-content header {
-    animation: slideUpFade 1.4s var(--ease-out) forwards;
-}
-body.reveal-content .link-stack {
-    animation: slideUpFade 1.4s var(--ease-out) forwards;
-    animation-delay: 0.2s;
-}
-body.reveal-content footer {
-    animation: slideUpFade 1.4s var(--ease-out) forwards;
-    animation-delay: 0.5s;
-}
-@keyframes slideUpFade {
-    0% {
-        opacity: 0;
-        transform: translateY(40px);
-        filter: blur(4px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-/* Construction Notice */
-/* --- CONSTRUCTION NOTICE (Refined Glass) --- */
-.construction-notice {
+    width: 100%;
+    margin-top: auto;
+    padding: 3rem 1.5rem 2rem;
     text-align: center;
-    padding: var(--space-phi-double) var(--space-phi);
-
-    /* Vidro Sólido em vez de Tracejado */
-    background: rgba(20, 18, 16, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.03); /* Borda quase invisível */
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-
-    margin-bottom: var(--space-phi-double);
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-
-    /* Sombra interna sutil para profundidade */
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+    background: transparent;
+    border-top: none;
+    position: relative;
+    z-index: 3;
+    opacity: 0;
+    animation: revealSlow 1.5s ease-out forwards 1s;
 }
 
-.construction-notice h3 {
-    font-family: var(--font-serif);
-    color: var(--text-primary);
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    font-style: italic;
-    opacity: 0.9;
-}
-.construction-notice h3 {
-    font-family: var(--font-serif);
-    color: var(--text-primary);
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    font-style: italic;
-}
-.construction-notice p {
-    font-family: var(--font-serif);
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-/* Fortress Links (Desktop Physics) */
-/* --- FORTRESS LINK (CTA Upgrade: Obsidian Sheen) --- */
-.fortress-link {
+.footer-quote-wrapper {
     display: flex;
     align-items: center;
-    padding: var(--space-phi);
-
-    /* Base Obsidian igual aos Project Cards */
-    background: linear-gradient(
-        145deg,
-        rgba(35, 30, 28, 0.5),
-        rgba(20, 18, 16, 0.7)
-    );
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    /* Mantemos a borda esquerda dourada como "assinatura" deste botão específico */
-    border-left: 2px solid var(--accent-structure);
-
-    color: var(--text-primary);
-    text-decoration: none;
-
-    position: relative;
-    overflow: hidden; /* Corta o brilho */
-    min-height: calc(var(--space-phi) * 3);
-    border-radius: 4px;
-
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* O Feixe de Luz (Sheen) */
-.fortress-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(
-            227,
-            181,
-            5,
-            0.1
-        ) /* Um pouco mais forte aqui para chamar atenção */,
-        transparent
-    );
-    transition: left 0.7s ease;
-    z-index: 0;
-}
-
-/* Conteúdo (Z-Index para ficar acima do brilho) */
-.link-icon,
-.link-content,
-.link-action {
-    position: relative;
-    z-index: 1;
-}
-
-/* Ajuste do Ícone */
-.link-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    margin-right: var(--space-phi);
-    color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(0, 0, 0, 0.2);
-    transition: all 0.4s ease;
-}
-
-/* Hover States */
-@media (hover: hover) {
-    .fortress-link:hover {
-        transform: translateY(-3px);
-        background: linear-gradient(
-            145deg,
-            rgba(40, 35, 33, 0.8),
-            rgba(25, 23, 21, 0.95)
-        );
-        border-color: rgba(227, 181, 5, 0.3);
-        border-left-color: var(--accent-main); /* Acende a lateral */
-        box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Dispara o brilho */
-    .fortress-link:hover::before {
-        left: 100%;
-    }
-
-    .fortress-link:hover .link-icon {
-        color: var(--accent-main);
-        border-color: rgba(227, 181, 5, 0.3);
-        transform: scale(1.1);
-    }
-
-    .fortress-link:hover .link-action {
-        color: var(--accent-main);
-        transform: translateX(5px);
-        opacity: 1;
-    }
-}
-.link-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    margin-right: var(--space-phi);
-    color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(0, 0, 0, 0.2);
-    transition: all 0.4s var(--ease-physics);
-}
-.link-icon svg {
-    width: 20px;
-    height: 20px;
-}
-.link-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-.link-title {
-    font-family: var(--font-serif);
-    font-size: 1.35rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-}
-.link-meta {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-.link-action {
-    opacity: 0.4;
-    transform: translateX(0);
-    color: var(--accent-main);
-    font-size: 1.2rem;
-    transition: all 0.4s var(--ease-physics);
-}
-
-.fortress-link:active {
-    transform: scale(0.98);
-    background: rgba(28, 25, 23, 0.9);
-    border-color: var(--accent-main);
-}
-@media (hover: hover) {
-    .fortress-link:hover {
-        background: rgba(35, 30, 28, 0.85);
-        border-color: var(--accent-structure);
-        border-left-color: var(--accent-main);
-        transform: translateY(-2px) scale(1.005); /* Physics Lift */
-        box-shadow:
-            -4px 4px 0px rgba(0, 0, 0, 0.5),
-            0 0 25px rgba(227, 181, 5, 0.15);
-    }
-    .fortress-link:hover .link-icon {
-        color: var(--accent-main);
-        border-color: var(--accent-main);
-        background: rgba(227, 181, 5, 0.05);
-        transform: scale(1.1);
-    }
-    .fortress-link:hover .link-title {
-        color: #fff;
-        text-shadow: 0 0 15px rgba(227, 181, 5, 0.3);
-    }
-    .fortress-link:hover .link-action {
-        opacity: 1;
-        transform: translateX(5px);
-        filter: drop-shadow(0 0 5px var(--accent-main));
-    }
-}
-
-/* --- PHASE 4: PROJECT CARDS (Obsidian & Gold) --- */
-
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    margin-bottom: 2rem;
-}
-
-.project-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    background: linear-gradient(
-        145deg,
-        rgba(35, 30, 28, 0.4),
-        rgba(20, 18, 16, 0.6)
-    );
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    padding: 2rem;
-
-    text-decoration: none;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    min-height: 300px; /* Ensures a consistent tall shape */
-}
-
-/* The Cinematic Sheen (Light Reflection) */
-.project-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(227, 181, 5, 0.03),
-        transparent
-    );
-    transition: left 0.8s ease;
-    z-index: 0;
-}
-
-/* Internal Content Styling */
-.project-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
-}
-
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--accent-structure); /* Muted Gold */
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    opacity: 0.8;
-}
-
-.project-title {
-    font-family: var(--font-serif);
-    font-size: 1.75rem;
-    font-weight: 500;
-    color: var(--text-primary);
-    line-height: 1.1;
-    transition: color 0.4s ease;
-}
-
-.project-desc {
-    font-family: var(--font-sans);
-    font-size: 0.95rem; /* Inter is legible even at smaller sizes */
-    font-weight: 300;   /* Light weight adds elegance */
-    color: var(--text-secondary);
-    
-    /* Leading (Line Height): 150-160% is ideal for screens */
-    line-height: 1.6;
-    
-    /* Contrast fix: Increased opacity slightly for the thinner font weight */
-    opacity: 0.9; 
-    
-    /* UX Rule: Limit line length for comfortable scanning */
-    max-width: 60ch; 
-    
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
     margin-bottom: 1.5rem;
 }
-
-/* Tech Tags (Pills) */
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    list-style: none;
-    margin-top: 0.5rem;
-}
-
-.project-tags li {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: #78716c;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-/* Action Arrow */
-.project-action {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+.footer-quote {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
     color: var(--text-secondary);
-    transition: all 0.4s ease;
+    cursor: help;
+    position: relative;
 }
-
-.action-text {
+.separator-line {
+    height: 1px;
+    flex: 1;
+    max-width: 100px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+}
+.footer-legal {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.action-icon {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.4s ease;
-}
-
-/* --- HOVER INTERACTIONS --- */
-
-.project-card:hover {
-    background: linear-gradient(
-        145deg,
-        rgba(40, 35, 33, 0.7),
-        rgba(25, 23, 21, 0.9)
-    );
-    border-color: rgba(227, 181, 5, 0.3); /* Gold border activates */
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.6);
-}
-
-.project-card:hover::before {
-    left: 100%; /* Sheen passes through */
-}
-
-.project-card:hover .project-title {
-    color: var(--accent-main); /* Title turns gold */
-}
-
-.project-card:hover .project-tags li {
-    border-color: rgba(227, 181, 5, 0.2);
-    color: #d6d3d1;
-}
-
-.project-card:hover .project-action {
-    color: var(--accent-main);
-    border-top-color: rgba(227, 181, 5, 0.2);
-}
-
-.project-card:hover .action-icon {
-    transform: translateX(5px);
-}
-
-/* --- 8. FOOTER --- */
-/* style.css - Atualização do Footer */
-
-footer {
-    width: 100%;
-    
-    /* Ajuste de espaçamento para compensar a suavidade */
-    padding: 4rem 1.5rem 2rem; 
-    text-align: center;
-    
-    /* REMOVIDO: border-top: 1px solid ... */
-    border-top: none; 
-    
-    /* Fundo transparente para deixar o gradiente do body/hero reinar */
-    background: transparent;
-    
-    /* Mantém a animação de entrada */
-    opacity: 0;
-    animation: revealSlow 1.5s ease-out forwards;
-    animation-delay: 1s;
-    
-    position: relative;
-    z-index: 3; /* Garante que fique acima de qualquer elemento de fundo */
-}
-.footer-container {
-    width: 100%;
-    max-width: 618px;
-    padding: 2.5rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-.footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    transition: opacity 0.3s ease;
-}
-.footer-col.left {
-    align-items: flex-start;
-}
-.footer-col.center {
-    align-items: center;
-    order: -1;
-    width: 100%;
-    margin-bottom: 0.5rem;
-}
-.footer-col.right {
-    align-items: flex-end;
-}
-@media (min-width: 768px) {
-    .footer-col.center {
-        order: 0;
-        width: auto;
-        margin-bottom: 0;
-    }
-    .footer-container {
-        gap: 1.5rem;
-        padding: 2.5rem 1rem;
-    }
-}
-.copyright {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-.role {
-    font-size: 0.65rem;
-    opacity: 0.6;
-}
-/* --- FOOTER BADGE (Sepia Tone) --- */
-.made-in-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    max-width: 300px;
-    background: rgba(255, 255, 255, 0.02);
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.7rem;
-    letter-spacing: 0.02em;
-    color: var(--text-secondary);
-    transition: all 0.4s ease;
-}
-
-.made-in-badge svg {
-    /* Sepia dá o tom "velho" em vez de apenas cinza morto */
-    filter: grayscale(100%) sepia(40%) contrast(0.8);
-    opacity: 0.5;
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@media (hover: hover) {
-    .made-in-badge:hover {
-        border-color: var(--accent-main);
-        background: rgba(
-            28,
-            25,
-            23,
-            0.8
-        ); /* Fundo mais escuro para contraste */
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    }
-    .made-in-badge:hover svg {
-        /* Revela as cores originais gloriosas */
-        filter: grayscale(0%) sepia(0%) contrast(1);
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    .made-in-badge:hover .icon-heart {
-        color: #e04a4a;
-        animation: heartBeat 1.5s infinite ease-in-out;
-    }
-}
-@keyframes heartBeat {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-    15%,
-    45% {
-        transform: scale(1.15);
-    }
-    30%,
-    60% {
-        transform: scale(1);
-    }
-}
-.tech-stack {
-    letter-spacing: 0.1em;
-    font-size: 0.65rem;
-    opacity: 0.5;
-}
-.version-tag {
-    color: var(--accent-main);
-    opacity: 0.6;
+    color: var(--text-tertiary);
+    opacity: 0.4;
     letter-spacing: 0.05em;
-    background: rgba(227, 181, 5, 0.05);
-    padding: 2px 6px;
-    border-radius: 4px;
-    border: 1px solid rgba(227, 181, 5, 0.2);
-    cursor: default;
 }
 
-/* --- 9. MODAL & UTILITIES --- */
-/* --- THE CURATOR'S BADGE (Art Detail Trigger) --- */
-
-.art-wrapper {
-    position: absolute;
-    /* Movemos do rodapé para o Topo Esquerdo (Área nobre) */
-    top: 2rem;
-    left: 2rem;
-    bottom: auto;
-    right: auto;
-    
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    
-    /* Garante que o texto fique à direita do ícone agora */
-    flex-direction: row; 
-}
-
-.art-button {
-    position: relative;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    
-    /* Vidro escuro para destacar sobre qualquer parte da pintura */
-    background: rgba(20, 18, 16, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px);
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    
-    /* Sombra suave inicial */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-.art-button svg {
-    width: 14px;
-    height: 14px;
-    /* A animação da pena continua, pois é charmosa */
-    transform-origin: center 80%;
-    animation: quillAlert 8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
-    color: var(--text-secondary);
-    transition: color 0.3s ease;
-}
-
-/* O Texto (Agora visível como uma etiqueta de museu) */
-.art-text {
-    font-family: var(--font-serif);
-    font-size: 0.9rem;
-    font-style: italic;
-    color: var(--text-primary);
-    
-    /* Visual de "Etiqueta" */
-    background: rgba(20, 18, 16, 0.0); /* Fundo transparente inicialmente */
-    padding: 4px 8px;
-    border-radius: 4px;
-    border-left: 1px solid transparent;
-    
-    opacity: 0.7; /* Discreto por padrão */
-    visibility: visible;
-    transform: none;
-    pointer-events: none; /* Deixa o clique passar */
-    transition: all 0.4s ease;
-    
-    /* Limita largura para não brigar com o título em telas pequenas */
-    white-space: nowrap;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left; /* Alinha com o ícone */
-}
-
-/* --- INTERAÇÃO HOVER --- */
-
-.art-wrapper:hover .art-button {
-    /* O botão vira ouro */
-    border-color: var(--accent-main);
-    background: rgba(20, 18, 16, 0.9);
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(227, 181, 5, 0.4); /* Glow Dourado */
-}
-
-.art-wrapper:hover .art-button svg {
-    color: var(--accent-main);
-    animation-play-state: paused; /* Para a animação para focar */
-    transform: rotate(-15deg) scale(1.1); /* Posição de escrita */
-}
-
-.art-wrapper:hover .art-text {
-    opacity: 1;
-    color: var(--accent-main); /* Texto acende */
-    text-shadow: 0 0 10px rgba(0,0,0,0.8);
-    transform: translateX(5px); /* Leve movimento para a direita */
-}
-
-/* Animação da Pena (Mantida) */
-@keyframes quillAlert {
-    0%, 90% { transform: rotate(0deg); }
-    92% { transform: rotate(-15deg); }
-    94% { transform: rotate(10deg); }
-    96% { transform: rotate(-8deg); }
-    98% { transform: rotate(4deg); }
-    100% { transform: rotate(0deg); }
-}
-
-/* --- MOBILE ADJUSTMENT --- */
-@media (max-width: 768px) {
-    .art-wrapper {
-        top: 1.5rem;
-        left: 1rem;
+/* Quote Tooltip */
+@media (hover: hover) {
+    .footer-quote-wrapper:hover {
+        opacity: 1;
     }
-    /* No celular, escondemos o texto para economizar espaço,
-       deixando só o ícone misterioso */
-    .art-text {
-        display: none; 
+    .footer-quote-wrapper:hover .separator-line {
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--accent-structure),
+            transparent
+        );
+    }
+    .footer-quote::after {
+        content: attr(data-meaning);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+        background: rgba(20, 18, 16, 0.95);
+        border: 1px solid var(--accent-structure);
+        color: var(--text-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-style: normal;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s var(--ease-physics);
+    }
+    .footer-quote:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-10px);
     }
 }
 
-/* Modal */
+/* ==========================================================================
+9. MODAL & TOASTS
+========================================================================== */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -1854,33 +894,10 @@ footer {
         0 20px 50px rgba(0, 0, 0, 0.8),
         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
     transform: scale(0.95) translateY(10px);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-/* Scrollbar customizada para o Modal */
-.modal-parchment::-webkit-scrollbar {
-    width: 6px;
-}
-.modal-parchment::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-}
-.modal-parchment::-webkit-scrollbar-thumb {
-    background: #c5a059; /* Accent Structure */
-    border-radius: 4px;
+    transition: transform 0.4s var(--ease-physics);
 }
 .modal-backdrop.is-open .modal-parchment {
     transform: scale(1) translateY(0);
-}
-.modal-close {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: transparent;
-    border: none;
-    color: #5d5952;
-    cursor: pointer;
-    padding: 1rem;
-    z-index: 10;
 }
 .parchment-content {
     text-align: left;
@@ -1890,38 +907,32 @@ footer {
     font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 600;
     font-style: italic;
-    margin-bottom: 0.2rem;
-    color: #1c1917;
     border-bottom: 1px solid rgba(28, 25, 23, 0.1);
     padding-bottom: 1rem;
+    margin-bottom: 0.2rem;
 }
 .parchment-meta {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: #782626;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     margin-bottom: 1.5rem;
-    margin-top: 0.5rem;
 }
 .parchment-body p {
-    font-size: 1rem;
-    line-height: 1.6;
     margin-bottom: 1rem;
+    line-height: 1.6;
     color: rgba(28, 25, 23, 0.9);
 }
-.parchment-body p:first-of-type::first-letter {
-    font-size: 3rem;
-    float: left;
-    line-height: 0.8;
-    margin-right: 0.5rem;
-    color: #782626;
-    font-family: var(--font-serif);
-}
-.parchment-decoration {
-    margin-top: 2rem;
-    text-align: center;
-    opacity: 0.6;
+.modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 1rem;
+    z-index: 10;
+    color: #5d5952;
 }
 
 /* Toast */
@@ -1937,14 +948,10 @@ footer {
     border: 1px solid var(--accent-main);
     padding: 12px 24px;
     border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 11000;
-    width: 90%;
-    max-width: 400px;
-    justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.4s var(--ease-physics);
 }
 .toast-notification.show {
     opacity: 1;
@@ -1952,940 +959,240 @@ footer {
     transform: translateX(-50%) translateY(0);
 }
 .toast-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--accent-main);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--bg-body);
-    background-color: var(--accent-main);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-.toast-message {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--text-primary);
-    letter-spacing: 0.05em;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-body);
-}
-::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-    border: 2px solid var(--bg-body);
-}
-
-/* --- COLOPHON (INCEPTION) STYLES --- */
-.interactive {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.made-in-badge.interactive:hover {
-    background: rgba(227, 181, 5, 0.1);
-    border-color: var(--accent-main);
-    transform: translateY(-2px);
-}
-
-.colophon-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    font-family: var(--font-mono);
-    /* CORREÇÃO: Usar cinza escuro em vez de claro */
-    color: #57534e;
-}
-
-.colophon-header {
-    border-bottom: 1px solid rgba(28, 25, 23, 0.1);
-    padding-bottom: 1rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.colophon-header h3 {
-    font-family: var(--font-serif);
-    color: #b45309; /* Tom dourado escuro para fundo claro */
-    font-size: 1.4rem;
-    margin: 0;
-}
-.mono-tag {
-    font-size: 0.7rem;
-    background: rgba(0, 0, 0, 0.05);
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: #78716c;
-}
-
-.colophon-intro {
-    font-family: var(--font-serif);
-    font-style: italic;
-    /* CORREÇÃO: Texto quase preto para leitura */
-    color: #1c1917;
-    line-height: 1.6;
-    border-left: 2px solid #c5a059;
-    padding-left: 1rem;
-}
-
-.spec-section h4 {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #78350f; /* Marrom avermelhado */
-    margin-bottom: 0.8rem;
-    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
-    padding-bottom: 4px;
-}
-
-.spec-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    margin-bottom: 4px;
-}
-.spec-value {
-    /* CORREÇÃO: Valor escuro */
-    color: #1c1917;
-    font-weight: 600;
-}
-
-/* Color Swatches */
-.color-swatch-row {
-    display: flex;
-    gap: 10px;
-}
-.swatch {
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    cursor: help;
-}
-.swatch:hover {
-    transform: scale(1.2);
-    border-color: #000;
-}
-
-/* Font Preview */
-.font-preview {
-    padding: 8px;
-    /* Fundo escuro leve para destacar o texto branco do preview, OU invertemos */
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-    color: #1c1917;
-}
-.font-preview.serif {
-    font-family: var(--font-serif);
-}
-.font-preview.mono {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-}
-
-/* Stack List */
-.stack-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    list-style: none;
-}
-.stack-list li {
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    color: #44403c;
-}
-.stack-list li::before {
-    content: ">";
-    margin-right: 6px;
-    color: #b45309;
-    font-size: 0.7rem;
-}
-
-/* --- LAPTOP & LOW-HEIGHT SCREENS OPTIMIZATION (1366x768 Focus) --- */
-@media screen and (max-width: 1440px), screen and (max-height: 800px) {
-    /* 1. Reduz a base da fonte de volta para 16px (1rem) 
-       Isso fará TODOS os textos e espaçamentos 'em/rem' diminuírem proporcionalmente (Magic!) */
-    body {
-        font-size: 1rem;
-    }
-
-    /* 2. Ajuste do Container Principal 
-       Reduzimos o padding vertical drástico (--space-section) para algo mais contido */
-    .container {
-        padding: 4rem 1.5rem; /* ~64px vertical em vez de 100px */
-        gap: 3rem; /* Reduz o gap entre seções */
-    }
-
-    /* 3. Header mais compacto
-       Em telas baixas, garantimos que o conteúdo não toque as bordas */
-    header {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-
-    /* 4. Título H1 levemente menor para não gritar na tela pequena */
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    /* 5. Ajuste fino no "Opus in Progressu" para ocupar menos altura */
-    .construction-notice {
-        padding: 2rem 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    /* 6. Ícones sociais um pouco mais próximos */
-    .socials {
-        margin-top: 1.5rem;
-    }
-}
-
-/* --- MOBILE MASTERY (iOS & Android Native Feel) --- */
+/* ==========================================================================
+10. MOBILE & RESPONSIVE TWEAKS
+========================================================================== */
 @media screen and (max-width: 768px) {
-    /* 1. TYPOGRAPHY & SCALING (Readable & Compact) */
     :root {
-        /* Redefine font size specifically for small screens */
         --fs-base: 16px;
     }
-
     body {
-        /* Prevent horizontal scroll caused by animations */
         overflow-x: hidden;
-        width: 100%;
-        /* Better scrolling momentum on iOS */
         -webkit-overflow-scrolling: touch;
+    }
+
+    header {
+        padding-top: max(2rem, env(safe-area-inset-top));
+        padding-bottom: max(4rem, env(safe-area-inset-bottom));
+        background-attachment: scroll;
     }
 
     h1 {
-        /* Allows the name to wrap if it's too long on small phones (iPhone SE) */
         font-size: clamp(2.2rem, 12vw, 3rem);
         white-space: normal;
-        padding: 0 10px;
-        line-height: 1.1;
     }
 
-    /* 2. HEADER: THE IMMERSIVE VIEWPORT (100dvh) */
-    header {
-        /* FIX: Solves the jumping address bar issue on iOS/Android */
-        min-height: 100dvh;
-
-        /* Adjust background for portrait orientation */
-        background-position: 65% center;
-        background-attachment: scroll; /* Performance fix for mobile scrolling */
-
-        /* Ensure content doesn't touch the notch or home indicator */
-        padding-top: max(2rem, env(safe-area-inset-top));
-        padding-bottom: max(4rem, env(safe-area-inset-bottom));
+    .socials {
+        padding: 0;
+    }
+    .atelier-link {
+        padding: 1rem;
     }
 
-    /* 3. LAYOUT & RHYTHM (Efficiency) */
-    .container {
-        /* Remove the luxury gap of desktop. Mobile needs content density. */
-        padding: 3rem 1.25rem;
-        gap: 2rem;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    /* 4. FORTRESS LINKS (Thumb-Friendly Physics) */
-    .fortress-link {
-        /* Taller links for easier tapping (Fat Finger Rule) */
-        min-height: 80px;
-        padding: 1.25rem;
-
-        /* Mobile Feedback: Slightly darker background for contrast */
-        background: rgba(28, 25, 23, 0.7);
-    }
-
-    .link-icon {
-        /* Slightly smaller icons to balance the text */
-        width: 42px;
-        height: 42px;
-        margin-right: 1rem;
-    }
-
-    .link-title {
-        font-size: 1.2rem;
-    }
-
-    /* ACTIVE STATE (The "Tap" Feel) - Crucial for UX */
-    .fortress-link:active {
-        transform: scale(0.96); /* Significant physical compression */
-        background: rgba(227, 181, 5, 0.15); /* Immediate gold flash */
-        border-color: var(--accent-main);
-        transition:
-            transform 0.1s,
-            background 0.1s; /* Instant response */
-    }
-
-    /* 5. UI CONTROLS (Language & Art) */
+    /* Mobile Touch Tweaks */
     .language-switch {
-        /* Larger touch target */
         top: max(1.5rem, env(safe-area-inset-top));
         right: max(1rem, env(safe-area-inset-right));
-        padding: 0.6rem 1.2rem;
     }
-
     .art-wrapper {
-        /* Move away from the edge to avoid conflict with "Back" gestures */
-        bottom: max(20px, env(safe-area-inset-bottom));
-        right: 20px;
+        top: 1.5rem;
+        left: 1rem;
     }
-
-    .art-button {
-        /* A bit larger for easy thumb access */
-        width: 48px;
-        height: 48px;
-        background: rgba(28, 25, 23, 0.8); /* More visibility */
+    .art-text {
+        display: none;
     }
-
-    /* 6. MODAL (Bottom Sheet Style) */
-    .modal-parchment {
-        max-height: 80dvh; /* Use dynamic height */
-        width: 95%; /* Almost full width */
-        margin-bottom: env(
-            safe-area-inset-bottom
-        ); /* Respect iPhone Home Bar */
-        overflow-y: scroll; /* Native scroll momentum */
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* 7. FOOTER (Vertical Stack) */
-    .footer-container {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
-        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
-    }
-
-    .footer-col.left,
-    .footer-col.right {
-        align-items: center; /* Center everything on mobile */
-    }
-
-    .footer-col.center {
-        order: -1; /* Keep "Made with" at the top or center as preferred */
-        margin-bottom: 1rem;
-    }
-
-    /* Dentro de @media (max-width: 768px) */
 }
 
-/* --- TECH STACK (Relocated to Footer) --- */
+@media (hover: none) {
+    /* Disable fancy hovers on touch devices */
+    .atelier-link:hover::before {
+        display: none;
+    }
+    .atelier-link:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    /* Active State for Touch */
+    .atelier-link:active {
+        transform: scale(0.96);
+        background: rgba(227, 181, 5, 0.05);
+        border-color: var(--accent-main);
+    }
+}
 
-.tech-grid-container {
-    width: 100%;
-    max-width: 1000px;
-    /* Spacing: Large gap above to separate from projects, smaller gap below near footer */
-    margin: 4rem auto 2rem auto;
-    padding: 3rem 2rem 0; /* Top padding to accommodate the border/label */
+/* ==========================================================================
+11. ANIMATIONS
+========================================================================== */
+@keyframes revealSlow {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ==========================================================================
+12. PORTFOLIO SHARED ASSETS (Project & Tech Cards)
+========================================================================== */
+/* Note: These are used by portfolio/index.html but kept here for single-file management */
+
+.project-card {
     position: relative;
-
-    /* The Divider Line */
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* The Label "TOOLKIT & ARCHITECTURE" floating on the line */
-.tech-grid-container::after {
-    content: "TOOLKIT & ARCHITECTURE";
-    position: absolute;
-    top: -0.6rem; /* Positions it exactly on the border line */
-    left: 50%;
-    transform: translateX(-50%);
-
-    background-color: var(--bg-body); /* Masks the line behind the text */
-    padding: 0 1rem;
-
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--text-secondary);
-    opacity: 0.5;
-}
-
-/* Mobile Adjustment */
-@media (max-width: 768px) {
-    .tech-grid-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-top: 3rem;
-    }
-}
-
-.tech-grid {
-    display: grid;
-    /* Grid responsivo automático */
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1.5rem;
-}
-
-/* --- TECH CARDS (Cinematic Sheen Upgrade) --- */
-
-.tech-card {
-    position: relative; /* Necessário para o brilho absoluto */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-
-    /* Base: Vidro Escuro / Obsidiana (Igual aos Project Cards) */
+    justify-content: space-between;
     background: linear-gradient(
         145deg,
         rgba(35, 30, 28, 0.4),
         rgba(20, 18, 16, 0.6)
     );
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 4px; /* Cantos técnicos */
-    padding: 1.5rem 1rem;
-
-    cursor: default;
-    overflow: hidden; /* Corta o brilho que passa */
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 4px;
+    padding: 2rem;
+    min-height: 300px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.5s var(--ease-physics);
 }
-
-/* O EFEITO DE LUZ (SHEEN) */
-.tech-card::before {
+.project-card::before {
     content: "";
     position: absolute;
     top: 0;
-    left: -100%; /* Começa escondido */
+    left: -100%;
     width: 100%;
     height: 100%;
-
-    /* O feixe de luz dourada */
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(227, 181, 5, 0.05) /* Ouro muito suave */,
+        rgba(227, 181, 5, 0.03),
         transparent
     );
-
-    transition: left 0.6s ease; /* Um pouco mais rápido que os cards grandes */
+    transition: left 0.8s ease;
     z-index: 0;
 }
-
-/* Conteúdo interno (precisa estar acima do brilho) */
-.tech-icon-wrapper,
-.tech-label {
+.project-content {
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.project-title {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    color: var(--text-primary);
+    transition: color 0.4s ease;
+}
+.project-desc {
+    font-family: var(--font-sans);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    opacity: 0.9;
+    max-width: 60ch;
+}
+.project-action {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    transition: all 0.4s ease;
 }
 
-/* Ícones */
+@media (hover: hover) {
+    .project-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(227, 181, 5, 0.3);
+    }
+    .project-card:hover::before {
+        left: 100%;
+    }
+    .project-card:hover .project-title,
+    .project-card:hover .project-action {
+        color: var(--accent-main);
+    }
+}
+
+/* Tech Cards */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem;
+}
+.tech-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(
+        145deg,
+        rgba(35, 30, 28, 0.4),
+        rgba(20, 18, 16, 0.6)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    padding: 1.5rem 1rem;
+    overflow: hidden;
+    transition: all 0.5s var(--ease-physics);
+}
+.tech-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(227, 181, 5, 0.3);
+}
 .tech-svg {
     width: 2.5rem;
     height: 2.5rem;
-    color: var(--text-secondary); /* Começa cinza */
-    transition: all 0.4s ease;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-}
-
-/* Label (Slot Machine Container) */
-.tech-label {
-    display: inline-flex;
-    flex-direction: column;
-    height: 1.5rem;
-    overflow: hidden;
-
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
     color: var(--text-secondary);
-    letter-spacing: -0.02em;
-
-    background: rgba(0, 0, 0, 0.3); /* Fundo mais escuro para ler melhor */
-    padding: 0 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: border-color 0.3s ease;
+    transition: all 0.4s ease;
 }
-
-/* --- INTERAÇÃO (HOVER) --- */
-
-.tech-card:hover {
-    /* Elevação física */
-    transform: translateY(-5px);
-    background: linear-gradient(
-        145deg,
-        rgba(40, 35, 33, 0.7),
-        rgba(25, 23, 21, 0.9)
-    );
-    border-color: rgba(227, 181, 5, 0.3); /* Borda dourada */
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
-}
-
-/* Dispara o brilho */
-.tech-card:hover::before {
-    left: 100%;
-}
-
-/* O ícone acende */
 .tech-card:hover .tech-svg {
     color: var(--accent-main);
     transform: scale(1.1);
     filter: drop-shadow(0 0 8px rgba(227, 181, 5, 0.3));
 }
-
-/* A borda do label também reage */
-.tech-card:hover .tech-label {
-    border-color: rgba(227, 181, 5, 0.2);
-}
-
-/* Mantém a animação Slot Machine existente */
-.tech-card:hover .tech-label span {
-    transform: translateY(-100%);
-}
-
-/* --- ÍCONES --- */
-.tech-icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.tech-svg {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: #57534e;
-    transition: all 0.3s ease;
-}
-
-.tech-card:hover .tech-svg {
-    color: var(--accent-main, #e3b505);
-    filter: drop-shadow(0 0 10px rgba(227, 181, 5, 0.2));
-}
-
-/* --- THE SLOT MACHINE LABEL --- */
 .tech-label {
     display: inline-flex;
-    flex-direction: column; /* Empilha os textos verticalmente */
-    height: 1.5rem; /* Altura exata de uma linha de texto */
-    overflow: hidden; /* Esconde o texto que está "fora" da bobina */
-
-    /* Estilo Base do Texto */
+    flex-direction: column;
+    height: 1.5rem;
+    overflow: hidden;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: #a8a29e;
-    letter-spacing: -0.02em;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 0 8px; /* Padding lateral apenas */
+    color: var(--text-secondary);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0 8px;
     border-radius: 4px;
-
-    /* Centralização */
-    align-items: center;
-    justify-content: flex-start;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-/* Os items dentro da bobina (Sintaxe e Nome) */
 .tech-label span {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 1.5rem; /* Mesma altura do container pai */
+    height: 1.5rem;
     width: 100%;
-
-    /* A Animação de Slide */
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    flex-shrink: 0; /* Impede que esmaguem */
+    transition: transform 0.4s var(--ease-physics);
+    flex-shrink: 0;
 }
-
-/* Estilo do Nome da Tecnologia (O que sobe) */
-.tech-label span.highlight {
-    color: #f5f5f4;
-    font-weight: bold;
-    color: var(--accent-main, #e3b505); /* Dourado */
-}
-
-/* --- AÇÃO DE HOVER (TRIGGER) --- */
-/* Quando o mouse entra no CARD, movemos AMBOS os spans para cima */
 .tech-card:hover .tech-label span {
     transform: translateY(-100%);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .tech-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .tech-card {
-        padding: 1rem 0.5rem;
-    }
-    .tech-svg {
-        width: 2rem;
-        height: 2rem;
-    }
-    /* Ajuste de escala para mobile */
-    .tech-label {
-        font-size: 0.65rem;
-        height: 1.2rem;
-    }
-    .tech-label span {
-        height: 1.2rem;
-    }
-}
-
-/* --- COMMAND LINKS (Action Buttons) --- */
-.link-stack {
-    width: 100%;
-    max-width: 600px; /* Mais estreito que o grid para focar a atenção */
-    margin: 0 auto 6rem auto; /* Margem inferior grande para o footer */
-    padding: 0 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.links-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.cmd-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    background: rgba(28, 25, 23, 0.6); /* Stone Dark */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.2rem 1.5rem;
-    text-decoration: none;
-    border-radius: 4px;
-
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-/* O Efeito de Hover: "Terminal Selection" */
-.cmd-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%; /* Começa vazio */
-    height: 100%;
-    background: var(--accent-main); /* Gold Background */
-    opacity: 0.1; /* Transparente */
-    transition: width 0.4s ease;
-    z-index: 0;
-}
-
-.cmd-link:hover::before {
-    width: 100%; /* Enche a barra */
-}
-
-.cmd-link:hover {
-    border-color: var(--accent-main);
-    transform: translateX(5px); /* Move levemente para a direita */
-}
-
-/* Typo inside Link */
-.cmd-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    z-index: 1; /* Fica acima do background animado */
-}
-
-.cmd-prefix {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: #78716c; /* Stone Gray */
-}
-
-.cmd-name {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.cmd-link:hover .cmd-prefix {
-    color: var(--accent-main);
-}
-
-/* Seta/Icone na direita */
-.cmd-arrow,
-.cmd-icon {
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    font-size: 1.2rem;
-    transition:
-        transform 0.3s ease,
-        color 0.3s ease;
-    z-index: 1;
-}
-
-.cmd-link:hover .cmd-arrow {
-    transform: translateX(5px);
-    color: var(--accent-main);
-}
-
-/* Estilo especial para o botão de Email (Highlight) */
-.cmd-link.highlight {
-    border-color: rgba(227, 181, 5, 0.3);
-}
-
-/* --- DEBUG MODE (KONAMI TRIGGER) --- */
-body.debug-mode * {
-    /* Desenha uma borda dourada translúcida em TODOS os elementos */
-    outline: 1px solid rgba(227, 181, 5, 0.3) !important;
-    background: rgba(227, 181, 5, 0.02) !important; /* Leve tinta dourada */
-}
-body.debug-mode .container,
-body.debug-mode header,
-body.debug-mode footer {
-    outline: 2px solid #e3b505 !important; /* Borda forte nos blocos principais */
-    position: relative;
-}
-/* Opcional: Mostra as tags HTML como pseudo-elementos (Avançado) */
-body.debug-mode div::before,
-body.debug-mode section::before,
-body.debug-mode header::before {
-    content: "<" attr(class) ">";
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 10px;
-    color: #e3b505;
-    background: #000;
-    padding: 2px;
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-/* --- MOBILE INTERACTION REFINEMENT (The Senior Touch) --- */
-
-@media (hover: none) {
-    /* 1. Desliga o Sheen/Brilho no Mobile para evitar "Sticky Hover" */
-    .atelier-link:hover::before,
-    .project-card:hover::before,
-    .tech-card:hover::before,
-    .subtitle:hover::before {
-        display: none; /* O brilho não corre no celular */
-    }
-
-    /* 2. Desliga a elevação e sombras exageradas */
-    .atelier-link:hover,
-    .project-card:hover,
-    .tech-card:hover {
-        transform: none;
-        box-shadow: none;
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* 3. CRIAÇÃO DE "ACTIVE STATES" (Feedback Tátil Real) */
-    /* Ao tocar com o dedo, o elemento reage instantaneamente */
-
-    .atelier-link:active,
-    .project-card:active,
-    .tech-card:active {
-        transform: scale(0.96); /* Compressão física satisfatória */
-        background: rgba(227, 181, 5, 0.05); /* Flash dourado sutil */
-        border-color: var(--accent-main);
-        transition:
-            transform 0.1s,
-            background 0.1s; /* Resposta imediata */
-    }
-
-    /* 4. Ajuste de Texto para Mobile (Legibilidade) */
-    .project-desc {
-        font-size: 1rem; /* Um pouco maior para leitura confortável */
-        line-height: 1.5;
-    }
-}
-
-/* --- OTIMIZAÇÃO DE PERFORMANCE (Hardware Acceleration) --- */
-.particles,
-.dust {
-    /* Desliga partículas em telas muito pequenas ou modo de economia */
-    @media (prefers-reduced-motion: reduce) {
-        display: none;
-    }
-}
-
-/* --- THE PRIMARY GATEWAY (Portfolio Button Fix) --- */
-
-/* O botão em estado de repouso */
-.atelier-link.primary-gateway {
-    /* Borda dourada sutil em vez de cinza */
-    border-color: rgba(227, 181, 5, 0.3);
-    /* Um leve degradê dourado no fundo */
-    background: linear-gradient(
-        to right,
-        rgba(227, 181, 5, 0.05),
-        transparent
-    );
-    /* Garante espaço para a seta nova */
-    padding-right: 1rem;
-}
-
-/* Tinji o ícone e o título de ouro */
-.atelier-link.primary-gateway .link-icon,
-.atelier-link.primary-gateway .link-title {
-    color: var(--accent-main) !important;
-    transition: all 0.3s ease;
-}
-
-/* A seta de navegação na direita */
-.link-arrow {
-    margin-left: auto; /* Empurra para a direita */
-    color: var(--text-tertiary);
-    opacity: 0.5;
-    transition: all 0.3s ease;
-    transform: translateX(0);
-}
-
-/* --- HOVER STATE (Ao passar o mouse) --- */
-.atelier-link.primary-gateway:hover {
-    /* Brilho mais intenso */
-    border-color: var(--accent-main);
-    box-shadow: 0 4px 20px rgba(227, 181, 5, 0.15);
-    background: linear-gradient(
-        to right,
-        rgba(227, 181, 5, 0.1),
-        transparent
-    );
-}
-
-/* A seta se move e acende ao passar o mouse */
-.atelier-link.primary-gateway:hover .link-arrow {
-    opacity: 1;
-    color: var(--accent-main);
-    transform: translateX(4px); /* Pequeno movimento para a direita */
-}
-
-/* Garante que o html e body ocupem a altura total */
-html, body {
-    min-height: 100%;
-}
-
-/* --- FOOTER & QUOTE INTEGRATION --- */
-
-footer {
-    width: 100%;
-    margin-top: auto; /* Empurra para o fundo se a tela for grande */
-    padding: 3rem 1.5rem 2rem;
-    text-align: center;
-    
-    /* Fade In Animation */
-    opacity: 0;
-    animation: revealSlow 1.5s ease-out forwards;
-    animation-delay: 1s; /* Aparece por último */
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* A Citação (Estilo Inscrição) */
-.footer-quote-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    justify-content: center;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.footer-quote {
-    font-family: var(--font-serif);
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--text-secondary);
-    white-space: nowrap;
-    cursor: help; /* Indica que há algo escondido (o significado) */
-    position: relative;
-    padding: 0 0.5rem;
-}
-
-/* Linhas decorativas laterais (Fade out) */
-.separator-line {
-    height: 1px;
-    flex: 1; /* Ocupa o espaço restante */
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
-    max-width: 100px; /* Não deixa as linhas ficarem gigantes */
-}
-
-/* COPYRIGHT */
-.footer-legal {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-tertiary);
-    opacity: 0.4;
-    letter-spacing: 0.05em;
-}
-
-/* --- TOOLTIP DA CITAÇÃO (A Revelação) --- */
-/* Só funciona se o dispositivo tiver mouse (hover) */
-@media (hover: hover) {
-    .footer-quote-wrapper:hover {
-        opacity: 1; /* Aumenta o foco ao passar o mouse */
-    }
-
-    .footer-quote-wrapper:hover .separator-line {
-        background: linear-gradient(
-            90deg,
-            transparent,
-            var(--accent-structure), /* Linhas ficam douradas */
-            transparent
-        );
-    }
-
-    /* O Tooltip com o Significado */
-    .footer-quote::after {
-        content: attr(data-meaning); /* Pega o texto do HTML/JS */
-        
-        position: absolute;
-        bottom: 100%; /* Aparece ACIMA da frase */
-        left: 50%;
-        transform: translateX(-50%) translateY(10px);
-        
-        background: rgba(20, 18, 16, 0.95);
-        border: 1px solid var(--accent-structure);
-        color: var(--text-primary);
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        
-        font-family: var(--font-sans);
-        font-size: 0.8rem;
-        font-style: normal;
-        white-space: nowrap;
-        pointer-events: none;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        
-        /* Estado inicial (Escondido) */
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    /* Revela o Tooltip no Hover */
-    .footer-quote:hover::after {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(-10px); /* Sobe suavemente */
-    }
 }
