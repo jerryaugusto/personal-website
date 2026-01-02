@@ -106,6 +106,7 @@ window.addEventListener('load', () => {
     // 3. Initialize Easter Eggs
     logSignature();
     initEasterEggs();
+    updateRomanYear();
 });
 
 /* ==========================================================================
@@ -419,5 +420,60 @@ function initTechSpecs() {
                 clicks = 0;
             }
         });
+    }
+}
+
+/* main.js - Add this to the end of the file */
+
+/* ==========================================================================
+   8. THE SCRIBE: ROMAN NUMERAL GENERATOR
+   ========================================================================== */
+
+/**
+ * Converts a given number into its Roman Numeral representation.
+ * Used to display the current year in the footer, aligning with the 
+ * classical/Thomistic aesthetic of the platform.
+ * * @param {number} num - The integer to convert (e.g., 2025).
+ * @returns {string} - The Roman Numeral string (e.g., "MMXXV").
+ */
+function toRoman(num) {
+    const lookup = {
+        M: 1000,
+        CM: 900,
+        D: 500,
+        CD: 400,
+        C: 100,
+        XC: 90,
+        L: 50,
+        XL: 40,
+        X: 10,
+        IX: 9,
+        V: 5,
+        IV: 4,
+        I: 1
+    };
+    let roman = '';
+    for (let i in lookup) {
+        while (num >= lookup[i]) {
+            roman += i;
+            num -= lookup[i];
+        }
+    }
+    return roman;
+}
+
+/**
+ * Injects the current year (in Roman Numerals) into the footer.
+ * Executed on system initialization.
+ */
+function updateRomanYear() {
+    const year = new Date().getFullYear();
+    const romanYear = toRoman(year);
+    const yearEl = document.getElementById('roman-year');
+    
+    if (yearEl) {
+        yearEl.innerText = romanYear;
+        // Optional: Add a title attribute for accessibility/clarity
+        yearEl.setAttribute('title', `Anno Domini ${year}`);
     }
 }
