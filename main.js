@@ -51,7 +51,7 @@ const translations = {
 
         // Identity
         role: "Engenharia de Software, Soluções Full-Stack & IA",
-        manifesto: "Seu site não precisa set igual ao de todo mundo.",
+        manifesto: "Seu site não precisa ser igual ao de todo mundo.",
 
         // Button Descriptions
         descGithub: "Código Fonte & Repositórios",
@@ -61,7 +61,7 @@ const translations = {
 
         // Footer Quote
         quote: '"Age Quod Debes."',
-        quoteMeaning: "Faça o que deve set feito.",
+        quoteMeaning: "Faça o que deve ser feito.",
 
         // Header Art Tag (Top Left)
         artMeta: "Caravaggio, c. 1600 — Óleo sobre tela",
@@ -76,7 +76,7 @@ const translations = {
             <p>Esta é uma das obras mais famosas do renomado pintor italiano Caravaggio, concluída por volta de 1600.</p>
             <p>A cena se passa em um ambiente escuro e sombrio, com um contraste marcante entre a luz que irradia da janela à esquerda e a escuridão que envolve o restante da sala. No centro da composição, vemos Nosso Senhor Jesus Cristo apontando para Mateus, que está sentado à mesa, cercado por outros cobradores de impostos.</p>
             <p>A expressão de surpresa e descrença no rosto de São Mateus é notável, pois ele parece questionar o chamado divino que está recebendo. Ao seu redor, os outros homens estão ocupados com suas atividades diárias, aparentemente alheios ao evento sobrenatural que ocorre diante deles.</p>
-            <p>A obra é carregada de simbolismo religioso, representando a transformação espiritual de Mateus e o chamado universal para seguir a Cristo. Caravaggio captura com maestria a emoção e o significado profundo deste memento crucial na vida do santo.</p>
+            <p>A obra é carregada de simbolismo religioso, representando a transformação espiritual de Mateus e o chamado universal para seguir a Cristo. Caravaggio captura com maestria a emoção e o significado profundo deste momento crucial na vida do santo.</p>
         `,
     },
 };
