@@ -87,30 +87,54 @@ const translations = {
     },
 };
 
-// Global State
-let currentLanguage = "en";
+
+/* ==========================================================================
+   GLOBAL STATE & AUTO-DETECTION (ROBUST)
+   ========================================================================== */
+
+/**
+ * Detects user's preferred language using both modern (array) 
+ * and legacy (string) navigator properties.
+ */
+function detectUserLanguage() {
+    const nav = window.navigator;
+    const userLangs = nav.languages || [];
+    const primaryLang = nav.language || nav.userLanguage || 'en';
+    
+    // Check if any preferred language starts with 'pt'
+    const isPT = userLangs.some(l => l.toLowerCase().startsWith('pt')) || 
+                 primaryLang.toLowerCase().startsWith('pt');
+                 
+    return isPT ? 'pt' : 'en';
+}
+
+// Set initial state immediately
+let currentLanguage = detectUserLanguage();
 
 /* ==========================================================================
    2. SYSTEM INITIALIZATION
    ========================================================================== */
 
-window.addEventListener("load", () => {
+// PHASE 1: LOGIC (Runs as soon as HTML is parsed)
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Apply Detected Language Immediately
     applyTranslations(currentLanguage);
     updateLanguageButtonsState();
 
-    // 1. Reveal Content (CSS Hook)
-    // setTimeout(() => {
-    //     document.body.classList.add("reveal-content");
-    // }, 10000);
-    document.body.classList.add("reveal-content");
-
-    // 2. Initialize Core Systems
+    // 2. Initialize Logic Systems
     initLanguageSwitcher();
-    initCopyEmail();
+    initCopyEmail(); 
     initArtModal();
-
-    // 3. Initialize Aesthetics
     updateYearInscription();
+});
+
+// PHASE 2: VISUALS (Runs after heavy assets/images are loaded)
+window.addEventListener('load', () => {
+    // Reveal Content (CSS Hook) with optional contemplation delay
+    // Note: The text is already translated behind the curtain.
+    setTimeout(() => {
+        document.body.classList.add('reveal-content');
+    }, 2000); 
 });
 
 /* ==========================================================================
