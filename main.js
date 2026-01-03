@@ -33,6 +33,9 @@ const translations = {
         // Header Art Tag (Top Left)
         artMeta: "Caravaggio, c. 1600 — Oil on canvas",
 
+        // Epiphany Blessing Tooltip
+        epiphanyTooltip: "Christus Mansionem Benedicat (May Christ Bless This House)",
+
         // Utilities
         copyLabel: "Copy Email",
         toastMessage: "Email copied",
@@ -65,6 +68,9 @@ const translations = {
 
         // Header Art Tag (Top Left)
         artMeta: "Caravaggio, c. 1600 — Óleo sobre tela",
+
+        // Epiphany Blessing Tooltip
+        epiphanyTooltip: "Christus Mansionem Benedicat (Que Cristo Abençoe Esta Casa)",
 
         // Utilities
         copyLabel: "Copiar Email",
@@ -155,6 +161,11 @@ function applyTranslations(lang) {
     if (copyBtn && t.copyLabel) {
         copyBtn.setAttribute("aria-label", t.copyLabel);
         copyBtn.setAttribute("title", t.copyLabel);
+    }
+
+    const yearEl = document.getElementById('year-inscription');
+    if (yearEl && t.epiphanyTooltip) {
+        yearEl.setAttribute('title', t.epiphanyTooltip);
     }
 }
 
@@ -257,7 +268,7 @@ function getEpiphanyBlessing() {
     const decade = currentYear.substring(2);
     
     // Note: Using standard plus signs (+) as requested, though '†' is also traditional.
-    return `${century} + C + M + B + ${decade}`;
+    return `${century} * C + M + B + ${decade}`;
 }
 
 /**
@@ -270,6 +281,8 @@ function updateYearInscription() {
     if (yearEl) {
         const blessing = getEpiphanyBlessing();
         yearEl.innerText = blessing;
-        yearEl.setAttribute('title', 'Christus Mansionem Benedicat (May Christ Bless This House)');
+
+        const tooltip = translations[currentLanguage].epiphanyTooltip;
+        yearEl.setAttribute('title', tooltip);
     }
 }
