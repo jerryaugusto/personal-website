@@ -95,6 +95,9 @@ let currentLanguage = "en";
    ========================================================================== */
 
 window.addEventListener("load", () => {
+    applyTranslations(currentLanguage);
+    updateLanguageButtonsState();
+
     // 1. Reveal Content (CSS Hook)
     // setTimeout(() => {
     //     document.body.classList.add("reveal-content");
@@ -125,14 +128,63 @@ function initLanguageSwitcher() {
             // Update State
             currentLanguage = lang;
 
-            // Update UI Buttons
-            langBtns.forEach((b) => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            // Execute Translation
+            // Update UI & Text
+            updateLanguageButtonsState();
             applyTranslations(lang);
         });
     });
+}
+
+/**
+ * Updates the visual state (.active class) of language buttons
+ * based on the currentLanguage variable.
+ */
+function updateLanguageButtonsState() {
+    const langBtns = document.querySelectorAll(".lang-btn");
+    langBtns.forEach(btn => {
+        if (btn.getAttribute("data-lang") === currentLanguage) {
+            btn.classList.add("active");
+        } else {
+            btn.classList.remove("active");
+        }
+    });
+}
+
+function applyTranslations(lang) {
+    // ... (o código desta função permanece IDÊNTICO ao anterior) ...
+    // Apenas certifique-se de que o bloco "epiphanyTooltip" que adicionamos antes esteja aqui.
+    const t = translations[lang];
+    if (!t) return;
+
+    // 1. Text Content
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (t[key]) el.innerHTML = t[key];
+    });
+
+    // 2. HTML Content
+    document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+        const key = el.getAttribute("data-i18n-html");
+        if (t[key]) el.innerHTML = t[key];
+    });
+
+    // 3. Attributes
+    const quoteEl = document.querySelector(".footer-quote");
+    if (quoteEl && t.quoteMeaning) {
+        quoteEl.setAttribute("data-meaning", t.quoteMeaning);
+    }
+
+    const copyBtn = document.querySelector(".copy-email");
+    if (copyBtn && t.copyLabel) {
+        copyBtn.setAttribute("aria-label", t.copyLabel);
+        copyBtn.setAttribute("title", t.copyLabel);
+    }
+    
+    // 4. Epiphany Tooltip
+    const yearEl = document.getElementById('year-inscription');
+    if (yearEl && t.epiphanyTooltip) {
+        yearEl.setAttribute('title', t.epiphanyTooltip);
+    }
 }
 
 function applyTranslations(lang) {
