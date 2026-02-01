@@ -67,6 +67,7 @@ body {
     overscroll-behavior-y: none;
     background-color: var(--bg-body);
     overflow-x: hidden;
+    overflow-y: auto;
     width: 100%;
     min-height: 100%;
 }
@@ -98,6 +99,10 @@ body {
         "kern" 1,
         "liga" 1,
         "calt" 1;
+}
+
+body.reveal-content {
+    overflow-y: auto !important;
 }
 
 /* Selection Color */
