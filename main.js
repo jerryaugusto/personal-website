@@ -34,7 +34,8 @@ const translations = {
         artMeta: "Caravaggio, c. 1600 — Oil on canvas",
 
         // Epiphany Blessing Tooltip
-        epiphanyTooltip: "Christus Mansionem Benedicat (May Christ Bless This House)",
+        epiphanyTooltip:
+            "Christus Mansionem Benedicat (May Christ Bless This House)",
 
         // Utilities
         copyLabel: "Copy Email",
@@ -70,7 +71,8 @@ const translations = {
         artMeta: "Caravaggio, c. 1600 — Óleo sobre tela",
 
         // Epiphany Blessing Tooltip
-        epiphanyTooltip: "Christus Mansionem Benedicat (Que Cristo Abençoe Esta Casa)",
+        epiphanyTooltip:
+            "Christus Mansionem Benedicat (Que Cristo Abençoe Esta Casa)",
 
         // Utilities
         copyLabel: "Copiar Email",
@@ -87,25 +89,25 @@ const translations = {
     },
 };
 
-
 /* ==========================================================================
    GLOBAL STATE & AUTO-DETECTION (ROBUST)
    ========================================================================== */
 
 /**
- * Detects user's preferred language using both modern (array) 
+ * Detects user's preferred language using both modern (array)
  * and legacy (string) navigator properties.
  */
 function detectUserLanguage() {
     const nav = window.navigator;
     const userLangs = nav.languages || [];
-    const primaryLang = nav.language || nav.userLanguage || 'en';
-    
+    const primaryLang = nav.language || nav.userLanguage || "en";
+
     // Check if any preferred language starts with 'pt'
-    const isPT = userLangs.some(l => l.toLowerCase().startsWith('pt')) || 
-                 primaryLang.toLowerCase().startsWith('pt');
-                 
-    return isPT ? 'pt' : 'en';
+    const isPT =
+        userLangs.some((l) => l.toLowerCase().startsWith("pt")) ||
+        primaryLang.toLowerCase().startsWith("pt");
+
+    return isPT ? "pt" : "en";
 }
 
 // Set initial state immediately
@@ -116,25 +118,25 @@ let currentLanguage = detectUserLanguage();
    ========================================================================== */
 
 // PHASE 1: LOGIC (Runs as soon as HTML is parsed)
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     // 1. Apply Detected Language Immediately
     applyTranslations(currentLanguage);
     updateLanguageButtonsState();
 
     // 2. Initialize Logic Systems
     initLanguageSwitcher();
-    initCopyEmail(); 
+    initCopyEmail();
     initArtModal();
     updateYearInscription();
 });
 
 // PHASE 2: VISUALS (Runs after heavy assets/images are loaded)
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
     // Reveal Content (CSS Hook) with optional contemplation delay
     // Note: The text is already translated behind the curtain.
     setTimeout(() => {
-        document.body.classList.add('reveal-content');
-    }, 2000); 
+        document.body.classList.add("reveal-content");
+    }, 2000);
 });
 
 /* ==========================================================================
@@ -165,7 +167,7 @@ function initLanguageSwitcher() {
  */
 function updateLanguageButtonsState() {
     const langBtns = document.querySelectorAll(".lang-btn");
-    langBtns.forEach(btn => {
+    langBtns.forEach((btn) => {
         if (btn.getAttribute("data-lang") === currentLanguage) {
             btn.classList.add("active");
         } else {
@@ -203,11 +205,11 @@ function applyTranslations(lang) {
         copyBtn.setAttribute("aria-label", t.copyLabel);
         copyBtn.setAttribute("title", t.copyLabel);
     }
-    
+
     // 4. Epiphany Tooltip
-    const yearEl = document.getElementById('year-inscription');
+    const yearEl = document.getElementById("year-inscription");
     if (yearEl && t.epiphanyTooltip) {
-        yearEl.setAttribute('title', t.epiphanyTooltip);
+        yearEl.setAttribute("title", t.epiphanyTooltip);
     }
 }
 
@@ -239,9 +241,9 @@ function applyTranslations(lang) {
         copyBtn.setAttribute("title", t.copyLabel);
     }
 
-    const yearEl = document.getElementById('year-inscription');
+    const yearEl = document.getElementById("year-inscription");
     if (yearEl && t.epiphanyTooltip) {
-        yearEl.setAttribute('title', t.epiphanyTooltip);
+        yearEl.setAttribute("title", t.epiphanyTooltip);
     }
 }
 
@@ -338,11 +340,11 @@ function initArtModal() {
  */
 function getEpiphanyBlessing() {
     const currentYear = new Date().getFullYear().toString();
-    
+
     // Split the year (e.g., "2026" -> "20" and "26")
     const century = currentYear.substring(0, 2);
     const decade = currentYear.substring(2);
-    
+
     // Note: Using standard plus signs (+) as requested, though '†' is also traditional.
     return `${century} * C + M + B + ${decade}`;
 }
@@ -352,13 +354,13 @@ function getEpiphanyBlessing() {
  * Executed on system initialization.
  */
 function updateYearInscription() {
-    const yearEl = document.getElementById('year-inscription');
-    
+    const yearEl = document.getElementById("year-inscription");
+
     if (yearEl) {
         const blessing = getEpiphanyBlessing();
         yearEl.innerText = blessing;
 
         const tooltip = translations[currentLanguage].epiphanyTooltip;
-        yearEl.setAttribute('title', tooltip);
+        yearEl.setAttribute("title", tooltip);
     }
 }

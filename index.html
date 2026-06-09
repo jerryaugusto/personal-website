@@ -1,219 +1,410 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Portfolio and Projects by Jerry Augusto.">
-        <title>Jerry Augusto | Dev</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio and Projects by Jerry Augusto."
+    />
+    <title>Jerry Augusto | Dev</title>
 
-        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-        <link rel="preload" as="image" href="assets/the-calling-of-saint-matthew.avif" media="(min-width: 768px)"> 
-        <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/the-calling-of-saint-matthew.avif"
+      media="(min-width: 768px)"
+    />
+    <link rel="stylesheet" href="style.css" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
 
-        <meta name="theme-color" content="#1C1917">
-    </head>
-    <body>
+    <meta name="theme-color" content="#1C1917" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="gothic-rose">
+        <svg
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g class="ring-eternity">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              stroke="#E3B505"
+              stroke-width="1"
+              stroke-opacity="0.3"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="38"
+              stroke="#E3B505"
+              stroke-width="0.5"
+              stroke-dasharray="1 4"
+              stroke-opacity="0.5"
+            />
+          </g>
+          <g class="square-reason">
+            <rect
+              x="26"
+              y="26"
+              width="48"
+              height="48"
+              transform="rotate(45 50 50)"
+              stroke="#E3B505"
+              stroke-width="1"
+              stroke-opacity="0.8"
+            />
+            <rect
+              x="26"
+              y="26"
+              width="48"
+              height="48"
+              stroke="#E3B505"
+              stroke-width="0.5"
+              stroke-opacity="0.4"
+            />
+          </g>
+          <g class="cross-faith">
+            <path
+              d="M50 20V80 M20 50H80"
+              stroke="#E3B505"
+              stroke-width="1.5"
+              stroke-linecap="square"
+            />
+            <circle cx="50" cy="50" r="3" fill="#E3B505" />
+            <path
+              d="M50 10 L50 15 M50 85 L50 90 M10 50 L15 50 M85 50 L90 50"
+              stroke="#E3B505"
+              stroke-width="1"
+              opacity="0.6"
+            />
+          </g>
+        </svg>
+      </div>
 
-        <div id="preloader">
-            <div class="gothic-rose">
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g class="ring-eternity">
-                        <circle cx="50" cy="50" r="45" stroke="#E3B505" stroke-width="1" stroke-opacity="0.3"/>
-                        <circle cx="50" cy="50" r="38" stroke="#E3B505" stroke-width="0.5" stroke-dasharray="1 4" stroke-opacity="0.5"/>
-                    </g>
-                    <g class="square-reason">
-                        <rect x="26" y="26" width="48" height="48" transform="rotate(45 50 50)" stroke="#E3B505" stroke-width="1" stroke-opacity="0.8"/>
-                        <rect x="26" y="26" width="48" height="48" stroke="#E3B505" stroke-width="0.5" stroke-opacity="0.4"/>
-                    </g>
-                    <g class="cross-faith">
-                        <path d="M50 20V80 M20 50H80" stroke="#E3B505" stroke-width="1.5" stroke-linecap="square"/>
-                        <circle cx="50" cy="50" r="3" fill="#E3B505"/>
-                        <path d="M50 10 L50 15 M50 85 L50 90 M10 50 L15 50 M85 50 L90 50" stroke="#E3B505" stroke-width="1" opacity="0.6"/>
-                    </g>
-                </svg>
-            </div>
+      <div class="loading-text">INITIUM</div>
+    </div>
 
-            <div class="loading-text">INITIUM</div>
+    <header>
+      <div class="language-switch">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="separator">/</span>
+        <button class="lang-btn" data-lang="pt">PT</button>
+      </div>
+
+      <div class="particles">
+        <div class="dust dust-1"></div>
+        <div class="dust dust-2"></div>
+        <div class="dust dust-3"></div>
+        <div class="dust dust-4"></div>
+        <div class="dust dust-5"></div>
+        <div class="dust dust-6"></div>
+      </div>
+
+      <div class="header-content">
+        <div class="avatar-wrapper">
+          <img
+            src="https://github.com/jerryaugusto.png"
+            alt="Profile Avatar"
+            class="avatar-img"
+          />
+
+          <div class="status-dot"></div>
+
+          <div class="status-tooltip" data-i18n="avatarTooltip">
+            Open for new commissions
+          </div>
         </div>
 
-        <header>
-            <div class="language-switch">
-                <button class="lang-btn active" data-lang="en">EN</button>
-                <span class="separator">/</span>
-                <button class="lang-btn" data-lang="pt">PT</button>
-            </div>
+        <h1>Jerry Augusto</h1>
 
-            <div class="particles">
-                <div class="dust dust-1"></div>
-                <div class="dust dust-2"></div>
-                <div class="dust dust-3"></div>
-                <div class="dust dust-4"></div>
-                <div class="dust dust-5"></div>
-                <div class="dust dust-6"></div>
-            </div>
+        <p class="subtitle" data-i18n="role">
+          Software Engineering, Full-Stack Solutions &amp; AI
+        </p>
 
-            <div class="header-content">
-                <div class="avatar-wrapper">
-                    <img src="https://github.com/jerryaugusto.png" alt="Profile Avatar" class="avatar-img">
-
-                    <div class="status-dot"></div>
-
-                    <div class="status-tooltip" data-i18n="avatarTooltip">
-                        Open for new commissions
-                    </div>
-                </div>
-
-                <h1>Jerry Augusto</h1>
-
-                <p class="subtitle" data-i18n="role">Software Engineering, Full-Stack Solutions &amp; AI</p>
-
-                <div class="manifesto-container">
-                    <p class="manifesto" data-i18n="manifesto">
-                        Your site doesn't need to look like everyone else's.
-                    </p>
-                </div>
-
-                <nav class="socials link-stack">
-
-                    <!-- <a href="/portfolio/" class="atelier-link primary-gateway"> -->
-                    <!--     <div class="link-icon"> -->
-                    <!--         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path><path d="M9 22v-8.6a4.4 4.4 0 0 1 4.4-4.4h.2"></path></svg> -->
-                    <!--     </div> -->
-                    <!--     <div class="link-info"> -->
-                    <!--         <span class="link-title">Portfolio</span> -->
-                    <!--         <span class="link-desc">Selected Works & Case Studies</span> -->
-                    <!--     </div> -->
-                    <!--     <div class="link-arrow"> -->
-                    <!--         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> -->
-                    <!--     </div> -->
-                    <!-- </a> -->
-
-                    <a href="https://github.com/jerryaugusto" target="_blank" class="atelier-link" aria-label="GitHub Profile">
-                        <div class="link-info">
-                            <span class="link-title">GitHub</span>
-                            <span class="link-desc" data-i18n="descGithub">Source Code & Repositories</span>
-                        </div>
-                        <div class="link-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23 .957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </div>
-                    </a>
-
-                    <a href="https://www.linkedin.com/in/jerryaugustodev/" target="_blank" class="atelier-link" aria-label="LinkedIn Profile">
-                        <div class="link-info">
-                            <span class="link-title">LinkedIn</span>
-                            <span class="link-desc" data-i18n="descLinkedin">Professional Network</span>
-                        </div>
-                        <div class="link-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                        </div>
-                    </a>
-
-                    <a href="https://wa.me/5565999221546" target="_blank" class="atelier-link" aria-label="WhatsApp">
-                        <div class="link-info">
-                            <span class="link-title">WhatsApp</span>
-                            <span class="link-desc" data-i18n="descWhatsapp">Direct Message</span>
-                        </div>
-                        <div class="link-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        </div>
-                    </a>
-
-                    <a href="#" class="atelier-link copy-email" data-email="jerryaugustodev@gmail.com" aria-label="Copy Email" title="Copy Email">
-                        <div class="link-info">
-                            <span class="link-title">Email</span>
-                            <span class="link-desc" data-i18n="descEmail">Get in Touch</span>
-                        </div>
-                        <div class="link-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
-                        </div>
-                    </a>
-
-                </nav>
-            </div>
-
-            <div class="art-wrapper">
-                <button class="art-button" aria-label="About the Art">
-                    <svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
-                        <line x1="16" y1="8" x2="2" y2="22"></line>
-                        <line x1="17.5" y1="15" x2="9" y2="15"></line>
-                    </svg>
-
-                </button>
-
-                <div class="art-text" data-i18n="artMeta">
-                    Caravaggio, c. 1600 — Oil on canvas
-                </div>
-            </div>
-
-        </header>
-
-        <!-- <section class="philosophy-container"> -->
-        <!--     <p class="quote" data-i18n="quote" data-meaning="Do what you must."> -->
-        <!--         "Age Quod Debes." -->
-        <!--     </p> -->
-        <!-- </section> -->
-
-        <footer>
-            <div class="footer-content">
-
-                <div class="footer-quote-wrapper">
-                    <span class="separator-line"></span>
-                    <p class="footer-quote" data-i18n="quote" data-meaning="Do what you must.">
-                        "Age Quod Debes."
-                    </p>
-                    <span class="separator-line"></span>
-                </div>
-
-                <div class="footer-legal">
-                    <span class="copyright">&copy; <span id="year-inscription"></span> Jerry Augusto</span>
-                </div>
-
-            </div>
-        </footer>
-
-        <div id="art-modal" class="modal-backdrop" aria-hidden="true">
-            <div class="modal-parchment">
-                <button class="modal-close" aria-label="Close">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-
-                <article class="parchment-content">
-                    <h2 class="parchment-title" data-i18n="artTitle">"The Calling of Saint Matthew"</h2>
-                    <p class="parchment-meta" data-i18n="artMeta">Caravaggio, c. 1600 — Oil on canvas</p>
-
-                    <div class="parchment-body">
-                        <div data-i18n-html="artBody">
-                            <p>This is one of the most famous works by the renowned Italian painter Caravaggio, completed around 1600.</p>
-                            <p>The scene is set in a dark and somber environment, with a striking contrast between the light radiating from the window on the left and the darkness enveloping the rest of the room. In the center of the composition, we see Our Lord Jesus Christ pointing at Matthew, who is seated at the table, surrounded by other tax collectors.</p>
-                            <p>The expression of surprise and disbelief on Saint Matthew's face is notable, as he seems to question the divine calling he is receiving. Around him, the other men are occupied with their daily activities, apparently oblivious to the supernatural event occurring before them.</p>
-                            <p>The work is charged with religious symbolism, representing Matthew's spiritual transformation and the universal call to follow Christ. Caravaggio masterfully captures the emotion and profound meaning of this crucial moment in the saint's life.</p>
-                        </div>
-                    </div>
-
-                    <div class="parchment-decoration">
-                        <svg width="100%" height="20" viewBox="0 0 100 20" preserveAspectRatio="none">
-                            <path d="M0 10 Q 50 20 100 10" stroke="#1C1917" stroke-width="0.5" fill="none" opacity="0.3"/>
-                        </svg>
-                    </div>
-                </article>
-            </div>
+        <div class="manifesto-container">
+          <p class="manifesto" data-i18n="manifesto">
+            Your site doesn't need to look like everyone else's.
+          </p>
         </div>
 
-        <div id="toast" class="toast-notification" aria-hidden="true">
-            <span class="toast-icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </span>
-            <span class="toast-message" data-i18n="toastMessage">Email copied</span>
+        <nav class="socials link-stack">
+          <!-- <a href="/portfolio/" class="atelier-link primary-gateway"> -->
+          <!--     <div class="link-icon"> -->
+          <!--         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-3a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path><path d="M9 22v-8.6a4.4 4.4 0 0 1 4.4-4.4h.2"></path></svg> -->
+          <!--     </div> -->
+          <!--     <div class="link-info"> -->
+          <!--         <span class="link-title">Portfolio</span> -->
+          <!--         <span class="link-desc">Selected Works & Case Studies</span> -->
+          <!--     </div> -->
+          <!--     <div class="link-arrow"> -->
+          <!--         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> -->
+          <!--     </div> -->
+          <!-- </a> -->
+
+          <a
+            href="https://github.com/jerryaugusto"
+            target="_blank"
+            class="atelier-link"
+            aria-label="GitHub Profile"
+          >
+            <div class="link-info">
+              <span class="link-title">GitHub</span>
+              <span class="link-desc" data-i18n="descGithub"
+                >Source Code & Repositories</span
+              >
+            </div>
+            <div class="link-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="20"
+                height="20"
+              >
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23 .957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                />
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/jerryaugustodev/"
+            target="_blank"
+            class="atelier-link"
+            aria-label="LinkedIn Profile"
+          >
+            <div class="link-info">
+              <span class="link-title">LinkedIn</span>
+              <span class="link-desc" data-i18n="descLinkedin"
+                >Professional Network</span
+              >
+            </div>
+            <div class="link-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="20"
+                height="20"
+              >
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                />
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="https://wa.me/5565999221546"
+            target="_blank"
+            class="atelier-link"
+            aria-label="WhatsApp"
+          >
+            <div class="link-info">
+              <span class="link-title">WhatsApp</span>
+              <span class="link-desc" data-i18n="descWhatsapp"
+                >Direct Message</span
+              >
+            </div>
+            <div class="link-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="20"
+                height="20"
+              >
+                <path
+                  d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                />
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="#"
+            class="atelier-link copy-email"
+            data-email="jerryaugustodev@gmail.com"
+            aria-label="Copy Email"
+            title="Copy Email"
+          >
+            <div class="link-info">
+              <span class="link-title">Email</span>
+              <span class="link-desc" data-i18n="descEmail">Get in Touch</span>
+            </div>
+            <div class="link-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="20"
+                height="20"
+              >
+                <path
+                  d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"
+                />
+              </svg>
+            </div>
+          </a>
+        </nav>
+      </div>
+
+      <div class="art-wrapper">
+        <button class="art-button" aria-label="About the Art">
+          <svg
+            class="icon"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+            <line x1="16" y1="8" x2="2" y2="22"></line>
+            <line x1="17.5" y1="15" x2="9" y2="15"></line>
+          </svg>
+        </button>
+
+        <div class="art-text" data-i18n="artMeta">
+          Caravaggio, c. 1600 — Oil on canvas
+        </div>
+      </div>
+    </header>
+
+    <!-- <section class="philosophy-container"> -->
+    <!--     <p class="quote" data-i18n="quote" data-meaning="Do what you must."> -->
+    <!--         "Age Quod Debes." -->
+    <!--     </p> -->
+    <!-- </section> -->
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-quote-wrapper">
+          <span class="separator-line"></span>
+          <p
+            class="footer-quote"
+            data-i18n="quote"
+            data-meaning="Do what you must."
+          >
+            "Age Quod Debes."
+          </p>
+          <span class="separator-line"></span>
         </div>
 
-        <script src="main.js"></script>
-    </body>
+        <div class="footer-legal">
+          <span class="copyright"
+            >&copy; <span id="year-inscription"></span> Jerry Augusto</span
+          >
+        </div>
+      </div>
+    </footer>
+
+    <div id="art-modal" class="modal-backdrop" aria-hidden="true">
+      <div class="modal-parchment">
+        <button class="modal-close" aria-label="Close">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <article class="parchment-content">
+          <h2 class="parchment-title" data-i18n="artTitle">
+            "The Calling of Saint Matthew"
+          </h2>
+          <p class="parchment-meta" data-i18n="artMeta">
+            Caravaggio, c. 1600 — Oil on canvas
+          </p>
+
+          <div class="parchment-body">
+            <div data-i18n-html="artBody">
+              <p>
+                This is one of the most famous works by the renowned Italian
+                painter Caravaggio, completed around 1600.
+              </p>
+              <p>
+                The scene is set in a dark and somber environment, with a
+                striking contrast between the light radiating from the window on
+                the left and the darkness enveloping the rest of the room. In
+                the center of the composition, we see Our Lord Jesus Christ
+                pointing at Matthew, who is seated at the table, surrounded by
+                other tax collectors.
+              </p>
+              <p>
+                The expression of surprise and disbelief on Saint Matthew's face
+                is notable, as he seems to question the divine calling he is
+                receiving. Around him, the other men are occupied with their
+                daily activities, apparently oblivious to the supernatural event
+                occurring before them.
+              </p>
+              <p>
+                The work is charged with religious symbolism, representing
+                Matthew's spiritual transformation and the universal call to
+                follow Christ. Caravaggio masterfully captures the emotion and
+                profound meaning of this crucial moment in the saint's life.
+              </p>
+            </div>
+          </div>
+
+          <div class="parchment-decoration">
+            <svg
+              width="100%"
+              height="20"
+              viewBox="0 0 100 20"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0 10 Q 50 20 100 10"
+                stroke="#1C1917"
+                stroke-width="0.5"
+                fill="none"
+                opacity="0.3"
+              />
+            </svg>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div id="toast" class="toast-notification" aria-hidden="true">
+      <span class="toast-icon">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </span>
+      <span class="toast-message" data-i18n="toastMessage">Email copied</span>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
 </html>

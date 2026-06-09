@@ -71,15 +71,15 @@ html {
 body {
     width: 100%;
     min-height: 100%; /* Permite crescer conforme o conteúdo */
-    
+
     background-color: var(--bg-body);
     color: var(--text-primary);
-    
+
     /* A CORREÇÃO DO SCROLL: */
-    overflow-x: hidden;      /* Previne rolagem lateral */
-    overflow-y: auto;        /* Garante rolagem vertical nativa */
+    overflow-x: hidden; /* Previne rolagem lateral */
+    overflow-y: auto; /* Garante rolagem vertical nativa */
     -webkit-overflow-scrolling: touch; /* Habilita inércia suave no iOS */
-    
+
     /* Removido: overscroll-behavior-y: none (Causador do travamento) */
 
     font-family: var(--font-sans);
@@ -103,7 +103,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    font-feature-settings:
+        "kern" 1,
+        "liga" 1,
+        "calt" 1;
 }
 
 /* Garante que o scroll esteja liberado após o loading */
@@ -318,10 +321,14 @@ header {
 
 @media (min-width: 768px) {
     header {
-        background-image: 
-            /* Um gradiente que escurece muito o centro (para o texto) e as bordas inferiores, 
+        /* Um gradiente que escurece muito o centro (para o texto) e as bordas inferiores, 
             mas deixa o topo direito (onde está a luz) um pouco mais translúcido */
-            radial-gradient(circle at 70% 20%, rgba(28, 25, 23, 0.4) 0%, rgba(28, 25, 23, 0.95) 70%),
+        background-image:
+            radial-gradient(
+                circle at 70% 20%,
+                rgba(28, 25, 23, 0.4) 0%,
+                rgba(28, 25, 23, 0.95) 70%
+            ),
             url("assets/caravaggio-desktop.avif");
 
         background-position: center center;
